@@ -65,9 +65,13 @@ Web Componentsとしてツールバーを作成（脚注14）しない限り、H
 
 ごらんの通り（脚注17）、`aria-controls`は`toolbar`の継承プロパティとして記載されています。
 
+---
+
 ### 訳注
 
 WAI-ARIAでは、各ロールに派生関係が定義されています。`toolbar`ロールは`group`ロールのサブクラスで、`roletype→structure→section→group→toolbar`という派生関係があります。`aria-controls`プロパティはどのロールにも適用できるグローバルなロールで、`roletype`から継承されています。
+
+---
 
 ### 訳注
 
@@ -75,13 +79,19 @@ WAI-ARIAでは、各ロールに派生関係が定義されています。`toolb
 
 http://www.w3.org/TR/wai-aria/states_and_properties
 
+---
+
 このリレーションシップの情報をほとんど明らかにしないスクリーンリーダーもありますが、読み上げるものもあります。実際、JAWSはコントロールする要素にフォーカスを移動するためのキーボードコマンドを「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」のようにアナウンスします。関わりを持った相手については詳しく知りたくなるものです。JAWSはその手助けをしてくれます。
 
 ![](3-3_02.png)
 
+---
+
 ### 訳注
 
 JAWS14日本語版でも、英語で「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」とアナウンスされます。
+
+---
 
 ## 押された状態と押されていない状態
 
@@ -148,8 +158,12 @@ ChromeブラウザのChromeVox（脚注18）スクリーンリーダーでは、
 $(listToSort).focus();
 ```
 
+---
+
 ### 訳注
 listToSortという変数はスクリプトの別の部分で定義されており、`aria-controls`属性で指定されたID（ここでは"`#sortable`"）が格納されるようになっています。
+
+---
 
 このようなフォーカスの制御については、後の例でより詳しく説明します。
 
