@@ -37,7 +37,7 @@
 
 ウィジェットにプロパティとステートをこれ以上追加しなくても、既にツールバーの認識を改善することができています。NVDAスクリーンリーダー使用時、またはJAWSスクリーンリーダーとFirefoxの組み合わせ使用時にユーザーが最初のボタンにフォーカスを移動すると、現在位置がツールバーの中であること、そして（`aria-label`のおかげで）その機能が読み上げられます。
 
-![](../img/3-3_01.png)
+![Focused toolbar button reads out sorting options toolbar. A to Z button](../img/3-3_01.png)
 
 ## リレーションシップ
 
@@ -83,7 +83,7 @@ http://www.w3.org/TR/wai-aria/states_and_properties
 
 このリレーションシップの情報をほとんど明らかにしないスクリーンリーダーもありますが、読み上げるものもあります。実際、JAWSはコントロールする要素にフォーカスを移動するためのキーボードコマンドを「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」のようにアナウンスします。関わりを持った相手については詳しく知りたくなるものです。JAWSはその手助けをしてくれます。
 
-![](../img/3-3_02.png)
+![Shows relationship between toolbar and controlled content via the ARIA controls attribute. Button says use the JAWS key plus alt plus M to move to the controlled element](../img/3-3_02.png)
 
 ---
 
@@ -124,7 +124,7 @@ button:active, button[aria-pressed="true"] {
 }
 ```
 
-![](../img/3-3_03.png)
+![Two buttons. The pressed button announces Sorting options toolbar. A-Z toggle button pressed](../img/3-3_03.png)
 
 `aria-pressed`が指定されたボタンにフォーカスを移したとき、NVDA使用時、またはJAWSとFirefoxの組み合わせ使用時であれば、このボタンを「トグルボタン」として認識します。JAWSの最新バージョンを使用し、`aria-pressed="true"`のボタンにフォーカスを合わせると、読み上げの後に随時「押されました」というアナウンスが追加されます。
 
