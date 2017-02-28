@@ -4,11 +4,11 @@
 
 ウィジェットとはJavaScript開発でよく使用される言葉で、スクリプトによるインタラクティブ機能を1つにまとめたものを指します。幸い、ARIAでの定義もこれと一致しており、ARIAウィジェットとは適切なARIA属性の使用によってアクセシブルになったJavaScriptウィジェットだと考えることができます。
 
-次の例では、単純なツールバーを作成します。コンテンツを操作できるボタンコントロールのグループです。ここでは、コンテンツをアルファベット順（昇順）およびその逆の順（降順）にソートするコントロールを作成しましょう。ありがたいことに、「General Steps for Building an Accessible Widget with WAI-ARIA（ARIAを使ってアクセシブルなウィジェットを構築するための一般的なステップ）（脚注13）」という、ARIAウィジェット作成に関するW3Cのガイドがあり、これに似たようなツールバーの例が記載されています。
+次の例では、単純なツールバーを作成します。コンテンツを操作できるボタンコントロールのグループです。ここでは、コンテンツをアルファベット順（昇順）およびその逆の順（降順）にソートするコントロールを作成しましょう。ありがたいことに、「[General Steps for Building an Accessible Widget with WAI-ARIA](http://www.w3.org/WAI/PF/aria-practices/#accessiblewidget)（ARIAを使ってアクセシブルなウィジェットを構築するための一般的なステップ）」という、ARIAウィジェット作成に関するW3Cのガイドがあり、これに似たようなツールバーの例が記載されています。
 
 ## ツールバーのロール
 
-Web Componentsとしてツールバーを作成（脚注14）しない限り、HTMLに`<toolbar>`要素に該当するものはありません。ツールバーに対する標準の要素はないため、どんな場合でも、ツールバーのコンテナ（親）となる要素に`toolbar`ロールを含める必要があります。次のようにして、ウィジェットの範囲を示します。
+[Web Componentsとしてツールバーを作成](http://www.techrepublic.com/blog/web-designer/learn-more-about-web-components-with-thesedemos/)しない限り、HTMLに`<toolbar>`要素に該当するものはありません。ツールバーに対する標準の要素はないため、どんな場合でも、ツールバーのコンテナ（親）となる要素に`toolbar`ロールを含める必要があります。次のようにして、ウィジェットの範囲を示します。
 
 ```
 <div role="toolbar">
@@ -16,7 +16,7 @@ Web Componentsとしてツールバーを作成（脚注14）しない限り、H
 </div>
 ```
 
-**注**：`<menu>`要素という、`type`属性値に`toolbar`という値を指定できる要素がありますが、この要素はまだブラウザには採用されていない（脚注15）ので、これを使って必要な情報を提供することはできません。
+**注**：`<menu>`要素という、`type`属性値に`toolbar`という値を指定できる要素がありますが、[この要素はまだブラウザには採用されていない](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu)ので、これを使って必要な情報を提供することはできません。
 
 コンテンツへの影響を視覚的な関係性として表すデザインにより、ツールバーの機能は一目瞭然なはずです。しかし、それだけでは耳で聞いて理解することはできないため、おなじみの`aria-label`プロパティを使ってツールバーに名前をつけなくてはなりません。ここまでで、1つのロールと1つのプロパティを指定しました。
 
@@ -61,9 +61,9 @@ Web Componentsとしてツールバーを作成（脚注14）しない限り、H
 
 個々のボタンではなく、ツールバーそのものに`aria-controls`を追加していることに注目してください。どちらに追加することも可能ですが、1回だけ指定するほうが簡潔になりますし、いずれの場合も、ボタンはそれぞれ、ツールバーに属する独立したコンポーネントとみなされることになります。
 
-`toolbar`のようなウィジェットのロールに対してどのプロパティとステートが適用できるかは、WAI-ARIAの仕様書のInherited States and Properties（継承したステートとプロパティ）（脚注16）のリストを見れば確認できます。ウィジェットを構築するときはこれを参考にするといいでしょう。
+`toolbar`のようなウィジェットのロールに対してどのプロパティとステートが適用できるかは、WAI-ARIAの仕様書の[Inherited States and Properties](http://www.w3.org/WAI/PF/aria/roles#toolbar)（継承したステートとプロパティ）のリストを見れば確認できます。ウィジェットを構築するときはこれを参考にするといいでしょう。
 
-ごらんの通り（脚注17）、`aria-controls`は`toolbar`の継承プロパティとして記載されています。
+ごらんの通り、[`aria-controls`は`toolbar`の継承プロパティ](http://www.w3.org/WAI/PF/aria/roles#toolbar)として記載されています。
 
 ---
 
@@ -128,13 +128,13 @@ button:active, button[aria-pressed="true"] {
 
 `aria-pressed`が指定されたボタンにフォーカスを移したとき、NVDA使用時、またはJAWSとFirefoxの組み合わせ使用時であれば、このボタンを「トグルボタン」として認識します。JAWSの最新バージョンを使用し、`aria-pressed="true"`のボタンにフォーカスを合わせると、読み上げの後に随時「押されました」というアナウンスが追加されます。
 
-ChromeブラウザのChromeVox（脚注18）スクリーンリーダーでは、`aria-pressed="true"`のボタンは「button pressed」と読み上げられ、`aria-pressed="false"`は「button not pressed」と読み上げられます。
+Chromeブラウザの[ChromeVox](http://www.chromevox.com/)スクリーンリーダーでは、`aria-pressed="true"`のボタンは「button pressed」と読み上げられ、`aria-pressed="false"`は「button not pressed」と読み上げられます。
 
 程度に差はあれ、最新のブラウザおよびスクリーンリーダーのほとんどは、これらのボタンのステートに関する情報をはっきりと読み上げることができます。
 
 ## キーボードコントロール
 
-もう一息です。W3Cは（多くのARIAウィジェットと同様に）ツールバーにも特定のキーボード操作機能を推奨（脚注19）し、多くの場合は同等のデスクトップソフトウェアを模倣するよう勧めています。
+もう一息です。W3Cは（多くのARIAウィジェットと同様に）[ツールバーにも特定のキーボード操作機能を推奨](http://www.w3.org/WAI/PF/aria-practices/#toolbar)し、多くの場合は同等のデスクトップソフトウェアを模倣するよう勧めています。
 
 左右の矢印キーを押すとボタンのフォーカスが移動し、<kbd>Tab</kbd>キーを押すとフォーカスがツールバーから別の項目に移動するようにするべきです。`tabindex="-1"`をリストに追加し、JavaScriptを使って、ユーザーが<kbd>Tab</kbd>キーを押したときにフォーカスがリストに移動するようにしましょう。
 
@@ -169,15 +169,6 @@ listToSortという変数はスクリプトの別の部分で定義されてお�
 
 ## 完成
 
-これで初めてのARIAウィジェットが完成しました。本書の多くの例と同じく、操作を試してテストできるライブデモ（脚注20）を用意しました。目的は並び替えそのものではなく、すべてJavaScriptで作られていることだという点を忘れないでください。
+これで初めてのARIAウィジェットが完成しました。本書の多くの例と同じく、操作を試してテストできる[ライブデモ](http://heydonworks.com/practical_aria_examples/#toolbar-widget)を用意しました。目的は並び替えそのものではなく、すべてJavaScriptで作られていることだという点を忘れないでください。
 
 ここでの目的は、並び替え、編集、検索、作成、再作成など、コンテンツにどのような操作を行う場合であっても、キーボードユーザーとスクリーンリーダーユーザーがその機能を使用できるよう、アプリケーションのリレーションシップとステートを明らかにすることです。
-
-- 脚注13：http://www.w3.org/WAI/PF/aria-practices/#accessiblewidget
-- 脚注14：http://www.techrepublic.com/blog/web-designer/learn-more-about-web-components-with-thesedemos/
-- 脚注15：https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu
-- 脚注16：http://www.w3.org/WAI/PF/aria/roles#toolbar
-- 脚注17：http://www.w3.org/WAI/PF/aria/roles#toolbar
-- 脚注18：http://www.chromevox.com/
-- 脚注19：http://www.w3.org/WAI/PF/aria-practices/#toolbar
-- 脚注20：http://heydonworks.com/practical_aria_examples/#toolbar-widget
