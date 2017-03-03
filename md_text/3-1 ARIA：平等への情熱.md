@@ -4,7 +4,7 @@
 
 WCAG 2.0と異なり、ARIAは単なる一連の推奨事項ではなく、HTMLに含めるための属性の集まりです。HTMLに対し、支援技術のユーザー向けに情報を追加したり変更したりする手段を提供しています。Webアプリケーションを作成する場合には、要素のロール、プロパティ、ステート、リレーションシップがきわめて複雑で動的になることが多いため、ARIAの属性は非常に役立ちます。ARIAが提供するツールは、WebアプリケーションにおいてWCAGの要件を満たすためのものである、という見方もできます。
 
-![Two spider diagrams showing the few uses of button elements compared to the many uses when paired with JavaScript](../img/3-1_01.png)
+![図: 2つのボタン。JavaScriptを使用しない場合のボタンの用途は送信とリセットのみだが、JavaScriptが組み合わさるとその用途は多種多様に広がる](../img/3-1_01.png)
 
 ## ARIAの2つの目的
 
@@ -14,7 +14,7 @@ ARIAによって、HTMLの意味（セマンティクス）を変更したり、
 
 コーディングが不十分でセマンティックではないマークアップが支援技術に対して提供する情報を改善するために、ARIAは手当ての策として使用できます。
 
-![ARIA as a brand of plaster (band aid)](../img/3-1_02.png)
+![図: 傷テープ（バンドエイド）のブランドとしてのARIA（傷テープの表面に“ARIA”と書かれている）](../img/3-1_02.png)
 
 たとえば、制作者が`<div>`とJavaScriptを使用して、`type="checkbox"`を再現したとします。本来はそうするべきではありませんが、そのようなこともあるでしょう。
 
