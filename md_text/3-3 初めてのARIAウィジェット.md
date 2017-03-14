@@ -10,7 +10,7 @@
 
 [Web Componentsとしてツールバーを作成](http://www.techrepublic.com/blog/web-designer/learn-more-about-web-components-with-thesedemos/)しない限り、HTMLに`<toolbar>`要素に該当するものはありません。ツールバーに対する標準の要素はないため、どんな場合でも、ツールバーのコンテナ（親）となる要素に`toolbar`ロールを含める必要があります。次のようにして、ウィジェットの範囲を示します。
 
-```
+```HTML
 <div role="toolbar">
 	/* ツールバーの機能をここに記述 */
 </div>
@@ -20,7 +20,7 @@
 
 コンテンツへの影響を視覚的な関係性として表すデザインにより、ツールバーの機能は一目瞭然なはずです。しかし、それだけでは耳で聞いて理解することはできないため、おなじみの`aria-label`プロパティを使ってツールバーに名前をつけなくてはなりません。ここまでで、1つのロールと1つのプロパティを指定しました。
 
-```
+```HTML
 <div role="toolbar" aria-label="並び替えオプション">
 	/* ツールバーの機能をここに記述 */
 </div>
@@ -28,7 +28,7 @@
 
 次に、コントロールとなるボタンを追加しましょう。
 
-```
+```HTML
 <div role="toolbar" aria-label="並び替えオプション">
 	<button>昇順</button>
 	<button>降順</button>
@@ -43,7 +43,7 @@
 
 今のところ、ツールバーとそれがコントロールするコンテンツとを実際には関連づけていません。そのためには、要素間の関係を伝える特殊なタイプのプロパティであるリレーションシップ属性を使う必要があります。ここで作成しているウィジェットは、コンテンツをコントロールし、これを操作して並び替えるものですので、`aria-controls`を使いましょう。先ほどのポップアップメニューの例で行ったように、`id`値を使って関連づけていきます。
 
-```
+```HTML
 <div role="toolbar" aria-label="並び替えオプション" aria-controls="sortable">
 	<button>昇順</button>
 	<button>降順</button>
@@ -97,7 +97,7 @@ JAWS14日本語版でも、英語で「use the <kbd>JAWS key + ALT + M</kbd> to 
 
 ここは`aria-pressed`ステートの使いどころです。押されているボタンには`true`、押されていないボタンには`false`の値を指定します。すでに説明したようにステートは動的なもので、JavaScriptで切り替えます。ページを読み込むときに、最初のボタンを`true`に設定しておきます。
 
-```
+```HTML
 <div role="toolbar" aria-label="並び替えオプション" aria-controls="sortable">
 	<button aria-pressed="true">昇順</button>
 	<button aria-pressed="false">降順</button>
@@ -114,7 +114,7 @@ JAWS14日本語版でも、英語で「use the <kbd>JAWS key + ALT + M</kbd> to 
 
 前の章で作成したアクティブな（`:active`）ボタンのスタイル、`aria-pressed`ボタンのスタイルを合わせてみるのも良いでしょう。一時的か半永久的かという違いはありますが、どちらも**押された**ボタンを表します。
 
-```
+```CSS
 button:active, button[aria-pressed="true"] {
 	position: relative;
 	top: 3px; /* 3px凹む */
@@ -138,7 +138,7 @@ Chromeブラウザの[ChromeVox](http://www.chromevox.com/)スクリーンリー
 
 その目的は、ユーザーが並び替えオプションを選択した後、リストに直接移動できるようにすることです。複数のボタンがあるツールバーでは、こうすることで、リストにたどり着くまで並んでいるボタンの数だけタブキーを押す、ということを避けられます。
 
-```
+```HTML
 <div role="toolbar" aria-label="並び替えオプション" aria-controls="sortable">
 	<button aria-pressed="true">昇順</button>
 	<button aria-pressed="false">降順</button>
@@ -152,7 +152,7 @@ Chromeブラウザの[ChromeVox](http://www.chromevox.com/)スクリーンリー
 	<li>Yeti crab（キワ・ヒルスタ）</li>
 </ul>
 ```
-```
+```JavaScript
 $(listToSort).focus();
 ```
 

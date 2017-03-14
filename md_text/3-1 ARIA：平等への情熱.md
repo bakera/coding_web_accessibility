@@ -20,7 +20,7 @@ ARIAによって、HTMLの意味（セマンティクス）を変更したり、
 
 この`<div>`がチェックボックスとして認識されるようにするためには、属性として[ARIAのチェックボックスのロール](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_checkbox_role)を追加します。こうすると、スクリーンリーダーに標準のチェックボックスであるかのように認識させることができます。加えて、チェックボックスが実際にチェックされているかどうかを示すために、`aria-checked`属性を使用する必要があります。
 
-```
+```HTML
 <div class="toggle-thingy" role="checkbox" aria-checked="false" tabindex="0">Yes?</div>
 ```
 
@@ -32,7 +32,7 @@ ARIAによって、HTMLの意味（セマンティクス）を変更したり、
 
 例として、[ARIAの`aria-haspopup`属性](http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup)を見ていきましょう。これは、非表示のサブメニューをもつ特定の要素のプロパティです。このプロパティは`<a>`や`<button>`に指定され、この特殊な属性がなければ、サブメニューが存在していても、そのヒントは何も示されないのです。スクリーンリーダーのユーザーに与えられる情報は、これですべてとなります。
 
-```
+```HTML
 <li>
 	<a href="#submenu" aria-haspopup="true" aria-controls="submenu">メインリンク</a>
 	<ul id="submenu">
