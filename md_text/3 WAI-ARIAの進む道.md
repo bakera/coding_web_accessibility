@@ -29,6 +29,6 @@ http://www.w3.org/TR/WCAG20/#general-thresholddef
 
 しかし、残念ながらすべてのWebサイトは、挑発的な宣言「[This is a motherfucking website](http://motherfuckingwebsite.com/)（これが最悪なWebサイトだ）」ほどシンプルにはできないでしょう。
 
-Webの進化、そしてこれまで不可能だったWebベースのソフトウェアを構築する新しい力を受け入れた私たちは、新しいスタイルのアクセシビリティに取り組む必要があります。新しいツールとテクニックを取り入れ、Chapter 1「すべての人のために」で紹介したRon McCallumの「keep the playing field level（同じ土俵に立てるように）」という求めに応えることが必要です。
+Webの進化、そしてこれまで不可能だったWebベースのソフトウェアを構築する新しい力を受け入れた私たちは、新しいスタイルのアクセシビリティに取り組む必要があります。新しいツールとテクニックを取り入れ、Chapter 1「[すべての人のために](1 すべての人のために.md)」で紹介したRon McCallumの「keep the playing field level（同じ土俵に立てるように）」という求めに応えることが必要です。
 
 変化を受け入れるときが来たのです。
