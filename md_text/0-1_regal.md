@@ -1,4 +1,4 @@
-<small>Copyright © 2014, Smashing Magazine GmbH<small>
+<small>Copyright © 2014, Smashing Magazine GmbH</small>
 
 <small>Japanese translation rights arranged with SMASHING MAGAZINE GMBH through Japan UNI Agency, Inc.</small>
 
