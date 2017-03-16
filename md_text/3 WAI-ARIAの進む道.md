@@ -16,9 +16,7 @@ WCAG 2.0ガイドラインを読むと、このガイドラインが「すべき
 ---
 
 ### 訳注
-赤いものの点滅は赤色閃光（red flash）と呼ばれ、一般的な閃光よりも発作を起こしやすいとされています。詳しくはWCAG2.0の"general flash and red flash thresholds"をご覧ください。
-
-http://www.w3.org/TR/WCAG20/#general-thresholddef
+赤いものの点滅は赤色閃光（red flash）と呼ばれ、一般的な閃光よりも発作を起こしやすいとされています。詳しくは[WCAG2.0の"general flash and red flash thresholds"](http://www.w3.org/TR/WCAG20/#general-thresholddef)をご覧ください。
 
 ---
 
