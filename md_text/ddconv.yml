@@ -27,7 +27,7 @@ language: ja #日本語=ja、英語=enなど
 #date: 20170331 # YYYYMMDDの形式で指定します。
 
 # ページ送り方向
-pageDirection: rtl # 左から右=ltr、右から左=rtl
+pageDirection: ltr # 左から右=ltr、右から左=rtl
 
 # EPUB出力オプション
 # true: 有効、false: 無効
