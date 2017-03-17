@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* 上書き */
+/* Designing Web Accessibility */
 body * {
 text-align:left;
 }
@@ -91,259 +91,30 @@ padding-left:1.4em;
 li {
 margin-top:0.4em;
 }
-/* custom */
-.titleNotice {
-font-size:1em;
-font-weight:normal;
-}
-.titleFrontmatter {
-font-size:1.8em;
-}
-.titleFrontmatterSub {
-font-size:1.4em;
-}
-.titleFrontmatterDev {
-}
-/* 章扉 */
-.chapterIndex {
-font-size:1.8em;
-}
-.chapterIndexToc {
-list-style-type:none;
-padding-left:0;
-}
-.chapterIndexToc ul {
-list-style-type:disc;
-}
-/* コンテンツ内目次 */
-.titleNav {
-margin-top:0;
-font-size:1.8em;
-}
-.listNav {
-padding-left:0;
-list-style-type:none;
-}
-.listNav ul {
-padding-left:1.4em;
-list-style-type:disc;
-}
-.listNav ul ul {
-padding-left:1.2em;
-}
-/* 各章 概要と流れ */
-.titleStep {
-font-size:1.4em;
-border-bottom:1px solid #000000;
-}
-.titleStepDetail {
-font-size:1.2em;
-}
-/* 2〜9章ヘッダー */
-.secCategory {
-}
-.titleMain {
-margin-top:.6em;
-font-size:1.8em;
-line-height:1.4;
-}
-.secDescription {
-margin-bottom:3em;
-font-weight:bold;
-page-break-after:always;
-}
-/* 第1章 */
-#accidenceChapter .titleDescription {
-font-size:1.4em;
-}
-#accidenceChapter .titleDetail {
-font-size:1.2em;
-}
-/* 2〜9章問題 */
-#secProblem {
-margin-bottom:3em;
-page-break-after:always;
-}
-#secProblem .titleProblem {
-margin-top:0;
-font-size:1.6em;
-border-bottom-width:1px;
-border-bottom-style:solid;
-}
-#secProblem .titleProblemComment {
-font-size:1.2em;
-}
-#secProblem .titleDescription {
-font-size:1.4em;
-}
-#secProblem .titleDetail {
-font-size:1.2em;
-}
-#secProblem .titleSpecifics {
-}
-/* 2〜9章解決 */
-#secApproach .titleApproach {
-margin-top:0;
-font-size:1.6em;
-border-bottom-width:1px;
-border-bottom-style:solid;
-}
-#secApproach .titleApproachComment {
-font-size:1.2em;
-}
-#secApproach .titleDescription {
-font-size:1.4em;
-}
-#secApproach .titleDetail {
-font-size:1.2em;
-}
-#secApproach .titleSpecifics {
-}
-/* 2〜9章共通 */
-.titleSpecifics {
-margin-bottom:0;
-font-size:1em;
-}
-.titleSpecifics + p {
-margin-top:0;
-}
-.figtitle {
-font-weight:bold;
-}
-.problem_border {
-}
-/* コラム */
-.title-column {
-font-size:1.2em;
-}
-/* 参考サイト */
-.externalSite {
-}
-/* 引用サイト */
-.referenceSite h2 {
-margin-top:0.5em;
-font-size:1.2em;
-}
-.referenceSite ol {
-}
-/* 索引 */
-.listIndex {
-padding-left:0;
-list-style-type:none;
-}
-.listIndex ul {
-padding-left:1.4em;
-list-style-type:disc;
-}
-.indexTitle {
-font-weight:bold;
-}
-/* 本文以降のコンテンツ */
-.titleBackmatter {
-font-size:1.8em;
-}
-.titleChapterToWcag,
-.titleWcagToChapter {
-font-size:1.6em;
-}
-.titleInfoCat,
-.titleTableLevel,
-.titleIndex {
-font-size:1.4em;
-}
-.titleInfoRes,
-.titleTableChap {
-font-size:1.2em;
-}
-.tableListChapter,
-.tableListWcag {
-list-style-type:none;
-padding-left:0;
-}
-.tableListChapter ul,
-.tableListWcag ul {
-list-style-type:disc;
-padding-left:1.4em;
-}
-/* プロフィール */
-.titleProfile {
-font-size:1.6em;
-}
-.titleProfileCreator {
-font-size:1.4em;
-}
-.titleProfileOhta,
-.titleProfileIhara {
-font-size:1.2em;
-}
-.titleProfileContributor {
-font-size:1.2em;
-}
-/* 奥付 */
-.titleBookMain {
-font-size:1.6em;
-margin-bottom:0;
-}
-.titleBookSub {
-margin-top:0;
-}
-.revision {
-list-style-type:none;
-padding-left:0;
-}
-.credit dd {
-margin-left:1em;
-}
-/* Kindle版以下削除 */
-table caption {
-color:#333333;
-}
-.problem_border {
-border-color:#d61d7d;
-}
-#secProblem .titleProblem {
-color:#d61d7d;
-border-bottom-color:#d61d7d;
-}
-#secProblem .titleProblemComment {
-color:#d61d7d;
-}
-#secProblem .titleDescription {
-color:#d61d7d;
-}
-#secProblem .titleDetail {
-color:#d61d7d;
-}
-#secProblem .titleSpecifics {
-color:#d61d7d;
-}
-#secApproach .titleApproach {
-color:#52012f;
-border-bottom-color:#52012f;
-}
-#secApproach .titleApproachComment {
-color:#52012f;
-}
-#secApproach .titleDescription {
-color:#52012f;
-}
-#secApproach .titleDetail {
-color:#52012f;
-}
-#secApproach .titleSpecifics {
-color:#52012f;
-}
-.figtitle {
-color:#333333;
-}
-.problem_border {
-border-color:#d61d7d;
-}
-.indexTitle {
-color:#333333;
-}
-.titleInfoRes,
-.titleTableChap {
-color:#333333;
-}
 
+/* 追加 */
+
+pre,code {
+font-family: monospace,sans-serif;
+}
+pre {
+line-height: 1.5;
+}
+blockquote {
+border-style:solid;
+border-width:0 0 0 2px;
+margin-left:1em;
+margin-right:auto;
+}
+.notice {
+border-style:solid;
+border-width:1px;
+margin: 1em auto;
+padding:0.4em 0.9em;
+}
+.notice dl dt{
+font-weight: bold;
+}
+.notice dl dd{
+margin-left: 0;
+}
