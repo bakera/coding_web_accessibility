@@ -1,4 +1,4 @@
-# 3-3 初めてのARIAウィジェット
+## 3-3 初めてのARIAウィジェット
 
 これまでにロール、プロパティ、ステートについて学んだことを実践に移すときが来ました。ARIAウィジェットを構築してみましょう。
 
@@ -6,7 +6,7 @@
 
 次の例では、単純なツールバーを作成します。コンテンツを操作できるボタンコントロールのグループです。ここでは、コンテンツをアルファベット順（昇順）およびその逆の順（降順）にソートするコントロールを作成しましょう。ありがたいことに、「[General Steps for Building an Accessible Widget with WAI-ARIA](http://www.w3.org/WAI/PF/aria-practices/#accessiblewidget)（ARIAを使ってアクセシブルなウィジェットを構築するための一般的なステップ）」という、ARIAウィジェット作成に関するW3Cのガイドがあり、これに似たようなツールバーの例が記載されています。
 
-## ツールバーのロール
+### ツールバーのロール
 
 [Web Componentsとしてツールバーを作成](http://www.techrepublic.com/blog/web-designer/learn-more-about-web-components-with-thesedemos/)しない限り、HTMLに`<toolbar>`要素に該当するものはありません。ツールバーに対する標準の要素はないため、どんな場合でも、ツールバーのコンテナ（親）となる要素に`toolbar`ロールを含める必要があります。次のようにして、ウィジェットの範囲を示します。
 
@@ -39,7 +39,7 @@
 
 ![図: 「昇順」「降順」と書かれた2つのボタン。昇順ボタンにフォーカスを移動すると、スクリーンリーダーは「並び替えオプション、2個のボタンのあるツールバー、昇順、ボタン」と読み上げる](img-3-3_01.png)
 
-## リレーションシップ
+### リレーションシップ
 
 今のところ、ツールバーとそれがコントロールするコンテンツとを実際には関連づけていません。そのためには、要素間の関係を伝える特殊なタイプのプロパティであるリレーションシップ属性を使う必要があります。ここで作成しているウィジェットは、コンテンツをコントロールし、これを操作して並び替えるものですので、`aria-controls`を使いましょう。先ほどのポップアップメニューの例で行ったように、`id`値を使って関連づけていきます。
 
@@ -65,33 +65,26 @@
 
 ごらんの通り、[`aria-controls`は`toolbar`の継承プロパティ](http://www.w3.org/WAI/PF/aria/roles#toolbar)として記載されています。
 
----
+<div class="notice" markdown="1">
+訳注
+: WAI-ARIAでは、各ロールに派生関係が定義されています。`toolbar`ロールは`group`ロールのサブクラスで、`roletype→structure→section→group→toolbar`という派生関係があります。`aria-controls`プロパティはどのロールにも適用できるグローバルなロールで、`roletype`から継承されています。
+</div>
 
-### 訳注
-
-WAI-ARIAでは、各ロールに派生関係が定義されています。`toolbar`ロールは`group`ロールのサブクラスで、`roletype→structure→section→group→toolbar`という派生関係があります。`aria-controls`プロパティはどのロールにも適用できるグローバルなロールで、`roletype`から継承されています。
-
----
-
-### 訳注
-
-各ロールには、継承された"Inherited States and Properties"以外にも、ロール固有の"Supported States and Properties"が定義されていることがありますので、合わせて確認する必要があります。また、プロパティとステートの一覧"[Supported States and Properties](http://www.w3.org/TR/wai-aria/states_and_properties)"から、対応するロールを逆引きすることもできますので、こちらも確認しておくと良いでしょう。
-
----
+<div class="notice" markdown="1">
+訳注
+: 各ロールには、継承された"Inherited States and Properties"以外にも、ロール固有の"Supported States and Properties"が定義されていることがありますので、合わせて確認する必要があります。また、プロパティとステートの一覧"[Supported States and Properties](http://www.w3.org/TR/wai-aria/states_and_properties)"から、対応するロールを逆引きすることもできますので、こちらも確認しておくと良いでしょう。
+</div>
 
 このリレーションシップの情報をほとんど明らかにしないスクリーンリーダーもありますが、読み上げるものもあります。実際、JAWSはコントロールする要素にフォーカスを移動するためのキーボードコマンドを「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」のようにアナウンスします。関わりを持った相手については詳しく知りたくなるものです。JAWSはその手助けをしてくれます。
 
 ![図: aria-controls属性によって、ツールバーと、それに制御されるコンテンツとの関係性が示される。昇順ボタンにフォーカスを移動すると、スクリーンリーダーは"use the JAWS key + ALT + M to move to the controlled element"と読み上げる。そこからJAWSキー + alt + Mというコマンドによって、関連付けられたコンテンツに移動できる](img-3-3_02.png)
 
----
+<div class="notice" markdown="1">
+訳注
+: JAWS14日本語版でも、英語で「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」とアナウンスされます。
+</div>
 
-### 訳注
-
-JAWS14日本語版でも、英語で「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」とアナウンスされます。
-
----
-
-## 押された状態と押されていない状態
+### 押された状態と押されていない状態
 
 現在設定されている並び替えオプションがどちらなのかにより、対応するボタンは**選択されて押された状態**にあると言えます。
 
@@ -130,7 +123,7 @@ Chromeブラウザの[ChromeVox](http://www.chromevox.com/)スクリーンリー
 
 程度に差はあれ、最新のブラウザおよびスクリーンリーダーのほとんどは、これらのボタンのステートに関する情報をはっきりと読み上げることができます。
 
-## キーボードコントロール
+### キーボードコントロール
 
 もう一息です。W3Cは（多くのARIAウィジェットと同様に）[ツールバーにも特定のキーボード操作機能を推奨](http://www.w3.org/WAI/PF/aria-practices/#toolbar)し、多くの場合は同等のデスクトップソフトウェアを模倣するよう勧めています。
 
@@ -156,16 +149,14 @@ Chromeブラウザの[ChromeVox](http://www.chromevox.com/)スクリーンリー
 $(listToSort).focus();
 ```
 
----
-
-### 訳注
-listToSortという変数はスクリプトの別の部分で定義されており、`aria-controls`属性で指定されたID（ここでは"`#sortable`"）が格納されるようになっています。
-
----
+<div class="notice" markdown="1">
+訳注
+: listToSortという変数はスクリプトの別の部分で定義されており、`aria-controls`属性で指定されたID（ここでは"`#sortable`"）が格納されるようになっています。
+</div>
 
 このようなフォーカスの制御については、後の例でより詳しく説明します。
 
-## 完成
+### 完成
 
 これで初めてのARIAウィジェットが完成しました。本書の多くの例と同じく、操作を試してテストできる[ライブデモ](http://heydonworks.com/practical_aria_examples/#toolbar-widget)を用意しました。目的は並び替えそのものではなく、すべてJavaScriptで作られていることだという点を忘れないでください。
 

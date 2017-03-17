@@ -1,0 +1,39 @@
+# ddconv.yml
+# YAMLで記述されたDDconvの設定ファイルです。
+# 「#」以降のテキストは無視されます。
+# -------------------------------------
+
+# バージョン
+ddconvVersion: 1.0 # 必須。この行は編集しないでください。
+
+# 出版物の識別子
+#identifiers:
+#  - content: 978-4-86246-266-4 # 具体的な識別子を指定します。
+#    identifier-type: isbn # 「uuid」または「isbn」を指定します。
+
+# タイトル
+titles:
+  - content: コーディングWebアクセシビリティ # タイトルを指定します。（必須）
+
+# 作成者等
+creators:
+  # 作成者1 --------
+  - content: ヘイドン・ピカリング # 著者などの名前を指定します。
+
+# 出版物が使用する言語（必須）
+language: ja #日本語=ja、英語=enなど
+
+# 出版年月日
+#date: 20170331 # YYYYMMDDの形式で指定します。
+
+# ページ送り方向
+pageDirection: rtl # 左から右=ltr、右から左=rtl
+
+# EPUB出力オプション
+# true: 有効、false: 無効
+options:
+  titlepage: false # 扉ページを自動生成する true|false
+  tocInSpine: true # 目次ページを自動生成する true|false
+  tocDisplayDepth: 3 #表示する目次の階層指定 integer
+  displayLandmarksNav: true #目次ページでのランドマークナビゲーションの表示 true|false
+  kepub: false # kobo Touch向け拡張子「.kepub.epub」を利用する true|false
