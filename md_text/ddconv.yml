@@ -34,6 +34,6 @@ pageDirection: ltr # 左から右=ltr、右から左=rtl
 options:
   titlepage: false # 扉ページを自動生成する true|false
   tocInSpine: true # 目次ページを自動生成する true|false
-  tocDisplayDepth: 3 #表示する目次の階層指定 integer
-  displayLandmarksNav: true #目次ページでのランドマークナビゲーションの表示 true|false
+  tocDisplayDepth: 3 #表示する目次の階層指定 1-6
+  displayLandmarksNav: false #目次ページでのランドマークナビゲーションの表示 true|false
   kepub: false # kobo Touch向け拡張子「.kepub.epub」を利用する true|false
