@@ -1,10 +1,10 @@
 # 3 WAI-ARIAの進む道
 WAI-ARIAの全体像について。HTML5の既存の要素のマークアップにパッチを当てるように記述することで、支援技術向けにもマークアップを拡張できるという基本思想とルールを解説します。
 
-- 3-1 ARIA：平等への情熱
-- 3-2 ロールプレイング
-- 3-3 初めてのARIAウィジェット
-- 3-4 ルールを知る
+- [3-1 ARIA：平等への情熱](bodymatter_3_2.xhtml)
+- [3-2 ロールプレイング](bodymatter_3_3.xhtml)
+- [3-3 初めてのARIAウィジェット](bodymatter_3_4.xhtml)
+- [3-4 ルールを知る](bodymatter_3_5.xhtml)
 
 =======================================
 
@@ -30,7 +30,7 @@ WCAG 2.0ガイドラインを読むと、このガイドラインが「すべき
 
 しかし、残念ながらすべてのWebサイトは、挑発的な宣言「[This is a motherfucking website](http://motherfuckingwebsite.com/)（これが最悪なWebサイトだ）」ほどシンプルにはできないでしょう。
 
-Webの進化、そしてこれまで不可能だったWebベースのソフトウェアを構築する新しい力を受け入れた私たちは、新しいスタイルのアクセシビリティに取り組む必要があります。新しいツールとテクニックを取り入れ、Chapter 1「[すべての人のために](1 すべての人のために.md)」で紹介したRon McCallumの「keep the playing field level（同じ土俵に立てるように）」という求めに応えることが必要です。
+Webの進化、そしてこれまで不可能だったWebベースのソフトウェアを構築する新しい力を受け入れた私たちは、新しいスタイルのアクセシビリティに取り組む必要があります。新しいツールとテクニックを取り入れ、Chapter 1「[すべての人のために](bodymatter_1_0.xhtml)」で紹介したRon McCallumの「keep the playing field level（同じ土俵に立てるように）」という求めに応えることが必要です。
 
 変化を受け入れるときが来たのです。
 
@@ -137,7 +137,7 @@ ARIAには[非常に多数のプロパティ](http://www.w3.org/TR/wai-aria/stat
 
 ![図: aria-hiddenのように、aria-cloakedという属性によって見えない状態になったドワーフ。&lt;div role=&quot;dwarf&quot; aria-hasSword=&quot;true&quot; aria-cloaked=&quot;true&quot;&gt;というキャプションがついている](img-3-2_04.png)
 
-Chapter 5「[いないいないばあ](5 いないいないばあ.md)」で折りたたみ可能なコンテンツを構築するときに登場する[`aria-expanded`](http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded)などのステートは、trueまたはfalseの値に従って読み上げられます。Windows向けスクリーンリーダーであるJAWSおよびNVDAでは、`aria-expanded="false"`をもつ項目は「折りたたみ」と読み上げられ、`aria-expanded="true"`に設定されている場合は「展開」と読み上げられます。
+Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたたみ可能なコンテンツを構築するときに登場する[`aria-expanded`](http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded)などのステートは、trueまたはfalseの値に従って読み上げられます。Windows向けスクリーンリーダーであるJAWSおよびNVDAでは、`aria-expanded="false"`をもつ項目は「折りたたみ」と読み上げられ、`aria-expanded="true"`に設定されている場合は「展開」と読み上げられます。
 
 =======================================
 
@@ -331,7 +331,7 @@ ARIAを使用する目的がHTMLコードの改善、拡張であることはす
 
 しかし、`<h1>`に`button`のロールを追加する方法はあまり効果的ではありません。こうすると、事実上、（少なくとも、読み上げが行われるアクセシビリティレイヤーでは）`<h1>`はボタンになります。そして、第1レベルの見出しであるという要素についての情報は失われます。
 
-Chapter 5「[いないいないばあ](5 いないいないばあ.md)」でクリック可能な見出しを作成するときは、代わりにJavaScriptを使用し、見出しの子として`<button>`を配置します。重要であることに変わりのない見出しのセマンティクスは残したままにするのです。これをW3Cの勧告に従って正確に書くと以下のようになります。
+Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」でクリック可能な見出しを作成するときは、代わりにJavaScriptを使用し、見出しの子として`<button>`を配置します。重要であることに変わりのない見出しのセマンティクスは残したままにするのです。これをW3Cの勧告に従って正確に書くと以下のようになります。
 
 ```HTML
 <h1><button>見出しボタン</button></h1>
