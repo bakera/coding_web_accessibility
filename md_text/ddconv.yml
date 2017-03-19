@@ -7,9 +7,9 @@
 ddconvVersion: 1.0 # 必須。この行は編集しないでください。
 
 # 出版物の識別子
-#identifiers:
-#  - content: 978-4-86246-266-4 # 具体的な識別子を指定します。
-#    identifier-type: isbn # 「uuid」または「isbn」を指定します。
+identifiers:
+  - content: 978-4-86246-266-4 # 具体的な識別子を指定します。
+    identifier-type: isbn # 「uuid」または「isbn」を指定します。
 
 # タイトル
 titles:
@@ -34,6 +34,8 @@ pageDirection: ltr # 左から右=ltr、右から左=rtl
 options:
   titlepage: false # 扉ページを自動生成する true|false
   tocInSpine: true # 目次ページを自動生成する true|false
-  tocDisplayDepth: 3 #表示する目次の階層指定 1-6
+  tocDisplayDepth: 2 #表示する目次の階層指定 1-6
   displayLandmarksNav: false #目次ページでのランドマークナビゲーションの表示 true|false
+  displayLoiNav: false # 目次ページに図版一覧を表示する
+  displayLotNav: false # 目次ページに表一覧を表示する true|false
   kepub: false # kobo Touch向け拡張子「.kepub.epub」を利用する true|false
