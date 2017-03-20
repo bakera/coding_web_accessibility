@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="github.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="いないいないばあ">5 いないいないばあ</h1>
+<p>JavaScriptを用いて、「いないいないばあ」と出たり隠れたりするメニューやタブなどの「ステート」について。フォームや各種メニューのタイプ別にコードを交えて解説します。</p>
+<ul>
+<li><a href="bodymatter_5_2.xhtml">5-1 何をどう隠すべきか</a></li>
+<li><a href="bodymatter_5_3.xhtml">5-2 ヒントをちょうだい！</a></li>
+<li><a href="bodymatter_5_4.xhtml">5-3 プログレッシブな折りたたみ項目</a></li>
+<li><a href="bodymatter_5_5.xhtml">5-4 タブを1つください！</a></li>
+</ul>
+<p>=======================================</p>
+<blockquote>
+<p>いないいないばあ（名詞）顔や体を隠し「いないいないばあ！」と言いながら再び見せることを繰り返すことで乳幼児を喜ばせる遊び<br />
+̶ <a href="http://www.merriam-webster.com/dictionary/peekaboo">Merriam-Websterの定義</a></p>
+</blockquote>
+<p>JavaScriptで動くWebインターフェイスにおいて最もよく見かけるインタラクションのスタイルは、何かを表示したり、隠したりする動作に基づいています。まさに、いないいないばあですね。個々のデザインや動き、表示のされかた、その他もろもろの細かい差異を除けば、以下のどれかに当てはまります。</p>
+<ul>
+<li>何かが現れる。</li>
+<li>何かが複数現れる。</li>
+<li>何かが現れると同時に何かが見えなくなる。</li>
+</ul>
+<p>いくつか例を挙げてみましょう。</p>
+<ul>
+<li>サイトのナビゲーションが現れる「いないいないばあ！」</li>
+<li>ドロップダウンサブメニューが現れる「いないいないばあ！」</li>
+<li>用語の定義を展開する「いないいないばあ！」</li>
+<li>タブインターフェイスのタブを切り替える「いないいないばあ！」</li>
+<li>アコーディオンメニューの項目を選択する「いないいないばあ！」</li>
+<li>フォーム処理の次のステップへ「いないいないばあ！」</li>
+<li>ツールチップがフェードインする「いないいないばあ！」</li>
+<li>警告メッセージが現れる「いないいないばあ！」</li>
+<li>ダイアログが開く「いないいないばあ！」</li>
+</ul>
+<p>JavaScriptがもたらすいわゆる「リッチインタラクション」の多くが子どもを喜ばせる遊びに似ているというのは、悪いことではありません。何よりも、インターフェイスデザイナーとしてうぬぼれてはいけないという気持ちにさせてくれます。</p>
+<p>さらに重要なのは、このメカニズムが共通しているおかげで、再利用可能でアクセシブルなコンポーネントのセットが作りやすくなっているということです。</p>
+<p>帽子を使った手品は、その素材がシルクであってもフェルトであっても、帽子の手品であることに変わりはありません。アクセシブルなインターフェイスデザインでも同じことが言えます。コンテンツがスライドしようが、フェードしようが、大きくなろうが、重要なことはコンテンツが（白いウサギのように）はっきりと観客に見えるかどうかです。</p>
+<figure>
+<img src="img-5_01.png" alt="図: 逆さの黒いシルクハット、シュレーディンガーのウサギ" /><figcaption>図: 逆さの黒いシルクハット、シュレーディンガーのウサギ</figcaption>
+</figure>
+<p>WAIのARIA仕様では、典型的なインターフェイスコンポーネントをシンプルに保つことが重要であると認めながら、基本的なロール、ステート、プロパティ、関係する要素とのリレーションシップを定義する属性も提供しています。見かけ上の動作と実際の動作とが食い違うことになると思われるかもしれませんが、論理的な使い方をすれば、そのようなことは起こりません。</p>
+<p>実際、これから見ていくように、ARIA属性をCSSおよびjQueryセレクタとして扱うことで、より再利用しやすく<a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>（Don’t Repeat Yourself： 重複の回避）なコードを書くことができ、手間を省きながらアクセシビリティを実現することが期待できるでしょう。</p>
+<p>=======================================</p>
+<h2 id="何をどう隠すべきか">5-1 何をどう隠すべきか</h2>
+<p>姿を現す前に、隠れなくてはなりません。</p>
+<p>一部のユーザーに対してのみコンテンツを隠すという方法には、地雷原のような危険性があります。地雷の危険性が隠されているという意味で、この場合にぴったりの例えです。一部の人にだけ隠すという行為は、本質的には差別行動です。しかし、「差別」にはもう1つの意味もあります。</p>
+<blockquote>
+<p><strong>差別</strong> 1. ある人や集団を別の人や集団とは公平でない方法で扱うこと。 2. ある事柄と別の事柄が異なっていることを理解する能力。<br />
+̶ <a href="http://www.merriam-webster.com/dictionary/discrimination">Merriam-Websterの定義</a></p>
+</blockquote>
+<h3 id="悪い意味での差別">悪い意味での差別</h3>
+<p>公平でない扱い（悪い意味での差別）の例として、特定の種類のデバイス上でのみ機能するアプリケーションを作ることが挙げられます。アップルのiPhoneでのみ機能する<strong>Web</strong>アプリケーションを作成することは、<a href="http://www.w3.org/wiki/Open_Web_Platform">オープンウェブ</a>の精神に反します。アプリケーションの作成に使用するフリーで<a href="http://en.wikipedia.org/wiki/Web_interoperability">インターオペラブル</a>（相互運用可能）なテクノロジーは、本来ならデバイスには依存しません。コンテンツを利用できるユーザーを限定することは、恣意的な差別という、最悪の差別です。</p>
+<figure>
+<img src="img-5-1_01.png" alt="図: 「この機種は嫌いです」というメッセージと「終了」と書かれたボタンが表示されたスマートフォン" /><figcaption>図: 「この機種は嫌いです」というメッセージと「終了」と書かれたボタンが表示されたスマートフォン</figcaption>
+</figure>
+<p>アクセシビリティとは、特定の障害に対処することではなく、できる限り多くの人々が同じ情報にアクセスできるようにすることです。Webの基本原則はオープンさであり、特定の人々を締め出して良い理由はほとんどありません。</p>
+<h3 id="良い意味での差別">良い意味での差別</h3>
+<p>悪い意味でない差別は、単にユーザーが利用できるコンテンツのタイプと利用できないコンテンツのタイプを識別することです。私たちは特定のニーズや選択に配慮する必要があります。しかし、<strong>代替手段を提供せずにコンテンツを隠す</strong>ようなことをするべきではありません。WCAG 2.0の原則「知覚可能」のガイドライン1.1には「すべての非テキストコンテンツには、拡大印刷、点字、音声、シンボル、平易な言葉などのユーザーが必要とする形式に変換できるように、テキストによる代替を提供すること」と規定されています。</p>
+<h3 id="aria-hiddenステート">aria-hiddenステート</h3>
+<p>aria-hiddenステートは、通常、すべてのユーザーに対してコンテンツを隠したい要素（およびその子孫である要素）に使用します。このためaria-hiddenの仕様では、要素が見えないようにする場合は、ステートに結びつけることが推奨されています。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="at">]</span> <span class="kw">{</span> <span class="kw">display:</span> <span class="dt">none</span> <span class="kw">}</span></code></pre></div>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>実際にWAI-ARIAの仕様に出ているCSSの例は微妙に異なり、以下のようになっています。
+</dd>
+</dl>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="at">]</span> <span class="kw">{</span> <span class="kw">visibility:</span> <span class="dt">hidden</span><span class="kw">;</span> <span class="kw">}</span></code></pre></div>
+</div>
+<p>しかしこの仕様には、支援技術のユーザーにとってそのコンテンツが「冗長または不要」である場合は、<code>aria-hidden</code>を<strong>慎重に</strong>使用して、支援技術のユーザーに対してだけそのコンテンツを隠しても良い、とも述べられています。なお、一部のユーザーに対してある形のコンテンツを隠す場合には、そのユーザーに対して別の形のコンテンツを提供する必要があることを忘れないでください。</p>
+<h4 id="aria-hiddenを安全に使用する">aria-hiddenを安全に使用する</h4>
+<p>さて、<code>aria-hidden</code>を使って、スクリーンリーダーユーザーに対してコンテンツを隠すのはどんなときでしょうか？　一般に、重複を取り除くときです。Roger Johansson（ロジャー・ヨハンソン）は、CSSでのスタイル調整が困難とされるセレクトボックスのデザイン性を高められるようにした、<a href="http://www.456bereastreet.com/archive/201111/an_accessible_keyboard_friendly_custom_select_menu/">カスタムの<code>&lt;select&gt;</code>要素</a>を紹介しています。</p>
+<p>このテクニックを機能させるには、<code>&lt;select&gt;</code>そのものを、より柔軟な<code>&lt;span&gt;</code>ベースの構造によって視覚的に置き換える必要があります。アクセシビリティを確保するため、セマンティックな<code>&lt;select&gt;</code>要素は削除せずに残します。その結果、コンテンツの重複が発生します。<code>&lt;span&gt;</code>ベースの構造を<code>aria-hidden</code>で隠すことによって、この重複が取り除かれます。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;select</span><span class="ot"> id=</span><span class="st">&quot;id&quot;</span><span class="ot"> class=</span><span class="st">&quot;custom replaced&quot;</span><span class="ot"> name=</span><span class="st">&quot;id&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/select&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;custom-select&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/span&gt;</span></code></pre></div>
+<p><code>opacity: 0</code>によって隠された標準の<code>&lt;select&gt;</code>を、カスタマイズした<code>&lt;span&gt;</code>の上に置いているのがポイントです。これにより、マウスユーザーのクリックがキャプチャされます。つまり、視覚的には隠されていますが、マウスユーザー<strong>および</strong>キーボードユーザーとのインタラクティビティは保たれています。<code>&lt;select&gt;</code>などの要素の機能を完全に模倣することは困難ですが、この方法ではたとえ見えなくても標準の<code>&lt;select&gt;</code>とのインタラクティビティが失われないため、その必要はありません。</p>
+<figure>
+<img src="img-5-1_02.png" alt="図: 視覚的に見えないようにした本物のselectコントロールを、aria-hiddenによって読み上げないようにしたフェイクのselectコントロールの上に重ねる" /><figcaption>図: 視覚的に見えないようにした本物のselectコントロールを、aria-hiddenによって読み上げないようにしたフェイクのselectコントロールの上に重ねる</figcaption>
+</figure>
+<h3 id="視界から隠す">視界から隠す</h3>
+<p>先ほどの「良い意味での差別」の例に戻り、スクリーンには表示されない支援技術用の代替テキストを提供するというシナリオについて考えてみましょう。</p>
+<p>文字を画像にしたものがあるとしましょう。これは実際にはテキストではないため、インターオペラブル（相互運用可能）ではありません。見た目が文字なので、多くの人は文字として解釈します。しかし、スクリーンリーダーがこの画像のピクセルを分解して読み取り、テキストとして伝えることはできないのです。スクリーンリーダーには代替として実際にテキストを提供する必要があります。</p>
+<figure>
+<img src="img-5-1_03.png" alt="図: 「私のサイトへようこそ!」という文字画像。「ニセモノだ!」「画像じゃないよ!」「ウソつき!」といった声があがっている" /><figcaption>図: 「私のサイトへようこそ!」という文字画像。「ニセモノだ!」「画像じゃないよ!」「ウソつき!」といった声があがっている</figcaption>
+</figure>
+<p>画像の代替コンテンツを提供する場合、一般には<code>alt</code>属性を使います。やっかいなのは、スクリーンリーダーが画像に遭遇すると、<code>alt</code>属性の値の前や後で「画像」「イメージ」などと読み上げることです（「画像、代替テキスト」のように）。</p>
+<p>画像が画像であると説明されるにふさわしいコンテンツの一部である場合はこれでかまいません。しかし、この例での画像の役割はテキストとして機能することです。テキストの前に「画像」と読み上げるのでは、画像全体に「これは画像です」という透かし文字が入っているのと同じことになります。そんなことを知りたい人はいません。</p>
+<p>ユーザーに同じコンテンツが繰り返し提示されないようにするため、チャネルを分ける必要があります。視覚的コンテンツのチャネルと、テキストコンテンツのチャネルです。ターゲットユーザーに対して、それぞれは排他的になっている必要があります。あるユーザーにとって不要なチャネルは、そのユーザーから隠さなくてはなりません。</p>
+<p>ここではまず、<a href="http://www.w3.org/TR/WCAG-TECHS/H67.html"><code>alt</code>属性を空にします</a>。<code>alt</code>属性に空文字列を指定して、<code>alt=&quot;&quot;</code>とします。これにより、画像はスクリーンリーダーには認識されなくなります。次に、代替テキストを追加し、かつこれが表示されないようにします。ここがポイントです。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;images/myTitleText.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;&quot;</span> <span class="kw">/&gt;&lt;span&gt;</span>タイトルテキスト<span class="kw">&lt;/span&gt;&lt;/h2&gt;</span></code></pre></div>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>126ページで述べられているとおり、テキストの画像化は避け、Webフォントなどで表現することがベストです。ここでは、それができない場合の次善策を例として取り上げています。この実装が望ましいというわけではありません。
+</dd>
+</dl>
+</div>
+<h4 id="隠さずに隠す">隠さずに隠す</h4>
+<p>残る問題は、テキストを視覚的に隠したいだけの場合にはどうするかということです。<a href="http://webaim.org/techniques/css/invisiblecontent/">WebAIMでいくつかのテクニックが説明されています</a>が、そのほとんどは、スクリーン外にテキストを配置するか、CSSの<code>clip</code>プロパティを使用しています。最近登場したもうひとつの面白い方法は、タイポグラフィー自体を使用したものです。</p>
+<p>AdobeのType Teamによって<a href="http://blog.typekit.com/2013/03/28/introducing-adobe-blank/">Blankというフォント</a>が開発されました。その名の通り、文字が見えない空のフォントです。このフォントの優れたところは、文字の形は見えなくても、HTMLコードにはテキストが存在していることです。</p>
+<figure>
+<img src="img-5-1_04.png" alt="図: 文字A, B, C, D, Eに空文字の字形が割り当てられている" /><figcaption>図: 文字A, B, C, D, Eに空文字の字形が割り当てられている</figcaption>
+</figure>
+<p>Blankを使用するのは簡単で、テキストを囲む<code>&lt;span&gt;</code>に<code>class</code>を指定して、font-familyをBlankに設定するだけです。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.visually-hidden</span> <span class="kw">{</span>
+    <span class="kw">font-family:</span> Blank<span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;images/myTitleText.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;&quot;</span> <span class="kw">/&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;visually-hidden&quot;</span><span class="kw">&gt;</span>タイトルテキスト<span class="kw">&lt;/span&gt;&lt;/h2&gt;</span></code></pre></div>
+<p>もちろん<code>@font-face</code>からフォントを読み込む必要もありますが、本書では説明しません。<a href="https://github.com/stowball/Adobe-Blank">文字セットを減らしたバージョンのAdobe Blank</a>を使用すると、ロード時間は短くなります。アクセシビリティにとってはパフォーマンスも大切です！　</p>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>ここで参照されている「文字セットを減らしたバージョン」には、日本語の文字に対するフォントが入っていません。日本語の文書では、フルセットのバージョンを使わざるをえないでしょう。
+</dd>
+</dl>
+</div>
+<p>当然ですが、ステキなWebフォントが使えるのであれば、<a href="http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-text-presentation.html">画像にしたテキストを使用する理由はありません</a>。ほとんどの場合、テキストの画像化は避けるべきです。</p>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>ここで紹介されている手法には、フォントが有効かつ画像が無効の環境で文字が読めなくなるという問題もあります。その意味でも、テキストの画像化は避けるべきでしょう。
+</dd>
+</dl>
+</div>
+<p>テキストノードは相互運用性がとても高く、アクセシブルなインターフェイスには欠かせません。</p>
+<p>隠すことについてはこれで十分ですね。次は、表示することについてお話ししましょう。</p>
+<p>=======================================</p>
+<h2 id="ヒントをちょうだい">5-2 ヒントをちょうだい！</h2>
+<p>隠しておいたコンテンツを見せる（「いないいないばあ！」）べきタイミングは、ユーザーが特定のアクションを実行した後です。この例では、フォームの入力項目に情報を入力するためのヒントをアクセシブルな方法で提供する方法を探っていきましょう。このような<strong>いないいないばあ</strong>テクニックの使用には、2つのメリットがあります。</p>
+<ol type="1">
+<li>フォームから無駄を排除し、複雑でわかりにくい外観にならないようにする。</li>
+<li>個々のフォーム要素のインタラクション時に動的ヒントが現れることで、ユーザーの注意を引き、選択されている入力項目とヒントとの関係を明確にすることができる。</li>
+</ol>
+<h3 id="セットアップ">セットアップ</h3>
+<p>それではまず、基本のフォームを作成しましょう。見栄えを整えるからといって、フォーム要素をアクセシブルではない形で使用して良いわけではありません。一番大切なことを忘れないでください。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;form&gt;</span>
+    <span class="kw">&lt;fieldset&gt;</span>
+        <span class="kw">&lt;legend&gt;</span>ログインフォーム<span class="kw">&lt;/legend&gt;</span>
+        <span class="kw">&lt;div&gt;</span>
+            <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;username&quot;</span><span class="kw">&gt;</span>ユーザー名<span class="kw">&lt;/label&gt;</span>
+            <span class="kw">&lt;input</span><span class="ot"> id=</span><span class="st">&quot;username&quot;</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;/div&gt;</span>
+        <span class="kw">&lt;div&gt;</span>
+            <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;password&quot;</span><span class="kw">&gt;</span>パスワード<span class="kw">&lt;/label&gt;</span>
+            <span class="kw">&lt;input</span><span class="ot"> id=</span><span class="st">&quot;password&quot;</span><span class="ot"> type=</span><span class="st">&quot;password&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;/fieldset&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>サイトに入る<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/form&gt;</span></code></pre></div>
+<figure>
+<img src="img-5-2_01.png" alt="図: ログインフォームというタイトルのフィールドセット。ユーザー名とパスワードという2つの入力欄、「サイトに入る」という送信ボタンがある。" /><figcaption>図: ログインフォームというタイトルのフィールドセット。ユーザー名とパスワードという2つの入力欄、「サイトに入る」という送信ボタンがある。</figcaption>
+</figure>
+<p><code>for</code>属性と<code>id</code>属性に注目してください。これらは、入力項目とそれぞれのラベルの関係性を構築するために使用されています。入力項目とラベルをこのようにコーディングすることには、皆さんもすでに慣れているはずです。その目的は、対応する入力項目がフォーカスを受け取ったときに、ラベルが読み上げられるようにすることです。これによりユーザーは、自分が使用しているのがどの入力項目であるかを知ることができ、どんな場合でも便利です。また、入力項目とラベルをこのように関連づけることによってラベルがインタラクティブになり、コントロールのヒット領域が広がります。これは<code>label</code>要素内に<code>input</code>要素を含めるのと同じ効果があり、ユーザーが入力項目を選択しやすくなります。</p>
+<p>多くのスクリーンリーダーは、ラベルテキストの前に<code>&lt;legend&gt;</code>のテキストを読み上げます。このため、2つの情報を組み合わせて読み上げられたときに意味をなすよう注意してください（「ログインフォーム、ユーザー名」など）。</p>
+<figure>
+<img src="img-5-2_02.png" alt="図: ユーザー名という入力欄にフォーカスを移すと、スクリーンリーダーが「ログインフォーム、ユーザー名」と読み上げる" /><figcaption>図: ユーザー名という入力欄にフォーカスを移すと、スクリーンリーダーが「ログインフォーム、ユーザー名」と読み上げる</figcaption>
+</figure>
+<p>最後に、ヒントの要素をマークアップし、これらを適切な入力項目に結びつければ、このHTMLパズルは完成です。次に、必要時にヒントを表示するよう、CSSをコーディングします。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;form&gt;</span>
+    <span class="kw">&lt;fieldset&gt;</span>
+        <span class="kw">&lt;legend&gt;</span>ログインフォーム<span class="kw">&lt;/legend&gt;</span>
+        <span class="kw">&lt;div&gt;</span>
+            <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;username&quot;</span><span class="kw">&gt;</span>ユーザー名<span class="kw">&lt;/label&gt;</span>
+            <span class="kw">&lt;input</span><span class="ot"> id=</span><span class="st">&quot;username&quot;</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> aria-describedby=</span><span class="st">&quot;username-hint&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;tooltip&quot;</span><span class="ot"> id=</span><span class="st">&quot;username-hint&quot;</span><span class="kw">&gt;</span>ユーザー名には、あなたのEメールアドレスを登録してください<span class="kw">&lt;/div&gt;</span>
+        <span class="kw">&lt;/div&gt;</span>
+        <span class="kw">&lt;div&gt;</span>
+            <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;password&quot;</span><span class="kw">&gt;</span>パスワード<span class="kw">&lt;/label&gt;</span>
+            <span class="kw">&lt;input</span><span class="ot"> id=</span><span class="st">&quot;password&quot;</span><span class="ot"> type=</span><span class="st">&quot;password&quot;</span><span class="ot"> aria-describedby=</span><span class="st">&quot;password-hint&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;tooltip&quot;</span><span class="ot"> id=</span><span class="st">&quot;password-hint&quot;</span><span class="kw">&gt;</span>メールでお送りしたパスワードを入れてください<span class="kw">&lt;/div&gt;</span>
+        <span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;/fieldset&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>サイトに入る<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/form&gt;</span></code></pre></div>
+<p>ここで、新しい要素と属性の役割を整理しましょう。</p>
+<ul>
+<li><a href="http://www.marcozehe.de/2008/03/23/easy-aria-tip-2-aria-labelledby-and-aria-describedby/"><code>aria-describedby</code></a>： ラベルの<code>for</code>属性のように、要素間のリレーションシップを作成します。今回の例では、<code>&lt;input&gt;</code>とヒントの<code>&lt;div&gt;</code>とを結びつけています。支援技術は、ブラウザを介し、この<code>id</code>値がつけられたヒントによって、フォームフィールドが説明されているであろうということを知ります。</li>
+<li><code>role=&quot;tooltip&quot;</code>： ヒント自体に使用し、支援技術に、ヒントをツールチップとして扱うように伝えます。</li>
+</ul>
+<p>ユーザ名とパスワードのどちらの場合も、ヒントの要素は<code>&lt;input&gt;</code>要素の後の要素になっているため、<a href="http://reference.sitepoint.com/css/adjacentsiblingselector">CSSの隣接セレクタ</a>を使用して、入力項目がフォーカスを受け取ったときにこれを簡単に表示したり隠したりできます。</p>
+<p>最初は<code>display: none</code>を使って、ヒントを隠していることに注目してください。これは、<strong>スクリーン上でもスクリーンリーダーにも</strong>不可視にする必要があるためです。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[role=</span><span class="st">&quot;tooltip&quot;</span><span class="at">]</span> <span class="kw">{</span>
+    <span class="kw">background:</span> orange<span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">padding:</span> <span class="dt">0.25em</span><span class="kw">;</span>
+    <span class="kw">display:</span> <span class="dt">none</span><span class="kw">;</span>
+<span class="kw">}</span>
+input<span class="dv">:focus</span> + <span class="at">[role=</span><span class="st">&quot;tooltip&quot;</span><span class="at">]</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>まとめると、ユーザー名の<code>&lt;input&gt;</code>にフォーカスを移すと、最初に<code>&lt;legend&gt;</code>が読み上げられ、続いて<code>&lt;input&gt;</code>に関連づけられたラベルが読み上げられます。続いてヒントテキスト（<code>aria-describedby</code>値によって<code>&lt;input&gt;</code>の<code>id</code>属性に関連づけられたテキスト）が読み上げられます。つまり、「ログインフォーム、ユーザー名、ユーザー名には、あなたのEメールアドレスを登録してください」となります。</p>
+<p>視力のあるユーザーが利用できる情報はすべて、スクリーンリーダーユーザーに対して公開されており、論理的な順序で読み上げられます。</p>
+<p><strong>注</strong>： 多くの場合は、入力項目にきちんとラベルがつけられていれば十分であり、<code>&lt;legend&gt;</code>を含めるのはやり過ぎだと考えられています。自動テストツールの多くでは、<code>&lt;fieldset&gt;</code>に<code>&lt;legend&gt;</code>が含まれていないとエラーが報告されますが、わかりやすくするためには説明が必要かどうかという判断を慎重に行ってください。支援技術はラベルとヒントに加えて<code>legend</code>のテキストも読み上げるため、<a href="http://www.456bereastreet.com/archive/200904/use_the_fieldset_and_legend_elements_to_group_html_form_controls/"><code>&lt;legend&gt;</code>は短くするのがベスト</a>です。</p>
+<figure>
+<img src="img-5-2_03.png" alt="図: ユーザー名の入力欄にフォーカスを移すと、「ユーザー名には、あなたのEメールアドレスを登録してください」というツールチップが表示される" /><figcaption>図: ユーザー名の入力欄にフォーカスを移すと、「ユーザー名には、あなたのEメールアドレスを登録してください」というツールチップが表示される</figcaption>
+</figure>
+<p>キーボードユーザーのことも忘れてはいけません！　<code>:focus</code>疑似クラスを使ってヒントの可視性を切り替えると、キーボードユーザーが（通常は<kbd>Tab</kbd>キーを使って）入力項目にフォーカスを合わせたときにヒントが表示されます。</p>
+<figure>
+<img src="img-5-2_04.png" alt="図: ユーザー名の入力欄にフォーカスを移すと、スクリーンリーダーが「ログインフォーム、ユーザー名、ユーザー名には、あなたのEメールアドレスを登録してください」と読み上げる" /><figcaption>図: ユーザー名の入力欄にフォーカスを移すと、スクリーンリーダーが「ログインフォーム、ユーザー名、ユーザー名には、あなたのEメールアドレスを登録してください」と読み上げる</figcaption>
+</figure>
+<p>ヒントの要素に実際どのようなテキストを指定するかは、コンテキストと、アプリケーションのデータモデルの状態によります。これを判断するのはJavaScriptまたはサーバーサイドプログラミング言語の仕事です。いずれにしても、HTML、CSS、そして多少のARIAだけで、こうしたヒントを伝えるためのアクセシブルで再利用可能なパターンを作ることができました。</p>
+<p>この例に似た<a href="http://heydonworks.com/practical_aria_examples/#input-tooltip">実際に動くデモ</a>を用意しましたので、参考にしてください。</p>
+<p>=======================================</p>
+<h2 id="プログレッシブな折りたたみ項目">5-3 プログレッシブな折りたたみ項目</h2>
+<p>次はプログレッシブエンハンスメントを使用した、より複雑な「いないいないばあ」の例を見ていきましょう。</p>
+<p>よくある質問と回答（FAQ）のページを作成したとしましょう。Webアプリケーションに関する質問が数多く届いているため、このページはかなり長くなっています。各質問は<code>&lt;h2&gt;</code>でマークアップされ、この<code>&lt;h2&gt;</code>の後に、数段落にわたる回答、画像、その他のコンテンツが続きます。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;</span>パスワードはどのように変更するのですか？&lt;/h2&gt;
+<span class="kw">&lt;p&gt;</span>それは、…<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;p&gt;</span>です。<span class="kw">&lt;/p&gt;</span>
+
+<span class="kw">&lt;h2&gt;</span>私のデータはどこかに格納されますか？&lt;/h2&gt;
+<span class="kw">&lt;p&gt;</span>それは、…<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;images/diagram.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;データモデル&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;p&gt;</span>です。<span class="kw">&lt;/p&gt;</span>
+
+<span class="kw">&lt;h2&gt;</span>問い合わせ先を教えてください<span class="kw">&lt;h2&gt;</span>
+<span class="kw">&lt;p&gt;</span>それは、…<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;p&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://www.example.com/article&quot;</span><span class="kw">&gt;</span>リンクを含むテキスト<span class="kw">&lt;/a&gt;</span>です。<span class="kw">&lt;/p&gt;</span></code></pre></div>
+<p>セマンティクスという観点から言えば、このマークアップはかなり優秀です。適切な見出しで質問をマークアップしており、視覚的にもわかりやすく、スクリーンリーダーユーザーもクイックキー（数字の「２」のキー）を使って質問項目を簡単にジャンプできる階層構造になっています。</p>
+<p>惜しいのはページの長さです。これでは、分類したり全体を把握したりするのが困難です。<code>&lt;h2&gt;</code>要素はキーボードではフォーカスできないため、キーボードユーザーが個々の質問項目を簡単に移動する方法もありません。</p>
+<p>基盤はしっかりとしていますが、プログレッシブエンハンスメントによって、JavaScriptを利用できる多くの人々の体験を向上させてみましょう。</p>
+<figure>
+<img src="img-5-3_01.png" alt="図: 繰り返されるタイトルと段落のセットを、押すと中身が展開される矢印付きのボタンに変えた例" /><figcaption>図: 繰り返されるタイトルと段落のセットを、押すと中身が展開される矢印付きのボタンに変えた例</figcaption>
+</figure>
+<h3 id="html">HTML</h3>
+<p>各セクションのコンテンツを折りたたんで、質問だけを残しましょう。そしてユーザーがクリック、タップ、キーストロークのいずれかで、個々の質問の答えを表示できるようにします。全体として、質問を見つけ、その回答を表示する体験がより快適になるはずです。</p>
+<p>ここで補助として使用する要素や属性の多くは、JavaScriptが利用できない場合、ページに存在しても意味をなさないので、jQueryで追加します。また、手作業で記述するマークアップが少なくなるというのも利点です。このスクリプトで変更した質問と回答のパネルのHTMLを見てみましょう。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;&lt;button</span><span class="ot"> aria-expanded=</span><span class="st">&quot;false&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;howdo-I-change-my-password&quot;</span><span class="kw">&gt;</span>パスワードはどのように変更するのですか？&lt;/button&gt;<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;how-do-I-change-my-password&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;p&gt;</span>それは、<span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://example.com&quot;</span><span class="kw">&gt;</span>リンク<span class="kw">&lt;/a&gt;</span>を…<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;p&gt;</span>…ください。<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+<ol type="1">
+<li>回答を項目ごとに展開または折りたたみできるよう、すべての回答のコンテンツを共通の<code>&lt;div&gt;</code>で囲みました。これをjQueryで行うのは簡単です。<code>$('h2').nextUntil('h2').wrapAll('div');</code>とします。</li>
+<li><code>&lt;h2&gt;</code>の内容を、回答の<code>&lt;div&gt;</code>を展開するのに使用する<code>&lt;button&gt;</code>で囲みました。<code>&lt;h2&gt;</code>に<code>button</code>の<code>role</code>を使用することもできますが、見出しのセマンティクスが失われます（<a href="http://www.w3.org/TR/aria-in-html/#second-rule-of-aria-use">ARIA使用の2番目のルール</a>を思い出してください）。</li>
+<li>どの要素がどの要素から影響を受けるかを支援技術がわかるよう、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls"><code>aria-controls</code>プロパティ</a>と生成された<code>id</code>を使用して見出しボタンと隠された回答のリレーションシップを設定しました。このような質問テキストから有効なスラッグ（識別用のキー）を生成するには<a href="https://github.com/pmcelhaney/jQuery-Slugify-Plugin">この小さなヘルパープラグイン</a>を使用するか、ランダムなキーを生成します。リレーションシップを確立するためのidは、一意であれば何でもかまいません。</li>
+<li><code>button</code>には、対応する回答が使用できる（表示されていて読むことができる）かどうかを示す、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls"><code>aria-expanded</code>ステート</a>が含まれています。もちろん、はじめは<code>false</code>に設定されています。</li>
+<li><code>aria-hidden</code>で、展開されていない回答の<code>&lt;div&gt;</code>を隠すよう、支援技術に伝えています。<code>aria-hidden</code>によって、回答が不用意に発見されないようにしています。</li>
+</ol>
+<h3 id="css">CSS</h3>
+<p>CSSについてはいくつかの注意点のみ述べます。Chapter 2「<a href="bodymatter_2_0.xhtml">ボタンのすべて</a>」で説明したように、CSSでの表示状態をステートと結びつけるという方法が適しています。</p>
+<blockquote>
+<p>CSSの<code>display</code>プロパティをARIAの<code>hidden</code>ステートに結びつける。これは、ユーザーエージェントがサポートするプラットフォームアクセシビリティAPIではなく、ユーザーエージェントのDOMと直接やりとりする支援技術にとって重要である。<br />
+̶ <a href="http://www.w3.org/WAI/PF/aria-practices/#docmgt">WAI-ARIAオーサリングプラクティス</a></p>
+</blockquote>
+<p>こうすることで、無関係な<code>class</code>属性と値を省くことができるだけでなく、実際のステート変更を視覚的な変化に反映させることができます。たとえば、<code>aria-hidden</code>ステートを切り替えることで、各回答を折りたたんだり展開したりします。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-hidden]</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">none</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-hidden=</span><span class="st">&quot;false&quot;</span><span class="at">]</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>加えて、<code>:before</code>疑似コンテンツを使用して、質問テキストの横に矢印を配置します。この矢印の向き（折りたたまれているときは右向き、展開されているときは下向き）は、<code>aria-expanded</code>ステートの値（<code>false</code>または<code>true</code>）と連動しています。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-expanded]</span><span class="dv">:before</span> <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;\25ba\0020&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-expanded=</span><span class="st">&quot;true&quot;</span><span class="at">]</span><span class="dv">:before</span> <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;\25bc\0020&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>矢印にUnicodeの絵文字を使用すると、グラフィックや背景画像を挿入するよりもずっと簡単で効率的です。また、ユーザーがページをズームしても画質の低下が起こりません。なお、020エンコードは、<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm">U+0020によるスペース</a>に対応しており、見出しのタイポグラフィーとの単語間隔が保持されます。一部のスクリーンリーダーが「<strong>右向きの黒三角</strong>」などのように読み上げる可能性があることに注意してください。</p>
+<h3 id="それからどうなる">それからどうなる？</h3>
+<p>マークアップを組み立てたら、JavaScriptでボタンクリックを処理し、ボタンの<code>aria-expanded</code>ステートと対応するパネルの<code>aria-hidden</code>ステートを切り替えるようにします。これらの属性の追加と変更で実際に起こることは、とても興味深いものです。</p>
+<figure>
+<img src="img-5-3_02.png" alt="図: ボタンにフォーカスを移すと、スクリーンリーダーが「見出しレベル2、パスワードはどのように変更するのですか、ボタン、折りたたみ」と読み上げる" /><figcaption>図: ボタンにフォーカスを移すと、スクリーンリーダーが「見出しレベル2、パスワードはどのように変更するのですか、ボタン、折りたたみ」と読み上げる</figcaption>
+</figure>
+<p>質問を表すボタンがフォーカスを受け取ると、スクリーンリーダーは以下の4つの重要な情報を読み上げます。</p>
+<ul>
+<li>見出し（質問）テキスト。</li>
+<li>その見出しのレベル（この例では2）。</li>
+<li>ボタンがフォーカスを受け取ったこと。</li>
+<li>このボタンの状態（折りたたまれている、または展開されている）。</li>
+</ul>
+<p><code>&lt;button&gt;</code>を押すと、その<code>aria-expanded</code>ステートが<code>true</code>に切り替えられ、対応するパネルの<code>aria-hidden</code>ステートが<code>false</code>に設定されます。「パスワードはどのように変更するのですか、ボタン、展開」と読み上げられると、ユーザーはコンテンツが読める状態になったことがわかります。そして通常は下矢印キーを使用して、そのコンテンツに移動することができます。</p>
+<figure>
+<img src="img-5-3_03.png" alt="図: 「パスワードはどのように変更するのですか？」のボタンを押すと、フォーカスが対応するコンテンツに切り替わり、読み上げが始まる。「17個の手順があります…」" /><figcaption>図: 「パスワードはどのように変更するのですか？」のボタンを押すと、フォーカスが対応するコンテンツに切り替わり、読み上げが始まる。「17個の手順があります…」</figcaption>
+</figure>
+<p>JAWSではさらに、「<strong>use the JAWS key + ALT + M to move to the controlled element</strong>」という情報がアナウンスされます。</p>
+<p>JAWSは<code>aria-controls</code>によって作られたリレーションシップを明らかにし、展開したコンテンツにジャンプする方法をユーザーに提供します。この例では、展開されたコンテンツはコントローラのすぐ後に表示されるため、実際にはジャンプする必要はありません。しかし、展開されたコンテンツがページの別の場所にある場合には有用です。</p>
+<p>この例の<a href="http://heydonworks.com/practical_aria_examples/#progressive-collapsibles">実際に動くデモ</a>を用意しましたので、参考にしてください。</p>
+<h3 id="すべてを支配する1つのパターン">すべてを支配する1つのパターン</h3>
+<p>先ほどの例では、いくらかのセマンティックなHTMLを使い、さらにいくらかのARIAとほんの少しのJavaScriptを使って、プログレッシブエンハンスメントを実現しました。これで、文章で構成されたページがクイックリファレンスに変化しました。このテクニックのアクセシビリティ上のポイントは、以下の2点です。</p>
+<ol type="1">
+<li>JavaScriptにエラーがある場合や、JavaScriptがロードされていない、またはセキュリティ上ブロックされているユーザーでも、コンテンツにアクセスできるようにする。</li>
+<li>JavaScriptで拡張された同じコンテンツのビューを、キーボードでナビゲーションするユーザーや、スクリーンリーダーユーザーにとって有益なものにする。</li>
+</ol>
+<p>ビューを拡張するという考え方の本質には、システム的な観点での複雑さはほとんどなく、用途は非常に多岐にわたります。ここで使ったARIAの展開／折りたたみの考え方は、アコーディオンメニュー（一度に1つの領域のみを展開する）や、“☰”アイコン（ナビコン）に隠されたナビゲーションメニューの表示にも応用できます。</p>
+<h4 id="ナビコン">ナビコン</h4>
+<p>先ほどの例と、これから見ていくナビコンから展開されるナビゲーションメニューの例の大きな違いは、基本的なHTMLにデグレードする方法だけです。JavaScriptを使わずに、ナビゲーションランドマークへの単純なページ内リンクを表示しなくてはなりません。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#navigation&quot;</span><span class="kw">&gt;</span>メニュー<span class="kw">&lt;/a&gt;</span>
+<span class="co">&lt;!-- 場合によってその他のマークアップ --&gt;</span>
+<span class="kw">&lt;nav</span><span class="ot"> id=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> role=</span><span class="st">&quot;navigation&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;ul&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>ホーム<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/about&quot;</span><span class="kw">&gt;</span>本サイトについて<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/blog&quot;</span><span class="kw">&gt;</span>ブログ<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/nav&gt;</span></code></pre></div>
+<p>JavaScriptを使う場合は、ARIAの<code>role=&quot;button&quot;</code>を使用してリンクを<code>button</code>に見せかけます。これは、ナビゲーションを開いてそこに移動するようにアクションを変えようとしているためです。つまり、リンクは<code>return false</code>にします。それ以外はご存じの通りです。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#navigation&quot;</span><span class="ot"> role=</span><span class="st">&quot;button&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> aria-expanded=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>メニュー<span class="kw">&lt;/a&gt;</span>
+<span class="co">&lt;!-- 場合によってその他のマークアップ --&gt;</span>
+<span class="kw">&lt;nav</span><span class="ot"> id=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> role=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;ul&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>ホーム<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/about&quot;</span><span class="kw">&gt;</span>本サイトについて<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/blog&quot;</span><span class="kw">&gt;</span>ブログ<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/nav&gt;</span></code></pre></div>
+<figure>
+<img src="img-5-3_04.png" alt="図: navigationランドマークが付いている要素が表示されているとき、メニューボタンはaria-expanded=&quot;true&quot;となる" /><figcaption>図: navigationランドマークが付いている要素が表示されているとき、メニューボタンはaria-expanded=&quot;true&quot;となる</figcaption>
+</figure>
+<h3 id="注意点">注意点</h3>
+<ul>
+<li>メニューボタンが押されたとき、スクリーンリーダーは「メニューボタンが展開されました」というような通知を行う必要があります。これにより、スクリーンリーダーユーザーは、自分が現在ナビゲーションメニューを使用していることがわかります。</li>
+<li><code>$([aria-expanded])</code>に<code>keypress</code>イベントを割り当て、ユーザーが<kbd>Tab</kbd>キーを押したときにナビゲーションメニューの最初の項目にフォーカスが移動するようにします。メニューがタブオーダーにおける次の項目であるとは限らないため（DOMの編成によっては、メニューボタンとメニューの間に他のインタラクティブ要素が存在する可能性があります）、これはプログラムで行う必要があります。</li>
+<li><code>aria-hidden</code>を使ってナビゲーションランドマークを隠すと、スクリーンリーダーユーザーはランドマーク一覧のダイアログからこのナビゲーションにアクセスすることはできなくなります。<a href="http://heydonworks.com/practical_aria_examples/#hamburger">このオフキャンバスナビゲーションのデモ</a>では、ランドマークをもったナビゲーションそのものを複製し、これをページの最下部で見えないように隠すことによって問題を解決しています。</li>
+</ul>
+<figure>
+<img src="img-5-3_05.png" alt="図: メニューボタンに対する読み上げは、フォーカス時は「メニューボタン、折りたたまれている」、クリック時は「メニューボタン、展開されている」となる。その状態でTabキーが押されると、メニューにフォーカスが移る" /><figcaption>図: メニューボタンに対する読み上げは、フォーカス時は「メニューボタン、折りたたまれている」、クリック時は「メニューボタン、展開されている」となる。その状態でTabキーが押されると、メニューにフォーカスが移る</figcaption>
+</figure>
+<h3 id="test.css">test.css</h3>
+<p>このオフキャンバスメニューのパターンは、クラスを取り除いた設計によって本質的な部分だけに凝縮されています。知らぬ間に望ましくないコーディングをする可能性はあまり高くありません。すべてのARIA属性はスタイルをつけるための仕掛けとしても使用されているからです。</p>
+<p>それでも、用心するに越したことはありません。以下のルールを<strong>test.css</strong>ファイルに追加します。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">#navigation</span><span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;navigation&quot;</span><span class="at">]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：主要なナビゲーションブロックへのページ内リンクが可能なように設定しようとしています。ARIAのナビゲーションロールがあることを確認してください&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-controls=</span><span class="st">&quot;navigation&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[href=</span><span class="st">&quot;#navigation&quot;</span><span class="at">]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：JavaScriptが無効な場合、これはナビゲーションランドマークに移動するリンクになっているべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>この<strong>test.css</strong>は、navigationという<code>id</code>が決め打ちになっており、ここで紹介したサンプルに特化した内容となっています。この<code>id</code>を他の用途で使ったり、メニューに他の<code>id</code>をつける場合は調整が必要になります。
+</dd>
+</dl>
+</div>
+<p><strong>注</strong>：「メニュー」の文字を付加せずにナビコンのシンボルだけを表示したい場合は、Chapter 2「<a href="bodymatter_2_0.xhtml">ボタンのすべて</a>」で説明したように、<code>aria-label</code>属性を追加して「ナビゲーションメニュー」などの値を設定します。これによりスクリーンリーダーユーザーはボタンを認識できるようになりますが、だからと言って、他の多くのユーザーにとってシンボルがわかりにくいという事実を埋め合わせることにはなりません。</p>
+<p>Luis Abreu（ルイス・アブレウ）が「<a href="http://lmjabreu.com/post/why-and-how-to-avoid-hamburger-menus/">Why And How To Avoid Hamburger Menus</a>」で立証した通り、この横に出てくるメニューパターンは全体的なユーザビリティを損なう可能性があります。デザインパターンが使いにくいものだとわかっている場合は、それをアクセシブルにしても意味がありません。誰も望んでいないものへのアクセスが向上するだけです。</p>
+<p>=======================================</p>
+<h2 id="タブを1つください">5-4 タブを1つください！</h2>
+<p>最近では、Webを利用すれば必ずタブを使ったインターフェイスを見かけます。一列に並んだタブには、ファイリングキャビネットで使われているタブの場合と同じように、それぞれ対応するコンテンツのペインやパネルがあります。興味のないコンテンツを非表示にしつつ、コンテンツを切り替えながら閲覧することができるので、人気のあるパターンです。</p>
+<p>タブを使ったインターフェイスは実に広く普及しているので、<strong>やり尽くされた</strong>ものだと考えたくなります。パネルを表示したり隠したりするJavaScriptを書くのは簡単ですし、どこかから拝借するのはもっと簡単なので、視覚的なデザインを考える余地が生まれます。</p>
+<ul>
+<li>タブの角に丸みをつけるべきか？</li>
+<li>重なり合っていた方が見栄えが良いか？</li>
+<li>どのようにして選択されたタブが一番上にあるように見せるか？</li>
+<li>そんなピンクで大丈夫か？</li>
+</ul>
+<p>これらの疑問もたしかに大切ですが、タブインターフェイスの見た目が優れていても、それだけでは優秀なタブインターフェイスとは言えません。基盤となる構造は確実にセマンティックでアクセシブルになっていますか？　JavaScriptによって、1つのパネルが表示され他のパネルが隠されますが、このアクションはすべての人に本当に伝わっているでしょうか？　そもそも、すべての人がそのアクションを実行できるでしょうか？</p>
+<figure>
+<img src="img-5-4_01.png" alt="図: 3つのセクションに対応した3つのタブを持つタブインターフェイス" /><figcaption>図: 3つのセクションに対応した3つのタブを持つタブインターフェイス</figcaption>
+</figure>
+<p>タブインターフェイスが普及していること、そしてこれが比較的複雑であることを受け、ARIAは複数のタブをもつウィジェットを構築するための専用のロールと、それに関連するプロパティ、ステートを提供しています。</p>
+<p>これらを使えば、この種のナビゲーションをスクリーンリーダーユーザーでも実際に使えるようにすることができます。入念にデザインしたキーボードサポートとこれらの属性を組み合わせることで、ようやくアクセシブルなタブインターフェイスを作成するための基本要件を満たすことができるのです。</p>
+<p>一度だけ作ってしまえば、あとはそのパターンを再利用し、何度でも好きなだけスタイルを変えることができます。</p>
+<h3 id="セットアップ-1">セットアップ</h3>
+<p>Léonie Watson（レオニー・ワトソン）のプレゼンテーション「<a href="http://www.slideshare.net/LeonieWatson/generate-2013-09">A Rock ‘n’ Roll Guide To HTML5 And ARIA</a>」のタブつきウィジェットのセクションには、Bachman Turner Overdrive（バックマン・ターナー・オーヴァードライヴ）の曲名を引用して「You Ain’t Seen Nothin’ Yet （まだまだこれから）」というタイトルがつけられています。これまでにやってきたことに比べて難しいのは確かですが、落ち着いて詳しく見てみれば問題はないはずです。</p>
+<p>ここでもプログレッシブエンハンスメントを採用し、基本のHTMLから始めましょう。タブインターフェイスの作成は常に、別のコンテンツ部分にジャンプするためのナビゲーションリンクのリストから始まります。Chapter 4「<a href="bodymatter_4_0.xhtml">飛んでいこう</a>」で修正した、アニメーションするページ内リンクを覚えていますか？　あれこそが私たちが求めるマークアップです。そのまま使いましょう。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section1&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section3&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section1&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section3&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span></code></pre></div>
+<p><strong>注</strong>：タブインターフェイスは、ユーザーが同じページ上にあるコンテンツのセクションを切り替えるためのインターフェイスに適します。メインのWebサイトナビゲーションを一連のタブに見せかけたスタイルにすることもできますが、セマンティクスという観点で言うと、これは真のタブインターフェイスではありません。</p>
+<p>順調なスタートですが、これはタブインターフェイスではありません。そう見えるようにスタイルをつけたとしてもです。ARIA属性を追加し、セマンティクスを拡張して、アクセシブルなウィジェットを作成しましょう。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul</span><span class="ot"> role=</span><span class="st">&quot;tablist&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section1&quot;</span><span class="ot"> aria-selected=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section2&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section3&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span></code></pre></div>
+<p>おっと！?　新しい属性がたくさんありますね。それぞれ、説明すると次のようになります。</p>
+<ul>
+<li><strong>tablist</strong>（ロール）：「<a href="http://www.w3.org/TR/wai-aria/roles#composite">composite</a>」のひとつです。つまり、ウィジェットの一部としてナビゲーション項目をグループ化します。ここではタブを収容します。</li>
+<li><strong>tab</strong>（ロール）： タブリストを構成する1つのタブ。</li>
+<li><strong>aria-selected</strong>（ステート）： 選択されたタブまたは開いたタブを、（支援技術に何も通知しない）<code>class=&quot;selected&quot;</code>よりもずっとアクセシブルな方法で示します。</li>
+<li><strong>tabpanel</strong>（ロール）： 1つのタブに関連づけられたコンテンツのパネルを定義します。前の例のように、<code>aria-controls</code>を通じて、各<code>tab</code>とその<code>tabpanel</code>の間にリレーションシップが作成されます。</li>
+<li><strong>presentation</strong>（ロール）： 要素のもともとの意味を取り除く特殊なロールです。<code>&lt;li&gt;</code>は実質的に<code>&lt;&gt;</code>になります。要素のセマンティクスが必要なくなった時は、要素を完全に取り除かなくても、ロールやステートを追加することで<code>&lt;li&gt;</code>として認識されないようにすることができます。</li>
+</ul>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>ここでの<code>&lt;&gt;</code>の表記は、<code>&lt;li&gt;</code>から意味が取り除かれた状態を表しています。<code>&lt;li&gt;</code>は暗黙的に<code>role=&quot;listitem&quot;</code>が指定されているものとみなされますが、<code>role=&quot;presentation&quot;</code>を指定することでこれを打ち消し、特定のロールをもたない状態にしています。
+</dd>
+</dl>
+</div>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>上の例ではsection要素にtabpanelロールが指定されていますが、当初、<a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a>では、section要素にtabpanelロールを指定することは許されていませんでした。2016年11月の更新でsection要素にtabpanelロールの指定が可能とされ、現在では指定できるようになっています。
+</dd>
+</dl>
+</div>
+<h3 id="フォーカスの管理">フォーカスの管理</h3>
+<p>要素にいくつかの意匠を凝らした新しい属性をつけることは簡単ですが、<a href="http://www.w3.org/TR/wai-aria/usage#managingfocus">フォーカスの管理</a>について、そしてさまざまなユーザーがウィジェットとやり取りする方法について考えることは簡単ではありません。幸い、ここでのキーボードコントロールは、次の2つに絞られます。</p>
+<ol type="1">
+<li>左右の矢印キーを使って隣接するタブを切り替える（フォーカスを移す）。これは対応するタブパネルを表示するアクションでもあります。</li>
+<li>アクティブな（<code>aria-selected</code>な）タブと対応する<code>tabpanel</code>との間を、<kbd>Tab</kbd>キーで切り換え、<kbd>Shift + Tab</kbd>キーで戻れるようにする。</li>
+</ol>
+<p>項目2については、<code>tabindex=&quot;0&quot;</code>を使って<code>tabpanel</code>自体をフォーカス可能にすることもできますが、パネル自体にフォーカスを合わせると、ユーザーエージェントによっては「タブパネル」という説明が読み上げられなくなります。そこで、フォーカスをパネル内の最初の要素に移動しましょう。この例では、<code>section</code>は見出しをもっているはずなので、最初の要素は常に見出しになります。この場合、フォーカス取得時に「見出しレベル3、（見出しテキスト）、タブパネル」のように通知されるはずです。</p>
+<p>隠されたパネル（<code>display: none</code>と<code>aria-hidden=&quot;true&quot;</code>が指定されたもの）はタブオーダーから取り除かれ、開いているパネルだけが残ります。これにより、<code>tabindex=&quot;0&quot;</code>が指定された<code>&lt;h3&gt;</code>の中で見えているもの（下のコードの最初の<code>&lt;h3&gt;</code>）が次のタブオーダーになります。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h3</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/h3&gt;</span>
+<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> style=</span><span class="st">&quot;display: none&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h3</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/h3&gt;</span>
+<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> style=</span><span class="st">&quot;display: none&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h3</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/h3&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre></div>
+<p>開いた<code>tabpanel</code>と対応するタブとの間には他のタブがあり、これらが<kbd>Tab</kbd>キーによるフォーカスを受け付けると、タブパネルに直接移動することができません。<code>aria-selected</code>なタブ以外のすべてのタブに<code>tabindex=&quot;-1&quot;</code>を指定することで、それらをタブオーダーから取り除き、タブパネルに直接移動できるようにします。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul</span><span class="ot"> role=</span><span class="st">&quot;tablist&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section1&quot;</span><span class="ot"> aria-selected=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section2&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section3&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+<figure>
+<img src="img-5-4_02.png" alt="図: 選択したタブの隣にある2つのタブには、Tabキーではフォーカスできない。Shift + Tabキーを押すと、開いているパネルから選択されていたタブにフォーカスが戻る" /><figcaption>図: 選択したタブの隣にある2つのタブには、Tabキーではフォーカスできない。Shift + Tabキーを押すと、開いているパネルから選択されていたタブにフォーカスが戻る</figcaption>
+</figure>
+<p>他のタブもフォーカス可能にしておきたいところです（さもなければ、タブインターフェイスとは言えません！）が、これらは矢印キーだけで切り換えられるようにしましょう。</p>
+<p>JavaScriptを使用して、前のタブまたは次のタブをフォーカスする機能を（プログラムによって）キーにバインドします。疑似コードで表すと次のようになります。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span> (タブにフォーカスがあるときにキーが押された) <span class="op">{</span>
+    <span class="cf">if</span> (右矢印キーが押され、右のタブが存在する) <span class="op">{</span>
+        右隣のタブにフォーカスを移動<span class="op">;</span>
+        右隣のタブのtabindexを<span class="st">&#39;0&#39;</span>にし、現在のタブのtabindexを<span class="st">&#39;-1&#39;</span>にする<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">if</span> (左矢印キーが押され、左のタブが存在する) <span class="op">{</span>
+        左隣のタブにフォーカスを移動<span class="op">;</span>
+        左隣のタブのtabindexを<span class="st">&#39;0&#39;</span>にし、現在のタブのtabindexを<span class="st">&#39;-1&#39;</span>にする<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<figure>
+<img src="img-5-4_03.png" alt="図: 矢印キーによってtabindex=&quot;1&quot;とJavaScriptのfocus()関数を適用し、フォーカスを左右のタブに移動する" /><figcaption>図: 矢印キーによってtabindex=&quot;1&quot;とJavaScriptのfocus()関数を適用し、フォーカスを左右のタブに移動する</figcaption>
+</figure>
+<p>このタブインターフェイスの例の<a href="http://heydonworks.com/practical_aria_examples/#tab-interface">実際に動くデモ</a>を用意しましたので、参考にしてください。また、詳細や代替策については、<a href="http://accessibleculture.org/articles/2010/08/aria-tabs/">ARIAのタブインターフェイスに関するJason Kiss（ジェイソン・キス）の研究</a>を参照してください。</p>
+<h3 id="test.css-1">test.css</h3>
+<p>記述したインターフェイスのHTMLが適切かどうかを確認するルールをいくつか追加します。場合によって、特に開発チームがスタイル設定とステートの切り替えにクラスを使用するよう要求しているときには、ここに自身のルールを追加してください。<code>.tab:not([role=&quot;tab&quot;]):after {}</code>のようなセレクタで正しいARIA属性が存在するかどうかをテストできます。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[role=</span><span class="st">&quot;tablist&quot;</span><span class="at">]</span> a<span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;tab&quot;</span><span class="at">]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：tablist内のすべてのリンクは、tab ARIAロールを使用してtabとして定義するべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[role=</span><span class="st">&quot;tabpanel&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[id]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：各tabpanelは、idを使用して識別するべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[role=</span><span class="st">&quot;tab&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[aria-controls]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：各tabはaria-controls属性を使用して明示的にtabpanelをコントロールするべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>これで、表示したり隠したりする処理が完成しました。そのような処理をアクセシブルに行う方法がおおよそわかりましたね。</p>
+<p>次の章では、ライブリージョンと、アプリケーション内で変更が起こった場合にライブリージョンを使ってユーザーに通知する方法について説明します。変更とは、ユーザーが行った変更と、ユーザーのためにアプリケーションが行った変更です。また、ユーザーが行おうとしたアクションを妨害し、そのアクションを取り消す選択肢を提示するモーダルダイアログを作成します。つまるところテーマは、「アプリケーションとユーザーによって共有されるコミュニケーションチャネルを開いておく」ことです。</p>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="github.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="生きてる生きてる">6 生きてる！生きてる！</h1>
+<p>フランケンシュタインの名セリフ「It's Alive! - 生きてる、生きてる! 」じゃないですが、ユーザーとコンテンツの対話に欠かせない「ライブリージョン」や「ダイアログ」の実装を解説します。</p>
+<ul>
+<li><a href="bodymatter_6_2.xhtml">6-1 警告！</a></li>
+<li><a href="bodymatter_6_3.xhtml">6-2 全体像を見せる</a></li>
+<li><a href="bodymatter_6_4.xhtml">6-3 ダイアログ</a></li>
+</ul>
+<p>=======================================</p>
+<p>こんなシーンを思い浮かべてみてください。あなたはロンドンの豪華な事務所で働く有能なフロントエンドエンジニアのひとりです。普段と何も変わらないある日、あなたは職場の席でアーチ状に並べたモニターに囲まれて拡張デスクトップに向かい、MegaDigiSpaceHub社の大規模な開発案件で夢中になってCSSを記述していました。</p>
+<figure>
+<img src="img-6_01.png" alt="図: コーディング用の3台のモニター" /><figcaption>図: コーディング用の3台のモニター</figcaption>
+</figure>
+<p>あなたはまだ気がついていませんが、すぐ下のフロアで火事が起こりました。「モバイルストラテジスト」が無意識のうちに発生させた炎上が原因です。ポストモダン風の洒落た装飾に注ぎ込んだせいで予算が足りず、火災警報器は設置されていません。オフィスを走りまわって各部署に火事が起きたことを直接知らせるのは、フロアマネージャーの役目です。</p>
+<p>彼は音も立てず部屋に入り、12ptのArialで「火事です」と書いた名刺サイズのカードを3秒ほど掲げては次の部屋へと向かいました。あなたも同僚も、モニターに囲まれているので、彼が部屋に入ってきたことにすら気がつきません。</p>
+<p>本書はおおよそ、Webサイトとアプリケーションをアクセシブルにする方法をテーマにしています。つまり私たちの関心は、誰もがWebサイトやアプリケーションを簡単に使えるようにすることにあります。しかし、何かが行われる（または起こる）ときには、その結果として他の何かも起こるであろうことを認識することが重要です。「作用あるところ反作用あり」です。</p>
+<blockquote>
+<p>物体1が別の物体2に対して力を及ぼすとき、物体2は物体1に対して大きさが同じで向きが反対の力を及ぼす。<br />
+̶ <a href="http://en.wikipedia.org/wiki/Newton%27s_laws_of_motion">ニュートンの運動の第3法則（Wikipedia「Newton's laws of motion」より）</a></p>
+</blockquote>
+<p>ユーザーが行った操作の結果や、計算の結果、あらゆる種類の有益な情報の挿入など、ユーザーにフィードバックを提供することは、アプリケーションデザインの一部として重要です。対処が必要な問題は、画面にメッセージを表示する視覚的な割り込みが、音もなく出現することです。また、ダイアログが立ち上がる際、ユーザーのフォーカス位置からは大きく離れた、ドキュメントのまったく異なるところのDOMノードがアクティブになることも問題です。</p>
+<p>これらの問題に対処しながらメッセージを確実にユーザーに届けるために、ARIAには<a href="https://developer.mozilla.org/en-US/docs/Accessibility/ARIA/ARIA_Live_Regions">ライブリージョン</a>が用意されています。名前からもわかるように、ライブリージョンとは、アプリケーションを使っているうちに変更される可能性のあるコンテンツをもった要素です。ライブリージョンは生き物のようなものであり、いつまでも現状を維持しているわけではありません。適切なARIA属性を割り当てることで、ライブリージョンは自身が変更されたときにユーザーの操作に割り込んで通知を行います。</p>
+<p>この章ではさまざまなライブリージョンのロールやその他の関連する属性を見ていきます。多くの場合、これらにはユーザーが行った操作に対するフィードバックが関連します。また、ユーザーが求めてはいなくても、（最初の例の火事の時のように）何らかの形で知っておくべき変更について警告する方法も取り上げます。</p>
+<p>=======================================</p>
+<h2 id="警告">6-1 警告！</h2>
+<p>Web開発会社のオフィスで起こりうる事態で火事よりも深刻なのは、おそらく、Webに接続できなくなることでしょう。確かに、私がオンラインアプリケーションを使って作業しているとしたら、アプリケーションの動作が通常と異なる場合にはそのことを把握し、おそらくはデータをきちんと保存しようとするはずです。</p>
+<p>同じ理由から、Gmailにはユーザーがオフラインになったときには必ず警告する機能があります。<a href="http://www.marcozehe.de/2008/08/04/aria-in-gmail-1-alerts/">Marco Zehe（マルコ・ツィーエ）の2008年のブログ記事</a>にあるように、GoogleはARIAライブリージョンをいち早く採用しました。</p>
+<figure>
+<img src="img-6-1_01.png" alt="図: 「Gmailに接続できません。インターネット接続をご確認ください。」と書かれている黄色のボックス" /><figcaption>図: 「Gmailに接続できません。インターネット接続をご確認ください。」と書かれている黄色のボックス</figcaption>
+</figure>
+<p>ここでは、ユーザーがオンラインであるかどうかをテストし、オフラインの場合はARIAを使ってスクリーンリーダーユーザーに警告し、引き続き作業するか、呑みにでも出かけるかを選択してもらうというスクリプトを作成します。</p>
+<h3 id="セットアップ">セットアップ</h3>
+<p>ライブリージョンに関して、ARIAは<code>role</code>属性と<code>aria-live</code>属性の両方で値を定義しています。これらの一部は機能が重複しており、スクリーンリーダーの中には<code>role</code>と<code>aria-live</code>のいずれかしかサポートしていないものがあるため、混乱を招くことがあります。ただし、解決方法があるので問題はありません。</p>
+<p>最も基本的なレベルでは、メッセージには2つの共通タイプがあります。</p>
+<ol type="1">
+<li>「これは大変重要な情報ですが、現在の作業内容に関わらず、あなたの作業が終わるまでお待ちしてからお伝えします」</li>
+<li>「すべての作業を中止してください！　今すぐにこの情報を確認しないと大変なことになります。ぬわーーっっ！」</li>
+</ol>
+<p>それぞれを<code>role</code>および<code>aria-live</code>属性に当てはめると、これらの共通タイプは以下のように記述されます。</p>
+<ol type="1">
+<li>「これは大変重要な情報ですが、現在の作業内容に関わらず、あなたの作業が終わるまでお待ちしてからお伝えします」（<code>aria-live=&quot;polite&quot;</code>または<code>role=&quot;status&quot;</code>）</li>
+<li>「すべての作業を中止してください！　今すぐにこの情報を確認しないと大変なことになります。ぬわーーっっ！」（<code>aria-live=&quot;assertive&quot;</code>または<code>role=&quot;alert&quot;</code>）</li>
+</ol>
+<p>独自のライブリージョンをマークアップする場合は、最大限の互換性をもたせるために、同等の属性と値を2つとも指定します。なぜなら、ユーザーエージェントの中には残念ながら同等の属性のどちらかをサポートしていないものがあるからです。ライブリージョンに関する詳細は、<a href="https://developer.mozilla.org/en-US/docs/Accessibility/ARIA/ARIA_Live_Regions">Mozillaのドキュメント</a>を参照してください。</p>
+<p>インターネット接続が失われるというのは大問題ですので、積極的な方の属性値を使います。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;message&quot;</span><span class="ot"> role=</span><span class="st">&quot;alert&quot;</span><span class="ot"> aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="ot"> class=</span><span class="st">&quot;online&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;p&gt;</span>現在オンラインです。<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+<p>上のコード自体は何も警告していません。アラートが発生するのは、ライブリージョンのコンテンツが動的に変更されている場合です。</p>
+<p>一方、次のページのスクリプトは、<strong>test_resource.html</strong>をロードできるかどうかのチェックを3秒ごとに実行します。ロードできなかった場合や、ロードに失敗した後にロードできた場合は、このライブリージョンの<code>class</code>値を更新し、文の記述を変更します。予期に反してオフラインになった場合は、次のようなメッセージが表示されます。<code>&lt;p&gt;インターネットに接続できません。あきらめて呑みに行きましょう！&lt;/p&gt;</code></p>
+<p>変更が発生すると、その時点でページ上で読み上げられているものが何であれ、それに割り込んで<code>#message</code>ライブリージョンの内容がアナウンスされます。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// オフラインになった場合に実行する関数</span>
+<span class="kw">var</span> offline <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="cf">if</span> (<span class="op">!</span><span class="at">$</span>(<span class="st">&#39;#message&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;offline&#39;</span>)) <span class="op">{</span>
+        <span class="at">$</span>(<span class="st">&#39;#message&#39;</span>) <span class="co">// [role=&quot;alert&quot;]かつ[aria-live=&quot;assertive&quot;]である要素</span>
+            .<span class="at">attr</span>(<span class="st">&#39;class&#39;</span><span class="op">,</span> <span class="st">&#39;offline&#39;</span>)
+            .<span class="at">text</span>(<span class="st">&#39;インターネットに接続できません。あきらめて呑みに行きましょう！&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="co">// オンラインに戻った場合に実行する関数</span>
+<span class="kw">var</span> online <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="cf">if</span> (<span class="op">!</span><span class="at">$</span>(<span class="st">&#39;#message&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;online&#39;</span>)) <span class="op">{</span>
+        <span class="at">$</span>(<span class="st">&#39;#message&#39;</span>) <span class="co">// [role=&quot;alert&quot;]かつ[aria-live=&quot;assertive&quot;]である要素</span>
+        .<span class="at">attr</span>(<span class="st">&#39;class&#39;</span><span class="op">,</span> <span class="st">&#39;online&#39;</span>)
+        .<span class="at">text</span>(<span class="st">&#39;現在オンラインです。&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="co">// ファイルをポーリングして確認</span>
+<span class="kw">function</span> <span class="at">testConnection</span>(url) <span class="op">{</span>
+    <span class="kw">var</span> xmlhttp <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span>
+    <span class="va">xmlhttp</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="at">online</span>()<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="va">xmlhttp</span>.<span class="at">onerror</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="at">offline</span>()<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="va">xmlhttp</span>.<span class="at">open</span>(<span class="st">&quot;GET&quot;</span><span class="op">,</span>url<span class="op">,</span><span class="kw">true</span>)<span class="op">;</span>
+    <span class="va">xmlhttp</span>.<span class="at">send</span>()<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// ループして3秒ごとに「test_resource.html」を確認</span>
+<span class="kw">function</span> <span class="at">start</span>() <span class="op">{</span>
+    rand <span class="op">=</span> <span class="va">Math</span>.<span class="at">floor</span>(<span class="va">Math</span>.<span class="at">random</span>()<span class="op">*</span><span class="dv">90000</span>) <span class="op">+</span> <span class="dv">10000</span><span class="op">;</span>
+    <span class="at">testConnection</span>(<span class="st">&#39;test_resource.html?fresh=&#39;</span> <span class="op">+</span> rand)<span class="op">;</span>
+    <span class="at">setTimeout</span>(start<span class="op">,</span> <span class="dv">3000</span>)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// 最初のテストを開始</span>
+<span class="at">start</span>()<span class="op">;</span></code></pre></div>
+<figure>
+<img src="img-6-1_02.png" alt="図: 警告表示。スクリーンリーダーは「警告、インターネットに接続できません、あきらめて呑みにいきましょう!」と読み上げる" /><figcaption>図: 警告表示。スクリーンリーダーは「警告、インターネットに接続できません、あきらめて呑みにいきましょう!」と読み上げる</figcaption>
+</figure>
+<p><a href="http://github.hubspot.com/offline/docs/welcome/">offline.js</a>という専用のスクリプトを使って、アプリケーションがオンラインであるかどうかをより包括的にテストする方法もありますが、ここでは話の流れから短いほうのスクリプトを紹介しました。一部のスクリーンリーダーではアナウンスの前に「警告！」と付加されることがあるので、<strong>よほど重要な情報である場合</strong>以外は、実際のテキストには「警告」という単語を使わないほうが良いでしょう。</p>
+<p><a href="http://heydonworks.com/practical_aria_examples/#offline-alert">このサンプルのデモ</a>を確認してください。</p>
+<h3 id="test.css">test.css</h3>
+<p>ライブリージョンがブラウザや支援技術の種類に依存しないように、最大限の互換性をもたせたいものです。<strong>test.css</strong>にルールを追加して、次のように、同等の属性がすべて含まれるようにしましょう。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[role=</span><span class="st">&quot;status&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[aria-live=</span><span class="st">&quot;polite&quot;</span><span class="at">]</span>),
+<span class="at">[role=</span><span class="st">&quot;alert&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="at">]</span>) <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：より広範なサポートを提供するために、aria-live属性を使って、ライブリージョンにポライトネスを追加しましょう&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-live=</span><span class="st">&quot;polite&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;status&quot;</span><span class="at">]</span>),
+<span class="at">[aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;alert&quot;</span><span class="at">]</span>) <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：より広範なサポートを提供するために、aria-liveのポライトネス設定に対応したロールを追加しましょう&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>=======================================</p>
+<h2 id="全体像を見せる">6-2 全体像を見せる</h2>
+<blockquote>
+<p>コンテクストがなかったら、私はよほど奇妙に見えるだろう<br />
+̶ Ani DiFranco（アーニー・ディフランコ）「Fire Door」より</p>
+</blockquote>
+<figure>
+<img src="img-6-2_01.png" alt="図: HTMLの断片でいっぱいのトレイ" /><figcaption>図: HTMLの断片でいっぱいのトレイ</figcaption>
+</figure>
+<p>デフォルトでは、ライブリージョンのコンテンツが変更された場合は、実際に変更されるノード（ここではHTMLの要素）だけがアナウンスされます。</p>
+<p>ごくわずかな変更である場合に大量のコンテンツを読み直す必要はないので、このような動作は合理的です。すべてが一度に読み出されるとしたら、どこが変更されたのかをどのようにして知ることができますか？　それは、トレイに載っている物を記憶しておいて、なくなった物を言い当てる記憶ゲームのようなものかもしれません。</p>
+<p>しかし、場合によっては、若干のコンテクストがあったほうが解明しやすいこともあります。そんな時に使うのが<code>aria-atomic</code>属性です。</p>
+<p><code>aria-atomic</code>を設定しない場合や<code>aria-atomic</code>を<code>false</code>に設定した場合は、実際に変更された要素だけがユーザーに通知されます。<code>aria-atomic</code>を<code>true</code>に設定した場合は、<code>aria-atomic</code>が設定されている要素の全コンテンツが読み出されます。</p>
+<p><code>atomic</code>という言葉に惑わされないようにしてください。<code>true</code>に設定すると、この要素のコンテンツは1つの不可分な物質（単一の原子）として扱われます。小さな破片（複数の原子）に分解されるのではありません。原子を指す<code>atomic</code>という言葉がふさわしいと思うかどうかはさておき、期待される動作が重要です。ここでの定義は前者（単一の原子として扱う）です。</p>
+<figure>
+<img src="img-6-2_02.png" alt="図: 「複数の原子に分かれる」ではなく、「単一の原子」ととらえる" /><figcaption>図: 「複数の原子に分かれる」ではなく、「単一の原子」ととらえる</figcaption>
+</figure>
+<p>Gez Lemon（ゲズ・レモン）が<a href="http://juicystudio.com/article/wai-aria_live-regions_updated.php"><code>aria-atomic</code>のすばらしいサンプル</a>を提供してくれています。このサンプルでは、現在再生されている曲の曲名が表示されるミュージックプレイヤーが埋め込まれています。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> aria-live=</span><span class="st">&quot;polite&quot;</span><span class="ot"> role=</span><span class="st">&quot;status&quot;</span><span class="ot"> aria-atomic=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h3&gt;</span>現在再生中：&lt;/h3&gt;
+    <span class="kw">&lt;p&gt;</span>Jake Bugg - Lightning Bolt<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+<p>変更されるのはアーティスト名と曲名のみですが、<code>aria-atomic</code>が<code>true</code>に設定されているので、リージョン全体（「現在再生中：Jake Bugg - Lightning Bolt」）が毎回読み出されます。コンテクスト上、「現在再生中」という表示は重要です。</p>
+<p>ライブリージョンのポライトネス設定は<code>polite</code>であり、<strong>test.css</strong>で例示した<code>assertive</code>ではないことに注意してください。ユーザーがほかの何かを読んでいたりキー入力を行っていたりする場合には、ユーザーがその動作を止めるまで通知を待機します。ユーザーの操作を妨げるほどの重要性はありません。ユーザー自身のプレイリストであり、おそらくすべての曲の曲名を知っているはずだからです。</p>
+<figure>
+<img src="img-6-2_03.png" alt="図: グラフィックイコライザーと共に、現在再生中 Jake bugg - Lightning bolt と表示されているボックス" /><figcaption>図: グラフィックイコライザーと共に、現在再生中 Jake bugg - Lightning bolt と表示されているボックス</figcaption>
+</figure>
+<p>Gez Lemonのサンプルにあるように、<code>aria-atomic</code>属性を使用する要素はライブリージョンを定義しているものと同一である必要はありません。たとえば、同一リージョン内の個別の子要素で<code>aria-atomic</code>を使うこともできます。仕様では以下のようになっています。</p>
+<blockquote>
+<p>ライブリージョンのコンテンツが変更されたとき、ユーザーエージェントは変更された要素の祖先を辿って<code>aria-atomic</code>が最初に設定された要素を探し出し、適切な動作を適用しなくてはなりません。<br />
+̶ <a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic">Supported States and Properties（サポートされるステートおよびプロパティ）</a></p>
+</blockquote>
+<p>ライブリージョン内にもう1ブロックを追加すれば、次の曲を表示することもできます。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> aria-live=</span><span class="st">&quot;polite&quot;</span><span class="ot"> role=</span><span class="st">&quot;status&quot;</span><span class="kw">&gt;</span>
+
+    <span class="kw">&lt;div</span><span class="ot"> aria-atomic=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;h3&gt;</span>現在再生中：&lt;/h3&gt;
+        <span class="kw">&lt;p&gt;</span>Jake Bugg - Lightning Bolt<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;/div&gt;</span>
+
+    <span class="kw">&lt;div</span><span class="ot"> aria-atomic=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;h3&gt;</span>次の曲：&lt;/h3&gt;
+        <span class="kw">&lt;p&gt;</span>Napalm Death - You Suffer<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;/div&gt;</span>
+
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+<p>さて、Jake Bugg（ジェイク・バグ）の「Lightning Bolt」が終わりに近づいたら、「次の曲：」ブロックの<code>&lt;p&gt;</code>を「次の曲：Napalm Death ̶ You Suffer」に変更し、Napalm Death（ナパーム・デス）の出番であることをユーザーに知らせます。Napalm Deathの演奏が始まったら「現在再生中：」ブロックのクレジットを変更して、次にユーザーからの視線を受けた時に、聞こえてくるノイズがNapalm Deathによるものだということをユーザーに思い出させます。</p>
+<h3 id="aria-busy">aria-busy</h3>
+<p>Napalm Deathの「You Suffer」を例にしたのはちょっとした冗談です（笑）。この曲は世界で一番短い曲（1.316秒）として認定されており、ライブリージョンが曲名を告げる前に終わってしまいます。すべての曲がこれほど短いとすると、アプリケーションは大忙しですね。</p>
+<p>ライブリージョンに対する複雑な変更が数多く行われ、ユーザーが結果を理解する前に次の変更が行われてしまうような場合は、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy"><code>aria-busy</code>属性</a>を使用します。この属性は、ライブリージョンの更新によってビジーである間は<code>true</code>に設定され、更新が終わると<code>false</code>に戻ります。JavaScriptアプリケーションでアセットのロード中にスピナーが表示されるのと同じようなものです。</p>
+<figure>
+<img src="img-6-2_04.png" alt="図: aria-busy=&quot;true&quot; とラベル付けされた、典型的なロード中スピナー表示" /><figcaption>図: aria-busy=&quot;true&quot; とラベル付けされた、典型的なロード中スピナー表示</figcaption>
+</figure>
+<p>通常はライブリージョンの最初の要素（または追加要素）がロードまたは変更される前に<code>aria-busy=&quot;true&quot;</code>を設定し、最後の要素まで終わったときに<code>false</code>に戻します。ミュージックプレイヤーの例で言うと、10秒ほどのタイムアウトを設定して、曲のアナウンスにかかる時間よりも再生時間が長いトラックだけがアナウンスされるようにします。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="st">&#39;#music-info&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;aria-busy&#39;</span><span class="op">,</span> <span class="st">&#39;true&#39;</span>)<span class="op">;</span>
+
+<span class="co">// ここでアーティスト名と曲名を更新し…</span>
+
+<span class="at">setTimeout</span>(<span class="kw">function</span>() <span class="op">{</span>
+    <span class="at">$</span>(<span class="st">&#39;#music-info&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;aria-busy&#39;</span><span class="op">,</span> <span class="st">&#39;false&#39;</span>)<span class="op">;</span>
+<span class="op">},</span> <span class="dv">10000</span>)<span class="op">;</span></code></pre></div>
+<p>=======================================</p>
+<h2 id="ダイアログ">6-3 ダイアログ</h2>
+<p>世界中のアクセシビリティエンジニアやアクセシビリティエバンジェリストは、ダイアログを使ったWebアプリケーションの提案にすくみ上がっています。<a href="http://www.creativebloq.com/accessibility-expert-warns-stop-using-carousels-7133778">恐怖のカルーセル</a>と同様に、ダイアログは1人ひとりのユーザーにとって使いやすいものにするためには十分な検討が必要なユーザーインターフェイスです。</p>
+<blockquote>
+<p>ダイアログ：複数の人物の間で交わされる会話。また、人とほかの何か（コンピュータなど）との間で交わされる類似したやりとり。<br />
+― <a href="http://www.merriam-webster.com/dictionary/dialogue">Merriam-Websterの定義</a></p>
+</blockquote>
+<figure>
+<img src="img-6-3_01.png" alt="図: 「お話があります。」というテキストと「わかりました」というボタンがあるダイアログ" /><figcaption>図: 「お話があります。」というテキストと「わかりました」というボタンがあるダイアログ</figcaption>
+</figure>
+<p>カルーセルとは異なり、ダイアログはデスクトップアプリケーションおよびWebアプリケーションの設計において回避することのできない重要なパターンです。その名が表す通り、ダイアログはユーザーとアプリケーションの間で合意が得られなければそれ以上の処理が進められない局面に登場します。ダイアログは次のいずれかに属します。</p>
+<ul>
+<li>処理を続けるうえでユーザーが知っておくべき情報を提供する</li>
+<li>分かれ道（処理を進めるうえで行うべきアクションを選択させる）</li>
+</ul>
+<p>ここでは、単純化するために、アクセシブルな警告ダイアログを作成するために必要な一連の技術を考察していきます。そのためには、本書でこれまでに紹介したセマンティックなHTML、ロール、プロパティ、ステートといったすべての要素を（単純化した形で）使いながら、同時にコントロールのフォーカスを巧妙に管理および提示する必要があります。</p>
+<h3 id="要点">要点</h3>
+<p>ダイアログは事前に用意しておく必要はなく、前述した「合意が必要な局面」になった時点で動的に構築します。こうすることで、柔軟性をもたせ、ページから余分なマークアップを排除することができます。また、ダイアログを呼び出すという行為によって支援技術がダイアログを新しいライブコンテンツとして認識し、優先的に処理するようにもなります。</p>
+<p>ここで質問です。ダイアログに欠かせないパーツとはいったい何でしょうか？</p>
+<figure>
+<img src="img-6-3_02.png" alt="図: コンピュータの画面と対話する人" /><figcaption>図: コンピュータの画面と対話する人</figcaption>
+</figure>
+<p>本来の意味のダイアログ（対話）は、2つの要素で構成されます。すなわち、ある人（この場合はコンピュータ）の言い分と、それに対する相手の応答です。ダイアログパターンを再利用可能なものにするために、HTML5のカスタムデータ属性（<code>data-dialog-call</code>および<code>data-dialog-response</code>）にこれら2つの変数を格納し、ダイアログを呼び出す任意のボタンコントロールに割り当てます。<a href="http://ejohn.org/blog/html-5-data-attributes/"><code>data</code>属性</a>の利点は、プライベートなストレージとして使えることです。<code>&lt;div&gt;</code>要素と同じように、<code>data</code>属性の意味はユーザーには通知されません。ユーザーに伝わるとなると、不要なノイズを作成していることになります。</p>
+<h3 id="セットアップ-1">セットアップ</h3>
+<p>Chapter 2「<a href="bodymatter_2_0.xhtml">ボタンのすべて</a>」で取り上げたビッグレッドボタンを覚えていますか？　警告ダイアログのトリガーとして使いましょう。いずれにしろビッグレッドボタンを押しても何も良いことはありませんし、おそらくはユーザーも（それが誰であれ）そのことに気づいていることでしょう。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;big-red&quot;</span><span class="ot"> data-dialog-call=</span><span class="st">&quot;できれば押さないでください&quot;</span><span class="ot"> data-dialog-response=</span><span class="st">&quot;わかりました&quot;</span><span class="kw">&gt;</span>ビッグレッドボタン<span class="kw">&lt;/button&gt;</span></code></pre></div>
+<h3 id="dialog要素">dialog要素</h3>
+<p>すぐにわかることですが、アクセシブルなWebベースのダイアログを作ることは、簡単ではありません。注意すべきことも、失敗しやすいポイントも数多くあります。そのようなダイアログを作るための使いやすいプログラミングインターフェイスの仕様が現在策定されている理由もそこにあります。</p>
+<p><code>&lt;dialog&gt;</code>とこの要素に関連する属性とメソッドを使ってダイアログを標準仕様に準拠させることは、<a href="http://blog.teamtreehouse.com/a-preview-of-the-new-dialog-element">試用版のChrome CanaryブラウザおよびChrome（バージョン25以降）ですでに可能となっています</a>。試用版のWebプラットフォームの機能を有効にすれば、<code>HTMLDialogElement</code>インターフェイスの一部として以下のメソッドを利用できます。</p>
+<ul>
+<li><code>show()</code>：基本的なダイアログを表示します。</li>
+<li><code>showModal()</code>：警告に似たダイアログを表示し、ユーザーがページ上のほかの要素とのインタラクションを行えないようにします。</li>
+<li><code>close()</code>：ダイアログをきちんと閉じるためのメソッドです。</li>
+</ul>
+<p>標準化が明確になるにつれて、ダイアログの作り方について考え直す必要はなくなるはずです。ただし、これはまだ実際の環境で使用できるインターフェイスではなく、ユーザーの動作を実際にどのように処理するかについては、<a href="http://lists.w3.org/Archives/Public/public-html-bugzilla/2013Sep/0357.html">まだ盛んに議論</a>されている段階です。</p>
+<p>さしあたり、少なくとも<a href="https://github.com/aFarkas/html5shiv/blob/master/src/html5shiv.js">HTML5 shiv</a>を介して、既知の要素として<code>&lt;dialog&gt;</code>要素を使ってダイアログを登録することはできます。さらに、CSSを適用することによって<code>open</code>属性をシミュレーションすることができます。次のスクリプトでは、<code>open</code>属性によって表示、非表示を直接切り替えています。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">dialog <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">none</span><span class="kw">;</span>
+<span class="kw">}</span>
+dialog<span class="at">[open]</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<h4 id="ダイアログの構築">ダイアログの構築</h4>
+<p>すでに説明した通り、ここではひとり立ちの途中にある<code>&lt;dialog&gt;</code>要素を使って、動的にダイアログを構築します。トリガーの<code>click</code>関数と同時にスクリプトが実行されると、<code>&lt;dialog&gt;</code>は以下のように拡張されます。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;dialog</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="ot"> open role=</span><span class="st">&quot;alertdialog&quot;</span><span class="ot"> aria-describedby=</span><span class="st">&quot;d-message&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;div&gt;</span>
+        <span class="kw">&lt;div&gt;</span>
+            <span class="kw">&lt;p</span><span class="ot"> id=</span><span class="st">&quot;d-message&quot;</span><span class="kw">&gt;</span>できれば押さないでください<span class="kw">&lt;/p&gt;</span>
+            <span class="kw">&lt;button&gt;</span>わかりました<span class="kw">&lt;/button&gt;</span>
+        <span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/dialog&gt;</span></code></pre></div>
+<ul>
+<li><code>role=&quot;alertdialog&quot;</code>ネイティブの<code>&lt;dialog&gt;</code>セマンティクスを上書きし、警告またはエラー用のダイアログとして定義します。標準ダイアログは単に<code>dialog</code>ロールを担います。<a href="http://www.w3.org/TR/wai-aria-practices/#chobet"><code>alertdialog</code>ロールは<code>alert</code>に関連づけられた特殊なライブリージョン</a>です。</li>
+<li><code>open</code>は、ダイアログが開かれているかどうかを示す単純なブール型属性です。</li>
+<li><code>tabindex=&quot;0&quot;</code>を設定すると、<code>&lt;dialog&gt;</code>にフォーカスできます。ダイアログが表示された時点ではフォーカスは閉じるボタンにありますが、ダイアログ自体にフォーカスできるようにすることで、ユーザーはメッセージと閉じるボタンを切り替えて、必要に応じて繰り返し読むことができます。</li>
+<li><code>aria-describedby=&quot;d-message&quot;</code>は、ダイアログのメッセージとダイアログを関連づけて、<code>&lt;dialog&gt;</code>がフォーカスされるたびにメッセージが読まれるようにします。</li>
+</ul>
+<figure>
+<img src="img-6-3_03.png" alt="図: スクリーンリーダーに「ダイアログ、できれば押さないでください、わかりました、ボタン」と読み上げられるダイアログ" /><figcaption>図: スクリーンリーダーに「ダイアログ、できれば押さないでください、わかりました、ボタン」と読み上げられるダイアログ</figcaption>
+</figure>
+<p>フリーのNVDAスクリーンリーダーを使ってこのダイアログを開くと、「ダイアログ、できれば押さないでください、わかりました、ボタン」と読み上げられます。</p>
+<p>つまり、ダイアログが表示された理由と意図、および最後に承諾するという唯一の選択肢がアナウンスされます。もちろん、選択肢が1つしかないダイアログばかりではありませんが、ここではできるだけ単純化しておきましょう。</p>
+<h3 id="フォーカスの難問">フォーカスの難問</h3>
+<p>繰り返しになりますが、ユーザーのフォーカスを管理することは、アクセシブルなアプリケーション設計において最も難しく、重要な側面のひとつです。モーダルダイアログの場合はなおさらです。</p>
+<p>以下の3つのポイントに注意する必要があります。</p>
+<ol type="1">
+<li>モーダルダイアログが開いている間は、ユーザーはその他の要素とインタラクションを行うことはできない。</li>
+<li>ユーザーのフォーカスをダイアログの中に閉じ込めてはならない。ブラウザのアドレスバーやページ外部のその他のコントロールに、ユーザーがフォーカスを移動できるようにしなくてはならない。</li>
+<li>ダイアログを呼び出した要素がある場合は、ダイアログを閉じるときにその要素にフォーカスを戻し、ユーザーが元の操作を続行できるようにしなくてはならない。</li>
+</ol>
+<p>上記すべてに関わるちょっとした難問は、ダイアログを除いたページ上のすべてのコンテンツはフォーカス可能なようにできていることです。まず、フォーカスの対象となりうる要素の種類をすべて挙げてみましょう。CSSセレクタとして書くと、次のようになります。</p>
+<ul>
+<li><code>a[href]</code></li>
+<li><code>button:not([disabled])</code></li>
+<li><code>[tabindex]:not([tabindex=&quot;-1&quot;])</code></li>
+</ul>
+<p>このほかに、すべてのフォーム関連要素も含まれます。</p>
+<p>ノースカロライナ州立大学のブログ記事「<a href="http://accessibility.oit.ncsu.edu/blog/2013/09/13/the-incredible-accessible-modal-dialog/">The Incredible Accessible Modal Dialog</a>（とてつもなくアクセシブルなモーダルダイアログ）」では、Greg Krauss（グレッグ・クラウス）がこれらのすべての要素を識別し、フォーカスできないものとして表示し、ダイアログが閉じられたときには再び元の状態に戻せるようにそれぞれをメモリ内に格納する方法を説明しています。</p>
+<p>このままではあまり効率が良くないので、それぞれの要素にマーカーとなる属性を追加しておき、このマーカーと一致する要素だけをフォーカス可能に戻すほうが良いでしょう。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://www.google.com&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="ot"> datamodal-unfocused</span><span class="kw">&gt;&lt;/a&gt;</span></code></pre></div>
+<p>さらに面倒なことに、これらの要素がスクリーンリーダーでも読まれないようにする必要がある、ということに注意する必要があります。つまり、スクリーンリーダーに対して隠しておかない限り、ユーザーはダイアログを抜け出してページ内の他のコンテンツを読み続けることができてしまいます。</p>
+<p>ほとんどの最新のスクリーンリーダーに対しては、<code>aria-hidden</code>ステートを使ってページのコンテンツを隠すことができるので、ここではダイアログ以外のすべてのコンテンツに<code>aria-hidden=&quot;true&quot;</code>を設定します。</p>
+<p>ただしそれだけでは、残念ながらキーボードを使って要素にフォーカスすることはできてしまうので、キーボードによるフォーカスについては別途コントロールする必要があります。作業量が多くなりそうですね。もっと簡単な方法はないでしょうか？</p>
+<h4 id="visibilityhiddenを使った方法">visibility:hiddenを使った方法</h4>
+<p>本書ではこれまでに、スクリーンリーダーが特定のCSSスタイルをいかに巧みに（巧みすぎる場合もあります）理解するかを取り上げてきました。<code>display:none</code>または<code>visibility:hidden</code>を使って隠した要素が、表示からも読み出しからも同じように隠される仕組みを説明しました。</p>
+<p><code>visibility:hidden</code>または<code>display:none</code>を使って隠した要素はフォーカスできず、キーボードによるナビゲーションもできなくなります。私たちのするべきことは、ページのコンテンツの中でダイアログに含まれていないものを見分け、<code>visibility:hidden</code>を設定した<code>class</code>属性をつけることです（<code>display: none</code>ではなく<code>visibility:hidden</code>を使うのは、要素の配置を保持するためです。何ひとつ動かしてはなりません）。</p>
+<p>以下のjQueryのワンライナーは、<code>&lt;dialog&gt;</code>の兄弟にあたるすべての要素に<code>mod-hidden</code>クラスを追加し、それらの子孫も含めて丸ごと隠します。これが機能するためには、<code>&lt;dialog&gt;</code>が<code>&lt;body&gt;</code>の直接の子要素になっている必要があります。そのようにマークアップしておきましょう。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="st">&#39;body &gt; *:not(dialog)&#39;</span>).<span class="at">addClass</span>(<span class="st">&#39;mod-hidden&#39;</span>)<span class="op">;</span></code></pre></div>
+<figure>
+<img src="img-6-3_04.png" alt="図: 上記セレクタによって、ダイアログの兄弟要素およびその子孫要素を不可視にしてフォーカスできないようにする" /><figcaption>図: 上記セレクタによって、ダイアログの兄弟要素およびその子孫要素を不可視にしてフォーカスできないようにする</figcaption>
+</figure>
+<h4 id="わなを仕掛けろ">わなを仕掛けろ！</h4>
+<p>ユーザーが気づかないうちにダイアログから抜けだして、ページのほかの部分とのインタラクションを行わないように、ダイアログ内のフォーカス可能な最後の要素で<kbd>Tab</kbd>キーが押されたときにはダイアログ自体にフォーカスが戻るようにします。具体的には、閉じるボタンの<code>keydown</code>ハンドラーを上書きします。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">close</span>.<span class="at">on</span>(<span class="st">&#39;keydown&#39;</span><span class="op">,</span> <span class="kw">function</span>(e) <span class="op">{</span>
+    <span class="cf">if</span> ((<span class="va">e</span>.<span class="at">keyCode</span> <span class="op">||</span> <span class="va">e</span>.<span class="at">which</span>) <span class="op">==</span> <span class="dv">9</span>) <span class="op">{</span>
+        <span class="va">dialog</span>.<span class="at">focus</span>()<span class="op">;</span>
+        <span class="va">e</span>.<span class="at">preventDefault</span>()<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>実装次第では、ダイアログ要素で<kbd>Shift + Tab</kbd>キーを押すと閉じるボタン（またはダイアログ内のフォーカス可能な最後の要素）にフォーカスが戻ることでしょう。ただ、このフォーカスループを作成することによってユーザーはダイアログから出ることができなくなるので、ページを離れること自体も難しくなります。</p>
+<p>次の例では、<kbd>Shift + Tab</kbd>キーを押すとブラウザのアドレスバーに移動できるようにして、逃げ道を与えます。</p>
+<figure>
+<img src="img-6-3_05.png" alt="図: ダイアログからアドレスバーまでのルートを示す矢印" /><figcaption>図: ダイアログからアドレスバーまでのルートを示す矢印</figcaption>
+</figure>
+<h3 id="クローズ関数">クローズ関数</h3>
+<p>「わかりました」ボタンは、<code>closeDialog()</code>などの関数を実行して、ダイアログを閉じ、生成したすべてのマークアップを削除します。<kbd>Esc</kbd>キーを押した場合にも同じ結果になるようにすべきです。この機能は、<a href="http://www.w3.org/WAI/PF/aria-practices/#dialog_modal">「ARIAプラクティス」においてダイアログに実装するべきだとされています</a>。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(dialog).<span class="at">on</span>(<span class="st">&#39;keypress.escape&#39;</span><span class="op">,</span> <span class="kw">function</span>(e) <span class="op">{</span>
+    <span class="cf">if</span> (<span class="va">e</span>.<span class="at">keyCode</span> <span class="op">==</span> <span class="dv">27</span>) <span class="op">{</span>
+        <span class="at">closeDialog</span>()<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>ダイアログを閉じるためには<code>open</code>属性を単に取り除けば良いのですが、<code>&lt;dialog&gt;</code>を今後起動するダイアログのシンプルなプレースホルダーにしなくてはならないため、その他の属性もすべて必ず取り除きます。</p>
+<p>そして重要なのは、ダイアログが最初に開いたときにフォーカスされていた要素にフォーカスを戻すことです。トリガー要素の<code>id</code>を使って、その要素を識別します（もしidがなければ、テンポラリのidを作成して付与します）。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> trigger <span class="op">=</span> <span class="at">$</span>(<span class="kw">this</span>).<span class="at">attr</span>(<span class="st">&#39;id&#39;</span>) <span class="op">?</span> <span class="at">$</span>(<span class="kw">this</span>).<span class="at">attr</span>(<span class="st">&#39;id&#39;</span>) : <span class="st">&#39;origin&#39;</span><span class="op">;</span></code></pre></div>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>トリガーとなる要素にidがなかったときには、上記の処理に加え、要素にテンポラリな<code>id</code>（上記コードでは'<code>origin</code>'）をつける処理も必要です。
+</dd>
+</dl>
+</div>
+<p>そして、ダイアログを閉じるプロセスの最後で、フォーカスをこの要素に戻します。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="st">&#39;#&#39;</span> <span class="op">+</span> trigger).<span class="at">focus</span>()<span class="op">;</span></code></pre></div>
+<p>この方法には、スクリーンリーダーユーザーとキーボードユーザーに影響する2つのメリットがあります。</p>
+<p>1つは、ビッグレッドボタンのフォーカススタイルを復活させることで、フォーカスの存在を確認でき、フォーカスがビューポートの外部に移動していた場合でも元の位置に戻せることです。2つめは、フォーカスが戻ったことがコンテクスト内でアナウンスされることです。</p>
+<p><a href="http://heydonworks.com/practical_aria_examples/#warning-dialog">このダイアログサンプルのデモページ</a>では、ページのタイトルがアナウンスされ、続いてランドマーク位置（メイン）、さらにボタンテキストがアナウンスされます。短いセンテンスの中で、ユーザーは自身の位置を割り出すことができます。</p>
+<figure>
+<img src="img-6-3_06.png" alt="図: スクリーンリーダーに「ダイアログのデモページ、メインランドマーク、ビッグレッドボタン、ボタン」と読み上げられるボタン" /><figcaption>図: スクリーンリーダーに「ダイアログのデモページ、メインランドマーク、ビッグレッドボタン、ボタン」と読み上げられるボタン</figcaption>
+</figure>
+<p>警告は表示されましたね？　ボタンを押さないようにしましょう。</p>
+<p>それにしても、いったいぜんたい、どういう理由でこんな大きな赤いボタンを作ったんでしょうね。</p>
+</body>
+</html>

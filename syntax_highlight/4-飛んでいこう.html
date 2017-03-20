@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="github.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="飛んでいこう">4 飛んでいこう</h1>
+<p>ページ内の移動やナビゲーションについて。ページ内に目印をつけて自由に移動することを可能にする「ランドマークロール」を中心に「ロール」を解説します。</p>
+<ul>
+<li><a href="bodymatter_4_2.xhtml">4-1 分割する</a></li>
+<li><a href="bodymatter_4_3.xhtml">4-2 有名なランドマーク</a></li>
+<li><a href="bodymatter_4_4.xhtml">4-3 メインイベント</a></li>
+<li><a href="bodymatter_4_5.xhtml">4-4 見出しを忘れずに！</a></li>
+<li><a href="bodymatter_4_6.xhtml">4-5 リンクをハイジャック</a></li>
+</ul>
+<p>=======================================</p>
+<p>インターフェイスというものがいかに簡単に利用できるかを考えてみましょう。スクリーン上でさっと視線を往復させるだけで、すぐにその構造を把握することができます。そこにどれだけの情報があるか、どの部分が重要であるか、そしてどの部分を読み飛ばしたいかということが、ほとんど瞬時にしてわかります。</p>
+<p>すべてを一度に見ることができない？　そんなときはスクロールバーをつかんで、いわゆる「above the fold（スクロールしなくても見える範囲、ファーストビュー）」より下の部分を表示します。「盛りだくさんだな。ブックマークしておいて後で読もう」となります。</p>
+<figure>
+<img src="img-4_01.png" alt="図: ナビゲーションを見て回る目" /><figcaption>図: ナビゲーションを見て回る目</figcaption>
+</figure>
+<p>ページ間の移動を可能にするハイパーリンクは本質的にアクセシブルで、登場した頃からずっとアクセシブルです。ハイパーリンクはフォーカスを受け取ることができ、支援技術はその機能を「リンク」として認識します。同じ<code>&lt;a&gt;</code>（アンカー）要素で同じページの別の部分にジャンプすることもでき、ほとんどのスクリーンリーダーでは、同じページ上へのリンクがフォーカスを受け取ると「ページ内リンク」と読み上げられます。</p>
+<p>これでナビゲーションについては成功です。果たしてそうでしょうか？</p>
+<p>グリッド状に配置されたWebページの構造は、多くの人は視覚的に受け止めることができますが、目が見えない人にとっては構造になっていません。スクリーンリーダーユーザーにとってグリッドなどは存在しないのです。誰かが完璧な黄金比で作ったグリッドシステムのフレームワークも、読み込みに時間がかかるだけで、彼らにとっては何のメリットもありません。</p>
+<p>（少なくとも次の項目に視線を移すことができる）キーボードユーザーにとっても、何列にもまたがったレイアウトはありがたいものとは言えません。横向きであっても、結局のところ同じ距離を移動しなくてはなりません。</p>
+<figure>
+<img src="img-4_02.png" alt="図: Tabキーにより、多くのカラムを超えながら遠くのゴールに向かって移動する" /><figcaption>図: Tabキーにより、多くのカラムを超えながら遠くのゴールに向かって移動する</figcaption>
+</figure>
+<p>私はWebページをある程度ざっくり見て把握することができますが、制作者の思慮が十分でない場合、キーボードユーザーとスクリーンリーダーユーザーは、テキストやリンクなどがただ雑然と存在する荒地をしぶしぶ歩かされることになります。</p>
+<p>あらゆる問題と同じように、この問題も切り分ける必要があります。この場合は文字通り、ページを認識可能な領域と操作可能な領域に分けて考える必要があります。すこしばかりのARIA属性を選びセマンティックを強化したHTMLを使用することで、目には見えないアプリケーションの地図を描き始めることができます。どこに何があるかがわかれば、ユーザーはナビゲーションしやすくなるでしょう。</p>
+<p>=======================================</p>
+<h2 id="分割する">4-1 分割する</h2>
+<p>HTML5には、いくつかの新しい要素があります。<a href="http://www.w3.org/WAI/GL/wiki/Using_HTML5_section_elements">セクショニング要素</a>（<code>&lt;section&gt;</code>、<code>&lt;article&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;aside&gt;</code>）については皆さんもよくご存じでしょうが、これらの要素についてアクセシビリティという点から考えてみたことがありますか？　</p>
+<p>セクショニングコンテンツは、HTMLの3つの基本カテゴリのひとつです。フレージングコンテンツ（<code>&lt;em&gt;</code>、<code>&lt;strong&gt;</code>などのインライン要素）とフローコンテンツ（主に<code>&lt;p&gt;</code>、<code>&lt;div&gt;</code>などのブロックレベル要素）があり、そして、ページの各部分の範囲を定義するのに使用されるセクションがあります。言い換えると、小さなコンテンツ、これより大きなコンテンツ、そして範囲をもった大きな領域のコンテンツがあるということです。</p>
+<p>しっかりと構成されたWebページでは、フレージングコンテンツはフローコンテンツの中に入り、フローコンテンツはセクショニングコンテンツの中に入るはずです。HTML5のセクショニング関連要素を使用しない場合、<code>&lt;body&gt;</code>は1つの区画を囲む単一のセクションとみなすことができます。</p>
+<figure>
+<img src="img-4-1_01.png" alt="図: セクショニングコンテンツ内のフローコンテンツ内にフレージングコンテンツを表示する" /><figcaption>図: セクショニングコンテンツ内のフローコンテンツ内にフレージングコンテンツを表示する</figcaption>
+</figure>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>実際には内容モデルのフロー（flow）という分類は非常に幅広く、フレーズやセクションに属する要素は同時にフローにも属していますが、上図のフローは主に<code>&lt;p&gt;</code>、<code>&lt;div&gt;</code>などのブロックレベル要素を指しています。HTML5ではブロックという分類がなくなり、これらの要素をひとことで言い表すことが難しくなってしまいました。
+</dd>
+</dl>
+</div>
+<p>HTML5のセクショニング要素がもつ潜在的なメリットは、コンテンツを処理しやすい塊に分割できることです。JAWSスクリーンリーダーのいくつかのバージョンでは、ページ内で<code>&lt;section&gt;</code>および<code>&lt;article&gt;</code>要素に到達したときに通知が行われ、その最後に達したときには（たとえば「アーティクル終了」などのように）その終わりが通知されます。</p>
+<figure>
+<img src="img-4-1_02.png" alt="図: スクリーンリーダーがarticle要素の先頭で「アーティクル」、終端で「アーティクル終了」と読み上げる" /><figcaption>図: スクリーンリーダーがarticle要素の先頭で「アーティクル」、終端で「アーティクル終了」と読み上げる</figcaption>
+</figure>
+<p>これまで一般的だった<code>&lt;div&gt;</code>よりも、セクショニング要素のほうが優れていることは明らかです。セクショニング要素は多くの場合、耳で聞いて認識できますが、<code>&lt;div&gt;</code>は認識できません。<code>&lt;div&gt;</code>はグリッドの構築には適していますが、実際のところ、これは石積みのようなものです。支援技術のユーザーには何の意味ももたらしません。実際、セマンティックな情報を伝えることはまったく想定されていないのです。</p>
+<blockquote>
+<p>HTMLのspan要素とdiv要素は、一般的に、意味をもった現存の要素では目的を果たせない場合において、汎用的な組織化や様式の適用のために使用される。<br />
+̶ <a href="http://en.wikipedia.org/wiki/Span_and_div">Wikipedia</a></p>
+</blockquote>
+<p><code>&lt;section&gt;</code>が間違って<code>&lt;div&gt;</code>と同じ意味で使用されている場合、セクショニング要素の使用によって見込まれるメリットは、失われます。次のマークアップの例を見てください。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;outer&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;inner&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;content&quot;</span><span class="kw">&gt;</span>
+            <span class="co">&lt;!-- ここにコンテンツを記述 --&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre></div>
+<p><code>&lt;div&gt;</code>をあまり深くネストするとHTMLコードが無意味に長くなるので良くないとされていますが、<code>&lt;section&gt;</code>のネストではさらにずっと深刻な問題が発生します。少なくとも、疲れやすいスクリーンリーダーユーザーに対して、すべての余分な<code>&lt;div&gt;</code>が通知されるわけではありません！</p>
+<figure>
+<img src="img-4-1_03.png" alt="図: スクリーンリーダーの読み上げ「セクション、セクション、セクション、セクション、セクション、セクション　ようこそ!」" /><figcaption>図: スクリーンリーダーの読み上げ「セクション、セクション、セクション、セクション、セクション、セクション　ようこそ!」</figcaption>
+</figure>
+<p>このため、<a href="http://www.w3.org/html/wg/drafts/html/master/sections.html#the-section-element">HTML5.1仕様</a>（HTML5仕様の最新バージョン）が先日変更され、セクションごとの目的の強調とラベルづけに見出し（heading）を使用することが強く推奨されています。</p>
+<blockquote>
+<p>各<code>section</code>の主題は、一般に<code>section</code>要素の子として見出し（<code>h1</code> - <code>h6</code>要素）を含むことによって識別されるべきである。</p>
+</blockquote>
+<p>これに加えて、現在W3Cは、ブラウザと支援技術のベンダーに「<a href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sec-implicit-aria-semantics"><code>section</code>要素に名前がつけられている場合のみ、［中略］<code>section</code>要素が存在することを通知すること</a>」を推奨しています。制作者のミスを考慮して、この安全策が広く取り入れられることが望まれます。</p>
+<p>Webページのアクセシビリティにおける見出しの役割については、後で説明します。ここでは、NVDAおよびJAWSスクリーンリーダーのユーザーはキーボードショートカットを使用して見出し間を移動できること、これは基本的にセクション間のジャンプを意味することがわかっていれば十分です。たとえば、JAWSでは、1～6のキーがHTMLの見出し要素<code>&lt;h1&gt;</code>～<code>&lt;h6&gt;</code>に対応しています。WebAIMによって、<a href="http://webaim.org/articles/jaws/#quick">JAWSのキーボードショートカット（「ナビゲーションクイックキー」）のまとめ</a>が公開されています。</p>
+<h3 id="test.css">test.css</h3>
+<p><code>&lt;section&gt;</code>を使い過ぎていないか、また<code>&lt;div&gt;</code>のように使っていないかをチェックするには、ごく単純なルールをCSSに追加します。test.cssスタイルシートに以下を追加します。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">section &gt; section<span class="dv">:first-child:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">#fff</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：sectionがdivのように使われているようです。各sectionに見出しを追加しましょう。&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>=======================================</p>
+<h2 id="有名なランドマーク">4-2 有名なランドマーク</h2>
+<p>セクショニング要素を控えめに正しく使用したとしても、ユーザーのコンテンツの読み方を改善できるのは直線的に上から下に読む場合だけです。先述の通り、ユーザーが見出しでできることは、見出し間のジャンプと、退屈な部分を読み飛ばすことだけです。</p>
+<p>セクショニング要素は建築用のブロックのようなものです。構造を作るという点では役に立ちますが、汎用的な要素とあまり変わりません。時代遅れの<code>&lt;div&gt;</code>よりは少しましだという程度です。</p>
+<p>私たちが本当に必要としているのは、ありふれたページデザインに含まれる、きちんとしたコードによって構成されたWebページの主要コンポーネント（言うなれば有名なランドマーク）を特定する方法です。その役目を果たすのがARIAの<a href="http://www.nomensa.com/blog/2010/wai-aria-document-landmark-roles/">ランドマークロール</a>です。Webページをセクショニング要素から組み立てていくことは、レンガを積んで壁を作るのと同じことです。ランドマークの使用は、ページの骨格を構成している基本的な要素を明確にするようなものです。</p>
+<figure>
+<img src="img-4-2_01.png" alt="図: 「うんぬん」「かんぬん」のレンガを積んで壁を作る" /><figcaption>図: 「うんぬん」「かんぬん」のレンガを積んで壁を作る</figcaption>
+</figure>
+<p>ランドマークは<a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms">WCAGのガイドライン2.4</a>「ユーザーがナビゲートしたり、コンテンツを探し出したり、現在位置を確認するのを手助けする手段を提供すること」に関連しています。これから見ていくように、アプリケーションの主要な部分間をすばやく移動できるようになるので、ランドマークはWebアプリケーションのインターフェイスデザインに特に役に立ちます。</p>
+<p>ランドマークロールは以下の通りです。</p>
+<ul>
+<li><strong>banner：バナー</strong>（<code>role=&quot;banner&quot;</code>）</li>
+<li><strong>contentinfo：コンテンツ情報</strong>（<code>role=&quot;contentinfo&quot;</code>）</li>
+<li><strong>main：メイン</strong>（<code>role=&quot;main&quot;</code>）</li>
+<li><strong>navigation：ナビゲーション</strong>（<code>role=&quot;navigation&quot;</code>）</li>
+<li><strong>complementary：補足</strong>（<code>role=&quot;complementary&quot;</code>）</li>
+<li><strong>search：検索</strong>（<code>role=&quot;search&quot;</code>）</li>
+<li><strong>form：フォーム</strong>（<code>role=&quot;form&quot;</code>）</li>
+</ul>
+<p>良心的なデザイナーのおかげでこれらのランドマークがすべて含まれているページを想像してみましょう。</p>
+<figure>
+<img src="img-4-2_02.png" alt="図: ページ内のランドマークの構成図" /><figcaption>図: ページ内のランドマークの構成図</figcaption>
+</figure>
+<p>各ランドマークロールの役割は以下の通りです。</p>
+<ul>
+<li><strong>banner</strong>：ページの序文。通常はメインの<code>&lt;h1&gt;</code>見出しを、場合によっては<code>role=&quot;navigation&quot;</code>ランドマークも含みます。ページにつき1回だけ使用できます。</li>
+<li><strong>contentinfo</strong>：ページやWeb サイト全体についての情報。著作権や連絡先といった情報を配置するのに最も適した場所です。ページにつき1回だけ使用できます。</li>
+<li><strong>main</strong>：ページのメインコンテンツを配置する場所です。別のページですでにバナーを読んだユーザーは、直接ここにジャンプしたいと考えるでしょう。ページにつき1回だけ使用できます。</li>
+<li><strong>navigation</strong>：同じサイトの他のページへのリンクや、そのページの重要なセクションへのリンクを含むランドマーク。バナーやメインなどの他のランドマークの中にネストすることができます。1 ページに複数回使用できますが、使い過ぎないように注意します。リンクのリストに使用するものではありません。</li>
+<li><strong>complementary</strong>：<strong>complimentary</strong> とスペルを間違いやすいので注意。補足的またはあまり関係のない情報を配置するのに適したランドマークを構成します。HTML4の頃は、このランドマークに相当するものに<strong>sidebar</strong>というラベルをつけることもありました。ページのサイドに表示しなくてはならないという意味ではありません。例えばTwitterの最新ツイートやおすすめサイトへのリンクのリストなど、補足的なコンテンツが含まれた巨大なフッターはその一例です。このロールはHTML5の<code>&lt;aside&gt;</code>要素と対応しています。ページにつき1回のみ使用するのが最適でしょう。</li>
+<li><strong>search</strong>：サイトコンテンツの検索やフィルタを実行する、ページ内のフォームで使用する特殊なロールです。サイト全体の検索や、サイト内のセクションまたは単一ページの検索に、このロールを使用すると良いでしょう。ページにつき複数回使用することができます。</li>
+<li><strong>form</strong>：<code>&lt;form&gt;</code>に関する汎用的なロールです。ページ上でユーザーが入力を行うという、重要な領域を特定するために使用されます。シングルページアプリケーションでは、このロールによってアプリケーションのインタラクティブな部分を特定します。</li>
+</ul>
+<h3 id="テレポーテーション">テレポーテーション</h3>
+<p>ARIAのランドマークロールは、他のARIA属性と同じようにHTMLから拾い上げられ、Webブラウザを介してスクリーンリーダーに伝えられ、ページの構造に関する特別な情報が明らかになります。</p>
+<p>JAWSやNVDAといったスクリーンリーダーのベンダーはランドマーク間を移動するためのキーボードショートカットを提供しているため、ランドマークを見出しと同じように使ってナビゲーションを補助することができます。たとえばJAWS 15では、<kbd>R</kbd>キーを押すと次のランドマークに移動でき、<kbd>Shift + R</kbd>キーを押すと1つ前のランドマークに移動できます。</p>
+<p>リンク間のジャンプと比較すると、この移動は大陸間をテレポートするようなイメージです。さらに良いことに、JAWSとNVDAにはページ内のランドマークをリストアップする特別なダイアログがあり、これを使ってランドマーク間を移動することもできます。NVDAでは、<kbd>Insert + F7</kbd>キーを押すとこのダイアログにアクセスできます。他のランドマークにネストされたランドマークでも、その位置づけがわかるので便利です。</p>
+<ul>
+<pre><code>&lt;li&gt;banner
+    &lt;ul&gt;
+        &lt;li&gt;navigation&lt;/li&gt;
+        &lt;li&gt;search&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;main
+    &lt;ul&gt;
+        &lt;li&gt;navigation&lt;/li&gt;
+        &lt;li&gt;form&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;complementary&lt;/li&gt;
+&lt;li&gt;contentinfo&lt;/li&gt;</code></pre>
+</ul>
+<p>上の例では、ナビゲーションランドマークが2つ使用されていることに注目してください。これは実に合理的で、ネストすることによって、構造全体におけるさまざまなロールを定義できます。</p>
+<p>このケースでは、バナーのナビゲーションはサイトの別の場所にジャンプするもの、<strong>メイン</strong>のナビゲーションはページ上のコンテンツ間をページ内リンクで移動できるようにするものと考えられます。</p>
+<h4 id="有名なランドマークのキーボードツアー">有名なランドマークのキーボードツアー</h4>
+<p>ランドマークを表示するダイアログインターフェイスは強力なツールです。NVDAおよびJAWSのベンダーが、同じようなソリューションを実装し、それぞれの製品間をスムーズに簡単に切り替えられるようにした成果です。</p>
+<p>残念ながら、このスペシャルな機能を提供するには、スクリーンリーダーソフトウェアが実行されていなくてはならないため、キーボードユーザーはこれを利用できません。</p>
+<p>しかし心配はいりません。これについて考えた人がいます。ランドマーク（および暗黙的なランドマーク：次の項を参照）間をジャンプするためのキーボードショートカットを提供する<a href="https://github.com/davidtodd/landmarks">Firefox用の無償の拡張機能</a>があります。</p>
+<ul>
+<li><kbd>n</kbd> ̶ 次のランドマークにジャンプします。</li>
+<li><kbd>p</kbd> ̶ 前のランドマークにジャンプします。</li>
+</ul>
+<p>ボタンなどのコントロールにフォーカスを合わせると見た目が変わるように、この拡張機能でランドマークに移動すると、そのランドマークが色つきの境界線でハイライトされます。両者の違いは、ランドマークによるナビゲーションのほうがスケールがはるかに大きく、ずっと広い領域を扱えることです。アプリケーションにおいては、<code>&lt;main&gt;</code>領域を囲むランドマークに直接飛ぶことで、はるかに効率的に作業できるようになります。</p>
+<figure>
+<img src="img-4-2_03.png" alt="図: ページ内のランドマークの構成図。nまたはpキーによりフォーカスが当たった部分（この例では&quot;form&quot;）が赤色の境界線でハイライトされている" /><figcaption>図: ページ内のランドマークの構成図。nまたはpキーによりフォーカスが当たった部分（この例では&quot;form&quot;）が赤色の境界線でハイライトされている</figcaption>
+</figure>
+<h3 id="ランドマークのコーディング">ランドマークのコーディング</h3>
+<p>ARIAは<a href="http://www.w3.org/TR/wai-aria/introduction#co-evolution">橋渡しのテクノロジー</a>です。ARIAは、HTMLに足りていないアクセシブルなセマンティクスを提供するため、そしてARIA属性がHTMLの要素および属性として後に採用されることを期待して、HTMLの拡張機能として開発されました。言い換えれば、ARIAは私たちの将来に向けた、よりリッチなHTMLのプロトタイプです。</p>
+<p>時として、HTML側の表現でARIA側に追いつくことが可能になるケースがあり、これにより混乱が生じる可能性があります。いつARIAを使うのを止め、単純なHTMLを使い始めたら良いのでしょうか？　これに対する簡単な答えはありません。このため、当面の最善策は、将来的にARIAに頼らずとも意味の伝達が可能になるであろうHTMLの要素にARIA属性を記述しておくことです。</p>
+<p>たとえば、明示的なバナーロールのセマンティックな意味は、<code>&lt;body&gt;</code>の直接の子として存在する<code>&lt;header&gt;</code>要素によって伝えられる意味と同じだと考えることができます。<code>&lt;header&gt;</code>はセクションの導入に使用され、<code>&lt;body&gt;</code>は最大のセクションであるため、ブラウザは追加の指示がなくてもこの<code>&lt;header&gt;</code>をバナーとして解釈することができるはずです。しかし、（今のところは）ほとんどがそうではありません。このため、これを補助するものとしてロールを残しておくのです。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;header</span><span class="ot"> role=</span><span class="st">&quot;banner&quot;</span><span class="kw">&gt;</span> <span class="co">&lt;!-- 暗黙的/明示的バナー --&gt;</span>
+        <span class="kw">&lt;h1&gt;</span>ページタイトル<span class="kw">&lt;/h1&gt;</span>
+        <span class="kw">&lt;p&gt;</span>導入パラグラフ<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;/header&gt;</span>
+    <span class="kw">&lt;article&gt;</span>
+        <span class="kw">&lt;header&gt;</span> <span class="co">&lt;!-- ノーマルなヘッダー --&gt;</span>
+        ... 以下略...</code></pre></div>
+<p>この策は、自転車の補助輪のようなものだと考えてください。補助輪があるからといって自転車のタイヤを取り外すことはありません。補助輪は、補助輪なしで走れるようになるまで自転車のタイヤを支えるためにあるのです。W3Cは、どのHTML要素がどのARIA属性と同等であるかを示す<a href="http://www.w3.org/TR/aria-in-html/#recommendations-table">Recommendations Table</a>（対応表）を保守しています。</p>
+<figure>
+<img src="img-4-2_04.png" alt="図: ARIAはHTML5というタイヤに対する補助輪である" /><figcaption>図: ARIAはHTML5というタイヤに対する補助輪である</figcaption>
+</figure>
+<p>Léonie Watson（レオニー・ワトソン、The Paciello Groupのシニアアクセシビリティエンジニア）は「<a href="http://www.slideshare.net/LeonieWatson/generate-2013-09">Rock ‘n’ Roll Guide to HTML5 and ARIA</a>（HTML5とARIAのロックンロールガイド）」の中で、要素とロールを別々に使用しないよう警告しています。</p>
+<p>以下は正しくない使い方の例で、<code>role=&quot;navigation&quot;</code>属性と<code>&lt;nav&gt;</code>要素は同じことを意味しているので、この属性は<code>&lt;nav&gt;</code>要素に指定されるべきです。ロールと<code>&lt;nav&gt;</code>を別々にすることで、1つのランドマークに対するインジケーターが重複して作成されます。スクリーンリーダーは、「ナビゲーションランドマーク、ナビゲーションランドマーク」と読み上げるに違いありません。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;nav&gt;</span>
+    <span class="kw">&lt;ul</span><span class="ot"> role=</span><span class="st">&quot;navigation&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/nav&gt;</span></code></pre></div>
+<p>=======================================</p>
+<h2 id="メインイベント">4-3 メインイベント</h2>
+<p>メインランドマークは、固有の要素<code>&lt;main&gt;</code>が、ARIAランドマーク<code>role=&quot;main&quot;</code>をそのまま受け継いだものであるという点が特殊です。Webページやアプリケーションのメインコンテンツをマークアップするという非常に重要な役割を考慮して、その役割を果たす単独のタグが必要だという意見でまとまりました。</p>
+<blockquote>
+<p>ドキュメントのメインコンテンツの領域は、ドキュメントの中心となるトピックまたはアプリケーションの中心となる機能に、直接関連したコンテンツまたはその延長のコンテンツで構成される。<br />
+̶ <a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-main-element">W3C Editor's Draft</a></p>
+</blockquote>
+<p><code>&lt;main&gt;</code>をランドマークのひとつだと考えるにせよ、他のランドマークを設定した後に残される部分だと考えるにせよ、ブラウザが自力でページのメイン部分を判別できるほど賢くないことはすぐに明らかになりました。メインコンテンツを推測する、いわゆる<a href="https://willnorris.com/2013/07/scooby-doo-algorithm">スクービードゥーアルゴリズム</a>が提案されましたが、実験を開始するとすぐに、これはまったく役に立たないことがわかったからです。</p>
+<p><code>main</code>をマークアップするのは、HTMLは単なる手続きではなく、英語やその他の自然言語と同様、意味を表す手段だからです。人間のHTML制作者だけが、個々のセマンティック構造を理解できるのです。</p>
+<figure>
+<img src="img-4-3_01.png" alt="図: ページ内の見当違いの場所を&quot;MAIN???&quot;と指し示している様子。スクービードゥーアルゴリズムでは正確さに欠け、メインコンテンツエリアを見つけられない" /><figcaption>図: ページ内の見当違いの場所を&quot;MAIN???&quot;と指し示している様子。スクービードゥーアルゴリズムでは正確さに欠け、メインコンテンツエリアを見つけられない</figcaption>
+</figure>
+<p>アクセシビリティの中心にあるのは共感だ、とよく言われます。コンピュータには共感性はまったくありません。共感できるのは、これらのマシンに命令を与えている人間だけです。<code>&lt;main&gt;</code>要素は、ユーザーのニーズと制作者の慣習をデザインに取り込んだ、共感を仕様に落とし込んだものの代表例です。</p>
+<figure>
+<img src="img-4-3_02.png" alt="図: main要素の、IDから要素への進化。#main という猿が role=&quot;main&quot; という猿人へ、さらに &lt;main&gt; というヒトへと進化した" /><figcaption>図: main要素の、IDから要素への進化。#main という猿が role=&quot;main&quot; という猿人へ、さらに &lt;main&gt; というヒトへと進化した</figcaption>
+</figure>
+<h3 id="核心に触れる">核心に触れる</h3>
+<p><code>&lt;main&gt;</code>の主な役割は、ページ固有のコンテンツを示すことです。仕様書によれば、<code>&lt;main&gt;</code>は「そのドキュメント固有のコンテンツを含み、一連のドキュメントで繰り返されるコンテンツは除外する」とされています。</p>
+<p>キーボードユーザーとスクリーンリーダーは上から下へとドキュメントをたどること、そして共通の<code>role=&quot;banner&quot;</code>ランドマークは通常は上に置かれることに注目すると、次のような問題が見えてきます。</p>
+<ul>
+<li>ユーザーは、サイト名を何度も告げられることを求めていない。</li>
+<li>ユーザーは、お決まりのスローガンがあったとしても、何度も読むことを望んでいない。</li>
+<li>ユーザーが特に望んでいないのは、<code>&lt;iframe&gt;</code>バナー広告に何度も遭遇することである。</li>
+</ul>
+<p>「コンテンツにスキップ」などのリンクをページの最上部に含める（訪れたユーザーに最初に提示されるようにする）ことは、古くから行われている慣習です。これは、以下に定義するように、ページのメイン部分にリンクすべきです。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;main</span><span class="ot"> role=</span><span class="st">&quot;main&quot;</span><span class="ot"> id=</span><span class="st">&quot;main&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/main&gt;</span></code></pre></div>
+<p>しかし、このコーディングに関する誤りがよく見られます。スキップリンクはキーボードユーザーとスクリーンリーダーユーザー専用であるため、デザイナーはこれを必要としないユーザーには表示されないようにしようとします。最初の誤りは<code>display</code>値を<code>none</code>にすることで、視覚のあるユーザーにもスクリーンリーダーユーザーにもリンクが表示されなくなってしまいます。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="fl">.skip</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">none</span><span class="kw">;</span> <span class="co">/* 誰にも見えません */</span>
+<span class="kw">}</span></code></pre></div>
+<p>スクリーンリーダーにリンクが表示されていると錯覚させるには、<code>position:relative</code>と<code>top: -100px</code>と負の値を使用するなどして、単に画面の外に移動すると良いでしょう。もうひとつ、さらにありがちなのは、スキップリンクがキーボードユーザーに提示されないというミスです。<a href="http://davidwalsh.name/accessibility-elements">David Walsh（デビッド・ウォルシュ）のドキュメント</a>にあるように、<kbd>Tab</kbd>キーでフォーカスを取得したときに<code>position</code>の値を元に戻すことで、キーボードユーザーにリンクを表示することが可能です。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="fl">.skip</span><span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="kw">top:</span> <span class="dt">0</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>さらにリンクをわかりやすくするため、<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition">CSS3トランジション</a>を使ってスライドアニメーションしながらリンクが表示されるようにしても良いでしょう。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="fl">.skip</span> <span class="kw">{</span>
+    <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
+    <span class="kw">top:</span> <span class="dt">-100px</span><span class="kw">;</span>
+    <span class="kw">transition:</span> position <span class="dt">0.5s</span> ease<span class="kw">;</span>
+<span class="kw">}</span>
+
+a<span class="fl">.skip</span><span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="kw">top:</span> <span class="dt">0</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<figure>
+<img src="img-4-3_03.png" alt="図: ふだんは画面外にあり（a.skip）、フォーカスを取得したとき（a.skip:focus）だけ出現するスキップリンク" /><figcaption>図: ふだんは画面外にあり（a.skip）、フォーカスを取得したとき（a.skip:focus）だけ出現するスキップリンク</figcaption>
+</figure>
+<p>先述のスクリーンリーダーが提供するランドマークダイアログ、またはランドマーク拡張機能を利用すると、ユーザーを重要な部分により的確に導くことができます。しかし、これらの機能がサポートされるのは、比較的新しい環境に対して個別の設定を行ったときに限定されます。古いシステムが引き続き使えるようにするためには、このようなちょっとしたオリジナルのテクニックが役に立つことが多いのです。</p>
+<p>あなたが思いついたテクニックが広く支持され、いずれは仕様書に記載されるかもしれません。それこそがコミュニティに参加することの意義です。</p>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>実際、このようにフォーカスを受け取ると表示されるスキップリンクについて、<a href="http://www.w3.org/WAI/GL/WCAG20-TECHS/G1.html">Techniques for WCAG2.0 の Technique G1</a>に注記が追加されています。
+</dd>
+</dl>
+<p>なお、本文にもあるように、コンテンツ側でのスキップリンクの実装は、見出しやランドマークへのジャンプができない環境のためのものです。支援技術の対応が進むにつれ、スキップリンクの重要性は低下していくことでしょう。見出しやランドマークをきちんと使っておくことが重要です。</p>
+</div>
+<p>=======================================</p>
+<h2 id="見出しを忘れずに">4-4 見出しを忘れずに！</h2>
+<p>多くの人にとって、見出しの重要性を初めて知るのは、見出しがサーチエンジン最適化（SEO）に与える影響について知ったときでしょう。</p>
+<p>Googleなどのサーチエンジンがサイトの内容を判別するときは、<code>&lt;h1&gt;</code>や<code>&lt;h2&gt;</code>などの重要度の高い見出しにある単語やフレーズに、より大きなウェイトを置きます。ギターのアンプを販売するサイトを運営しているとすれば、事前対策としてメインの見出しにこのような重要な単語を置くことになります。するとGoogleは、この単語で検索を行った新進のギタリストには、このサイトがふさわしいと判断します。</p>
+<p>アクセシビリティという点では、ほんの少し話が違います。</p>
+<p><code>&lt;h1&gt;</code>のテキストはやはり重要なものとみなされますが、重要視されるのは構造的な意味からです。スクリーンリーダーが<code>&lt;h1&gt;</code>見出しを、「見出しレベル1、ギターアンプ」と読み上げたとき、第1レベルの見出しであることが述べられているため、ギターアンプが大枠のテーマであり、これにサブテーマが続くだろうということがわかります。</p>
+<figure>
+<img src="img-4-4_01.png" alt="図: 四角い箱に&lt;h1&gt;というラベルが貼ってある。見出しはコンテンツのラベルである" /><figcaption>図: 四角い箱に&lt;h1&gt;というラベルが貼ってある。見出しはコンテンツのラベルである</figcaption>
+</figure>
+<p>ランドマークのネストの場合と同様、見出しレベルによるコンテンツのネストは含むもの、含まれるものという構造を示し、ユーザーはコンテンツのどの部分がどの部分に属しているかを知ることができます。</p>
+<p>コンテキストがなければ何の意味もありません。コンテキストは構造に依存しているため、構造がユーザーの理解を助けることは明らかです。</p>
+<ul>
+<pre><code>&lt;li&gt;h1. 私がすること
+    &lt;ul&gt;
+        &lt;li&gt;h2. ギターの演奏
+            &lt;ul&gt;
+                &lt;li&gt;h3. ブルースギター&lt;/li&gt;
+                &lt;li&gt;h3. スラッジメタルギター&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;h2. 執筆
+            &lt;ul&gt;
+                &lt;li&gt;h3. HTMLについて&lt;/li&gt;
+                &lt;li&gt;h3. タイポグラフィについて&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;</code></pre>
+</ul>
+<h3 id="見出しとセクション">見出しとセクション？</h3>
+<p>セクショニング要素を使って構造を記述するようになったころ、すべての場所で<code>&lt;h1&gt;</code>見出しだけを使用し、それぞれのレベルはアルゴリズム的に計算できるのではないかと考えられていました。残念ながら、これはまったく実用的ではありませんでした。セクショニング要素をサポートしないブラウザでは機能しなかったためです。そのようなブラウザのため、そしてHTML5ページを利用するスクリーンリーダーユーザーの便益のため、<a href="http://lists.w3.org/Archives/Public/public-html/2013Feb/0125.html">W3Cの提言が変更</a>されました。</p>
+<p>先ほどの構造をセクションと見出しで表現するには、各セクションの見出しにネストのレベル（セクションそのものの等級）を示す必要があります。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;h1&gt;</span>私がすること<span class="kw">&lt;/h1&gt;</span>
+    <span class="kw">&lt;section&gt;</span>
+        <span class="kw">&lt;h2&gt;</span>ギターの演奏<span class="kw">&lt;/h2&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>ブルースギター<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>スラッジメタルギター<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;section&gt;</span>
+        <span class="kw">&lt;h2&gt;</span>執筆<span class="kw">&lt;/h2&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>HTMLについて<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>タイポグラフィについて<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;/body&gt;</span></code></pre></div>
+<p>最も重要なのは構造であるため、<a href="http://accessibilitytips.com/2008/03/10/avoid-skipping-header-levels/">見出しレベルの番号を飛ばさないように</a>しなくてはなりません。<code>&lt;h4&gt;</code>は、コンテンツの重要度が4番目だからあまり気にしなくて良いという意味ではありません。これは、第4レベルのサブセクションのラベルであり、その中の情報はやはり大切です。見出しレベルを飛ばしてしまうと（たとえば<code>&lt;h2&gt;</code>の直後に<code>&lt;h4&gt;</code>を配置してしまうと）構造に意味がなくなり、ユーザーによっては自分の現在位置がわからなくなってしまう可能性もあります。</p>
+<h3 id="救済策としての見出し">救済策としての見出し</h3>
+<p>Chapter 3「<a href="bodymatter_3_0.xhtml">WAI-ARIAの進む道</a>」で説明したように、ARIAの有用な用途のひとつとして、適切にコーディングされていないWebページの不十分なアクセシビリティを改善することがあります。</p>
+<p>Johnny Paycheck（ジョニー・ペイチェック）というプロのデザイナーが、見出しを無秩序に使ってWebサイトをコーディングしたとしましょう。たとえば、以下の<code>&lt;h2&gt;</code>は<code>&lt;h3&gt;</code>でラベルづけされた<code>&lt;section&gt;</code>の中にあります。彼のミスは、見出しの選択をフォントサイズという見た目の効果に基づいて行ったことです。彼は単に、このテキスト部分を大きくしたかっただけでした。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;</span>大きく見えるテキスト<span class="kw">&lt;/h2&gt;</span></code></pre></div>
+<p>その後、Anna Muggins（アンナ・マギンス）という別の制作者が、そのWebページのアクセシビリティを向上するという難題を引き受けました。彼女はデザイナーとしては認められていないため、スタイルシートにアクセスすることは許されていません。しかし彼女は、<code>&lt;h2&gt;</code>を階層的に正しい<code>&lt;h4&gt;</code>に変更すれば、テキストの見た目のサイズが小さくなり、関係者を怒らせることになるだろうとわかっていました。</p>
+<blockquote>
+<p>レベルの値は、深さとともに増す。DOMの系統がレベルを正確に表現しない場合は、制作者が明示的にaria-level属性を定義するべきである。<br />
+̶ <a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">WAI-ARIA 1.0</a></p>
+</blockquote>
+<p>ARIAの<code>aria-level</code>プロパティを使用することで、Annaはページの見た目を変えることなく、見出しが描写している階層どおりに基本構造を正すことができます。単に<code>&lt;h2&gt;</code>にこの属性を配置するだけで、スクリーンリーダーは<code>&lt;h2&gt;</code>を第4レベルの見出しとして記録し、通知するようになります。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2</span><span class="ot"> aria-level=</span><span class="st">&quot;4&quot;</span><span class="kw">&gt;</span>大きく見えるテキスト<span class="kw">&lt;/h2&gt;</span></code></pre></div>
+<p>Johnny Paycheckは、ビジュアルに関してはデザイナーと呼ぶにふさわしい才能をもっていますが、構造的な一貫性を生み出すことができるのは、仕様に関する知識とこのメディアへの深い理解をもったAnnaのほうです。2人のうち、デザイナーとして優れているのはAnnaです。</p>
+<p>=======================================</p>
+<h2 id="リンクをハイジャック">4-5 リンクをハイジャック</h2>
+<p>あなたがJavaScriptの初心者で、ハイパーリンクに設計上定義されている動作を意図的に無効化する、特殊なコード行を追加することができるのだと聞かされたとしましょう。まずどんな感想をもちますか？　Chapter 2「<a href="bodymatter_2_0.xhtml">ボタンのすべて</a>」に登場した、決して押してはならないビッグレッドボタンを思い出させるものがあると思いませんか？　</p>
+<p>きちんとした理由がある場合に、<code>return false</code>または<code>e.preventDefault</code>を使って、JavaScriptでハイパーリンクの通常の動作をキャンセルすることがあります。</p>
+<p>たとえばサムネイルギャラリーでは、プログレッシブエンハンスメントを使って、ユーザーの環境でJavaScriptを使えるかどうかによって、異なる方法でリンクを動作させることがあります。JavaScriptが使えない場合には、サムネイルリンクがクリックされたら単に<code>href</code>に従って大きな画像を開きま。JavaScriptが使える場合には、このデフォルトの動作は無効となり、同じページに大きな画像のポップアップを生成します。</p>
+<p>ここで<code>&lt;a&gt;</code>要素が行うアクションは、リンクよりもむしろボタンのアクションに似ています。この動作の変更を支援技術ユーザーに伝えるには、<code>button</code>ロールを追加し、JavaScriptを通じて動作を変更します。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;path/to/large/image&quot;</span><span class="ot"> role=</span><span class="st">&quot;button&quot;</span><span class="kw">&gt;</span>大きな画像<span class="kw">&lt;/a&gt;</span></code></pre></div>
+<p><a href="http://en.wikipedia.org/wiki/Progressive_enhancement#Benefits_for_accessibility">プログレッシブエンハンスメントがアクセシビリティに与えるメリット</a>は明白です。コンテンツへの基本的なアクセスが基盤であるため、セーフティーネットが提供され、取り残されるユーザーが少なくなります。通常、混乱が生じ始めるのは、デフォルトの動作を強化しようとしたときではなく、置き換えようとし始めたときです。</p>
+<p>たとえば、ページ内のアンカーに移動するスクロールの動作にアニメーションの効果を取り入れてみましょう。<a href="http://css-tricks.com/snippets/jquery/smooth-scrolling/">CSS-Tricks</a>に示されている再利用可能なjQueryを使用します。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="kw">function</span>() <span class="op">{</span>
+    <span class="at">$</span>(<span class="st">&#39;a[href*=#]:not([href=#])&#39;</span>).<span class="at">click</span>(<span class="kw">function</span>() <span class="op">{</span>
+        <span class="cf">if</span> (<span class="va">location</span>.<span class="va">pathname</span>.<span class="at">replace</span>(<span class="ss">/</span><span class="sc">^\/</span><span class="ss">/</span><span class="op">,</span><span class="st">&#39;&#39;</span>) <span class="op">==</span> <span class="kw">this</span>.<span class="va">pathname</span>.<span class="at">replace</span>(<span class="ss">/</span><span class="sc">^\/</span><span class="ss">/</span><span class="op">,</span><span class="st">&#39;&#39;</span>) <span class="op">&amp;&amp;</span> <span class="va">location</span>.<span class="at">hostname</span> <span class="op">==</span> <span class="kw">this</span>.<span class="at">hostname</span>) <span class="op">{</span>
+            <span class="kw">var</span> target <span class="op">=</span> <span class="at">$</span>(<span class="kw">this</span>.<span class="at">hash</span>)<span class="op">;</span>
+            target <span class="op">=</span> <span class="va">target</span>.<span class="at">length</span> <span class="op">?</span> target : <span class="at">$</span>(<span class="st">&#39;[name=&#39;</span> <span class="op">+</span> <span class="kw">this</span>.<span class="va">hash</span>.<span class="at">slice</span>(<span class="dv">1</span>) <span class="op">+</span><span class="st">&#39;]&#39;</span>)<span class="op">;</span>
+            <span class="cf">if</span> (<span class="va">target</span>.<span class="at">length</span>) <span class="op">{</span>
+                <span class="at">$</span>(<span class="st">&#39;html,body&#39;</span>).<span class="at">animate</span>(<span class="op">{</span>
+                    <span class="dt">scrollTop</span><span class="op">:</span> <span class="va">target</span>.<span class="at">offset</span>().<span class="at">top</span>
+                <span class="op">},</span> <span class="dv">1000</span>)<span class="op">;</span>
+                <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span>
+            <span class="op">}</span>
+        <span class="op">}</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>このコードのすばらしい点は、このjQueryコードが、正確で標準化されたマークアップに基づいてページ内リンクを作成しているところです。</p>
+<p>つまり、JavaScriptがオフになっていれば、リンクの<code>href</code>とターゲットの<code>id</code>の間にある<code>hash</code>の関係を引き続き使用し、予期した通りの動作でターゲットにジャンプできます。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="kw">&gt;</span>セクション2にジャンプ<span class="kw">&lt;/a&gt;</span>
+
+<span class="co">&lt;!-- 多くのコンテンツ --&gt;</span>
+
+<span class="co">&lt;!-- さらなるコンテンツ --&gt;</span>
+
+<span class="co">&lt;!-- さらに多くのコンテンツ --&gt;</span>
+
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h2&gt;</span>セクション2<span class="kw">&lt;/h2&gt;</span>
+    <span class="co">&lt;!-- 以下略 --&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre></div>
+<p>問題は、スクリーンリーダーユーザーは<strong>JavaScriptが使えないユーザー</strong>ではないことです。実際のところ、これから本書で見ていくアクセシブルなパターンの多くは、属性値やウィジェットのその他の特性の管理をJavaScriptに頼っています。</p>
+<p>スクリーンリーダーユーザーをJavaScriptが使えないユーザーとみなすなど勘違いもいいところで、車いすに乗った人に、「この人は耳が聞こえないのだろう」と思いこんで大声で話しかけるのと同じです。</p>
+<p>この例では、スクリーンリーダーユーザーのアクションはJavaScriptが引き受けますが、JavaScriptが行っているのはスクロールバーを動かすことだけです。スクロールバーを動かしてリンク先のアンカーを表示していますが、スクリーンリーダーが理解できるような方法で明示的にリンクしているわけではありません。このため、残念ながら新たに表示されたセクションはフォーカスを受けていません。スクリーン上に表示はされてはいますが、あまり意味がありません。厳密には移動していないのと同じです。</p>
+<figure>
+<img src="img-4-5_01.png" alt="図: JavaScriptによってスクロールしたあとの状態。多くのユーザーはスクロール後の箇所を見ているが、スクリーンリーダーのユーザーはまだスクロール前の箇所を読んでいる" /><figcaption>図: JavaScriptによってスクロールしたあとの状態。多くのユーザーはスクロール後の箇所を見ているが、スクリーンリーダーのユーザーはまだスクロール前の箇所を読んでいる</figcaption>
+</figure>
+<p>ターゲットセクションにフォーカスを合わせ、読んだり操作したりできる状態にするには、JavaScriptコードに2行を追加する必要があります。まずは、ターゲットセクションをフォーカス可能にする行です。<code>&lt;section&gt;</code>要素はデフォルトではフォーカスを受け取ることができません。フォーカスを受け取るためには、<code>tabindex</code>の値を追加し、<code>-1</code>に設定します。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">target</span>.<span class="at">attr</span>(<span class="st">&#39;tabindex&#39;</span><span class="op">,</span> <span class="st">&#39;-1&#39;</span>)<span class="op">;</span></code></pre></div>
+<p><code>-1</code>という値を見ると無効化や配列の末尾の要素を連想するかもしれませんが、この場合はJavaScriptがターゲットにフォーカスを合わせることができるという意味です。<code>tabindex=&quot;0&quot;</code>でも同じように機能しますが、こうするとユーザーもこの要素にフォーカスを合わせられるようになります。セクションは非インタラクティブであるため、これは期待される動作とは異なり、ユーザーを混乱させるおそれがあります。ただし、<code>tabindex</code>を正の整数にするよりはましでしょう。こうすると、WebAIMの<a href="http://webaim.org/techniques/keyboard/tabindex"><code>tabindex</code>に関する記事</a>で立証されているように、タブ順序がすぐにめちゃくちゃになります。</p>
+<p>追加の必要があるもうひとつの行は、クリックイベントによってスクロールされた後に、ターゲットセクションにフォーカスするものです。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">target</span>.<span class="at">focus</span>()<span class="op">;</span></code></pre></div>
+<p>セクション自体にフォーカスを合わせると、次にフォーカスできるのは同じセクションの内部にある最初のフォーカス可能な要素です。こうしないと、キーボードユーザーはこのセクションを見ているときに<kbd>Tab</kbd>キーを押した場合、前のセクションのリンクが切り替わることになってしまいます。</p>
+<h3 id="ビューの問題">ビューの問題</h3>
+<p>フォーカスに関連した問題の影響を受けるもうひとつのインターフェイスタイプは、JavaScript MV*のビューインターフェイスです。AngularJSなどの最近のJavaScriptフレームワークのナビゲーションは、1つのページ内であらゆる操作を実行し、ユーザーデータをメモリ内に保管できる「ビュー」に基づいています。ビューは、ユーザーから新しい画面が要求されるたび、その場でHTMLを再構築するように動作します。まるで新しいページが開いたように見えますが、実際にはユーザーがすでにいるページが再構築されるだけです。</p>
+<blockquote>
+<p><code>ngView</code>は、主レイアウト（<code>index.html</code>）ファイルに現在のrouteの描画されたテンプレートを含めることによって、<code>$route</code>サービスを補完するディレクティブです。<br />
+̶ <a href="http://docs.angularjs.org/api/ngRoute.directive:ngView">AngularJSドキュメント</a></p>
+</blockquote>
+<figure>
+<img src="img-4-5_02.png" alt="図: ベルトコンベアに載ったビューが、index.htmlというラベルがついた箱に収められていく" /><figcaption>図: ベルトコンベアに載ったビューが、index.htmlというラベルがついた箱に収められていく</figcaption>
+</figure>
+<p>この機能はJavaScript開発者にとっては面白いかもしれませんが、従来のアクセシブルなナビゲーションを実現しようとするブラウザにとってはまったく意味をなしません。先ほどの例のように、JavaScriptを修正するためのJavaScriptをさらに加える必要があります。<strong>いつも</strong>のことですね。</p>
+<p>ビューコンテナは変化しないので、ここに手動で<code>tabindex=&quot;-1&quot;</code>を指定します。こうすれば、必要なのは<code>$route</code>が変わった場合に、<code>focus()</code>メソッドでビューコンテナにフォーカスを合わせることだけです。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;view-container&quot;</span><span class="ot"> ng-view tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>
+    <span class="co">&lt;!-- ここでページのメインコンテンツを動的に再構築 --&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+<p>状況に応じて、スクリーンリーダーが新しいビューを検出したら、すぐにそのコンテンツの読み上げを開始できるよう、ビューコンテナを<a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions">ARIAライブリージョン</a>に変えることもできます。</p>
+<p>この場合も、やはりインタラクションのためにビューコンテナにフォーカスを合わせる必要があります。また、気をつけないと、ライブリージョンのすべてのコンテンツが立て続けに読み上げられてしまうという問題もあります。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;view-container&quot;</span><span class="ot"> ng-view tabindex=</span><span class="st">&quot;-1&quot;</span><span class="ot"> aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="kw">&gt;</span>
+    <span class="co">&lt;!-- ここでページのメインコンテンツを動的に再構築 --&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+<p>ライブリージョンについてはChapter 6「<a href="bodymatter_6_0.xhtml">生きてる！ 生きてる！</a>」で詳しく説明しますが、その前にちょっとした<strong>いないいないばあ</strong>ゲームを作成しましょう。</p>
+</body>
+</html>

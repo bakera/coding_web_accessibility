@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="github.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="ボタンのすべて">2 ボタンのすべて</h1>
+<p>もっとも頻出するコントロールである「ボタン」を題材に、「ロール（役割の定義）」「ステート（状態を伝える）」「プロパティ（情報を提供する）」というWAI-ARIAの基本を解説します。</p>
+<ul>
+<li><a href="bodymatter_2_2.xhtml">2-1 &lt;button&gt;要素</a></li>
+<li><a href="bodymatter_2_3.xhtml">2-2 ボタンのスタイル</a></li>
+<li><a href="bodymatter_2_4.xhtml">2-3 ボタンにラベルをつける</a></li>
+</ul>
+<p>=======================================</p>
+<p>どんな形であれ、ボタンが含まれていないインターフェイスがあるでしょうか？　スロットマシンからATMまで、あるいは未来の宇宙船のコンソールからiPhoneアプリまで。現実のものであれ想像上のものであれ、ほとんどのマシンにはボタンがあり、人間はマシンを動作させるため好き勝手にボタンを押します。</p>
+<p>有名な<strong>ビッグレッドボタン</strong>には、意味ありげな「押すなよ、絶対に押すなよ！」というラベルがついていますが、なじみのあるその形は魅力的で、触らずにはいられません。押せば何かが崩れるのか、それとも爆発するのかを知らんがために。</p>
+<figure>
+<img src="img-2_01.png" alt="図: ビッグレッドボタン。押したいだろうけど……「押すなよ、絶対に押すなよ!」というラベルがついている" /><figcaption>図: ビッグレッドボタン。押したいだろうけど……「押すなよ、絶対に押すなよ!」というラベルがついている</figcaption>
+</figure>
+<p>それがボタンの力です。</p>
+<p>World Wide Webは、もうずいぶん前から、ハイパーリンクと呼ばれる独特なタイプのボタンで定義されていました。このボタンを押すと、読者は相互接続されたドキュメントの連続体の中で、ある場所から別の場所へと連れて行かれます。</p>
+<p>アルファベット順でも重要さでも真っ先にくるのが<code>&lt;a&gt;</code>要素です。この要素がまさにWebを定義していると言っても過言ではないでしょう。いわば世界中の共有知識を1つにまとめる接着剤です。</p>
+<p>しかし次第に、私たちが取り組む対象は、単純なWebページではなく、Webアプリケーションに変わってきました。いつしか、単に情報を行き来するだけでなく、情報を操作するアプリケーションを構築したり、使用したりするようになっていたのです。Webアプリケーションを使用して、新しいWebアプリケーションを構築するためのWebアプリケーションを構築することさえもあります。実のところ、この文を書いているまさに今日、<a href="http://www.w3.org/WAI/intro/atag.php">ATAG</a>（Authoring Tool Accessibility Guidelines）の勧告候補が完成しました。つまり、障害をもった人々が単にWebアプリケーションを使うだけでなく、自ら作成できるようにするためのガイドラインが、W3Cによって策定されたのです。大きな一歩ですね。</p>
+<figure>
+<img src="img-2_02.png" alt="図: 複雑に相互接続されたアプリ群" /><figcaption>図: 複雑に相互接続されたアプリ群</figcaption>
+</figure>
+<p>このような標準化や、jQueryなどの使いやすいライブラリによるJavaScriptの普及によって、Web制作者はかつてないほど簡単に、いわゆるシングルページJavaScriptアプリケーションを構築できるようになりました。</p>
+<p>シングルページJavaScriptアプリケーションは、他のページとつながらず、単独で機能するインタラクティブなWebページです。ハイパーリンクが別の場所にジャンプするのに対し、JavaScriptアプリケーションが自己完結型であるとすれば、ハイパーリンクは一体どのような役割を果たすのでしょうか？</p>
+<p>実のところ、<strong>純粋</strong>なWebアプリケーションというものは存在しません。これから見ていくように、アプリケーションページの内外で、ハイパーリンクは今後も重要なナビゲーションの役割を果たします。しかし、私たちのアプリケーションでは、<strong>物事を発生させるボタン</strong>にその役割を担わせます。</p>
+<p>アクセシブルなアプリケーションは、<code>&lt;button&gt;</code>を押すところから始まります。</p>
+<p>=======================================</p>
+<h2 id="button要素">2-1 button要素</h2>
+<p>Webデザイナーの中には、ややこしい勧告を出すW3Cをわずらわしく思っている人もいます。こうしたデザイナーの中に、<a href="http://www.w3.org/TR/html5/">HTML仕様書</a>を本当に全部読んだことがある人はわずかしかいないと思いますが、確かにHTMLに関する記述の細部には難解なものもあります。しかし、<code>&lt;button&gt;</code>の仕様については、まったくそんなことはありません。</p>
+<blockquote>
+<p><a href="http://www.w3.org/TR/2011/WD-html5-20110525/the-button-element.html#the-button-element">button要素はボタンを表す。</a><br />
+― W3C</p>
+</blockquote>
+<p>この章では、WAI-ARIAのステートとプロパティを使って<code>&lt;button&gt;</code>要素を拡張し、そのさまざまな用途に関する詳細情報をアクセシブルに表現する方法を見ていきます。具体的には、押されたボタンと押されていないボタン、他の要素をコントロールするボタン、そしてアプリケーションのさまざまな部分の表示／非表示を切り替えるボタンなどです。</p>
+<p>まず、基本のボタン（アプリケーション内で何かを実行するボタン）は次のように記述します。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button&gt;</span>何かを実行<span class="kw">&lt;/button&gt;</span></code></pre></div>
+<h3 id="ボタンをアクセシブルにするには">ボタンをアクセシブルにするには？</h3>
+<p>正しいセマンティックHTMLの使用は手間がかかり難しすぎる、動作にふさわしい要素を使用することはあまり重要ではない、そんなふうに思われがちです。どのような要素でもJavaScriptでイベントを登録でき、CSSを使用してボタンに見せることができるのだから、使用する要素にこだわることは無意味なのでは？ などとも。</p>
+<figure>
+<img src="img-2-1_01.png" alt="図: 仲良し紙人形。中央がユーザー、両サイドに制作者とベンダー" /><figcaption>図: 仲良し紙人形。中央がユーザー、両サイドに制作者とベンダー</figcaption>
+</figure>
+<p>そんな気がするかもしれませんが、違います。Web標準は「取り決め」にほかなりません。この取り決めに従うことによってはじめて、処理を行い、できるだけ多くの人が予測する通りに動作させることができるのです。<code>&lt;button&gt;</code>要素に特定の動作を割り当てることによって、複数のブラウザベンダーがこの要素の表示と動作について共通の見解をもつのです。</p>
+<p>その結果、皆さんや私のような制作者は、こうした動作を引き出すためにはどの要素を使用すればよいかがわかります。私たちは、ユーザーを戸惑わせないためにも、ブラウザベンダーと連携する必要があります。取り決めがあるからこそ、ユーザーはボタンに出会ったときに、それがボタンであるとわかるのです。</p>
+<blockquote>
+<p>支援技術ベンダーが制作者およびブラウザベンダーと協力して（HTMLコンテンツをアクセシブルにするべく）標準化されたインターフェイスによって提供される情報を利用しなければ、憂き目に遭うのはユーザーです。<br />
+― <a href="http://blog.paciellogroup.com/2013/11/short-note-aria-dragon-accessibility/">Paciello Groupブログ</a></p>
+</blockquote>
+<p>ボタンの場合で言うと、ボタンコントロールとして<code>&lt;button&gt;</code>要素を正しく使用することで、2つの重要なグループに属するユーザーにメリットがあります。キーボードユーザーとスクリーンリーダーのユーザーです。<code>&lt;button&gt;</code>要素を使用することで、次のことが可能になります。</p>
+<ul>
+<li>ボタンがフォーカスを受け取る。</li>
+<li>フォーカスを受け取ったボタンをキーボードで慣習通りに操作する。</li>
+<li>スクリーンリーダーがボタンを「ボタン」として読み上げる。</li>
+</ul>
+<p>キーボードユーザーは、マウスではなくキーボードを使ってWebページをナビゲートします。好みでそうするユーザーもいるかもしれませんが、ほとんどは必要があってそうしているユーザー（マウスで正確にポイントすることが難しい人、マウスカーソルの小さな矢印がスクリーン上のどこにあるかが見えない人など）です。キーボードでWebページを利用できるようにすることは、WCAG 2.0（Web Accessibility Initiative発行の「Web Content Accessibility Guidelines」）に規定されています。</p>
+<blockquote>
+<p>すべての機能をキーボードから利用できるようにすること。<br />
+― WCAG 2.0ガイドライン2.1</p>
+</blockquote>
+<p>キーボードユーザーがボタンを動作させるためには、まずこのボタンにフォーカスを合わせなくてはなりません。要素にフォーカスを合わせることは、その要素に触れるようなものです。Webページで<kbd>Tab</kbd>キーを押すと、ページ内の次のインタラクティブ要素（ボタンなど）にフォーカスが移動します。<kbd>Enter</kbd>キーまたはスペースバーを押すと、要素がアクティブになり、イベントが実行されます。</p>
+<p>このイベントの種類はさまざまですが、ここで問題としているのは、どうしたらイベントに<strong>アクセス</strong>できるかということです。ユーザーが要素に触れることができなければ、アクションはアクセシブルにはなりません。</p>
+<figure>
+<img src="img-2-1_02.png" alt="図: 水に浮かんだスイレンの葉の間を飛ぶカエル。最後の葉まで行くために、中央の葉を通る必要がある。「僕は ここを通って こっちまで行くんだ」" /><figcaption>図: 水に浮かんだスイレンの葉の間を飛ぶカエル。最後の葉まで行くために、中央の葉を通る必要がある。「僕は ここを通って こっちまで行くんだ」</figcaption>
+</figure>
+<p>スクリーンリーダーユーザーも同様にキーボードをよく使う傾向にありますが、ボタンにフォーカスがあるかどうかを目で確認することができません。スクリーンリーダーは、ユーザーがフォーカスを合わせたとき、その要素が<code>&lt;button&gt;</code>であるかどうかを伝える必要があり、そのためにはボタンのマークアップに<code>&lt;button&gt;</code>要素を使うというのが最も簡単な方法です。</p>
+<figure>
+<img src="img-2-1_03.png" alt="スクリーンリーダーが「ボタン、保存」と読み上げるボタン" /><figcaption>スクリーンリーダーが「ボタン、保存」と読み上げるボタン</figcaption>
+</figure>
+<h3 id="ボタンのタイプ">ボタンのタイプ</h3>
+<p>これまでに述べた<code>&lt;button&gt;</code>要素に関するすばらしい情報を思うと驚くべきことですが、アプリケーションのボタンコントロールとして<code>&lt;button&gt;</code>が使われていないことも少なくありません。Webアプリケーションをよく調べてみると、ボタンが実際には<code>&lt;a&gt;</code>要素であることや、さらに悪い場合には、デフォルトではフォーカスを受け取れない<code>&lt;span&gt;</code>や<code>&lt;div&gt;</code>であることもよくあります。</p>
+<p>その主な理由は、「<code>&lt;button&gt;</code>はHTMLフォームに関連づけられているから、<code>&lt;button&gt;</code>にはフォームや送信のしくみが必要だ」と思って敬遠するデザイナーがいることです。</p>
+<p><code>&lt;button&gt;</code>がフォームやその他のフォーム要素と組み合わせて使用できることは事実です。<code>button</code>要素に<code>form</code>属性を指定して、フォームの<code>id</code>と関連づけることもあります。加えて、3つある<code>type</code>属性値の2つ、<code>submit</code>と<code>reset</code>は、明らかにフォーム内で使用するためのものです。</p>
+<p>しかし、さらに<code>button</code>という<code>type</code>属性値も提供されています。このタイプのボタンは、フォームと直接関連している必要がありません。実際、これに関し、仕様には<code>&lt;button type=&quot;button&quot;&gt;</code>について次のように記述されています。</p>
+<blockquote>
+<p><a href="http://www.w3.org/TR/2011/WD-html5-20110525/the-button-element.html#the-button-element">何もしない。</a><br />
+― W3C</p>
+</blockquote>
+<p>このため、フォームの送信やページのリロードを伴わない、キーボードで操作できるアクセシブルなコントロールを作成できます。モダンでアクセシブルなJavaScriptアプリケーション内のコントロールにはこのようなマークアップが最適であり、私たちはこれをふんだんに使っていくべきです。ボタンのタイプについて簡単にまとめると次のようになります。</p>
+<table>
+<tr>
+<th>
+<code>submit</code>
+</th>
+<td>
+フォームを送信する
+</td>
+</tr>
+<tr>
+<th>
+<code>button</code>
+</th>
+<td>
+JavaScriptイベントに適する
+</td>
+</tr>
+<tr>
+<th>
+<code>reset</code>
+</th>
+<td>
+「誰だよ！　このボタンを置いたヤツは？」
+</td>
+</tr>
+</table>
+<h4 id="test.css">test.css</h4>
+<p>ほとんどのブラウザでは、<code>&lt;form&gt;</code>の外部にある単純な<code>&lt;button&gt;</code>は、大方の制作者が意図した方法で（<strong>JavaScriptを実行するものとして</strong>）処理されます。ただし、<code>&lt;button&gt;</code>の暗黙的な<code>type</code>は<code>submit</code>であるため、ブラウザによってはフォーム内にある<code>type</code>属性をもたないボタンが<code>submit</code>ボタンとして解釈されます。しかし、心配はいりません。これはテストで見つけることができます！</p>
+<p>本書では、全体を通じて<strong>test.css</strong>という名前の特別なスタイルシートを使用して、マークアップ上のミスやアクセシビリティの問題をチェックしていきます。CSSセレクタを使用すると、HTMLの望ましくないパターンを定義し、特定することができます。ここでは、フォーム内に配置するすべてのボタンに<code>type</code>属性が明示的に指定されているかどうかをチェックします。疑似要素を使用して、不正が見つかったときにスクリーン上に警告メッセージが表示されるようにしましょう。</p>
+<p><strong>test.css</strong>ファイルに次の宣言ブロックを追加し、ページの<code>&lt;head&gt;</code>に最後のスタイルシートとしてインクルードします。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">form button<span class="dv">:not</span>(<span class="at">[type]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：このボタンにはtype属性がありません。submitですか、resetですか、単純なボタンですか？&#39;;</span>
+<span class="st">}</span></code></pre></div>
+<p>警告メッセージの見た目を変えることもできます。ここでは赤地に白いテキストにしました。</p>
+<p>=======================================</p>
+<h2 id="ボタンのスタイル">2-2 ボタンのスタイル</h2>
+<blockquote>
+<p>望む目的に最もよくかなうように、 必要な要素を組み立てる計画がデザインである。<br />
+― Charles Eames（チャールズ・イームズ）</p>
+<p>『Eames Design: The Work of the Office of Charles and Ray Eames』、1989年、John Neuhart、Charles Eames、Ray Eames、Marilyn Neuhart著</p>
+</blockquote>
+<p>これでアプリケーションにおけるボタンを作成するための正しいコードがわかりました。次は、このボタンをアピールすることを考えましょう。とは言っても、ボタンをセンスよく見せようということではなく（あまりにも醜いのは論外ですが）、ボタンが確実に見えるようにし、ユーザーの予想できる範囲で見た目を変えようということです。ボタンの見た目に関するユーザーの先入観はもちろん、ボタン自体に関する事前の理解や認識にも沿ったものにするべきです。</p>
+<p><a href="http://webaim.org/articles/cognitive/">認知障害に関するアクセシビリティ</a>は、認知機能に関する障害を医学的に診断された人だけでなく、すべての人に役立つ分野です。アクセシビリティと、もうひとつの高尚な目標である<a href="http://en.wikipedia.org/wiki/Usability">ユーザビリティ</a>を集約したものだとも言えるでしょう。</p>
+<figure>
+<img src="img-2-2_01.png" alt="図: アクセシビリティとユーザビリティのベン図。両者の円が交わるところなら、ユーザーに首を締められずに済む" /><figcaption>図: アクセシビリティとユーザビリティのベン図。両者の円が交わるところなら、ユーザーに首を締められずに済む</figcaption>
+</figure>
+<p>HTMLは「すべての人のために」あるため、優秀なアーティストでなかったとしても、ドキュメントやアプリケーションが制作できなくてはなりません。このため、CSSが関連づけられていないドキュメントに表示される<code>&lt;button&gt;</code>は、何らかの形でボタンに見えます。まったくスタイルがつけられないのではなく、制作者に代わってブラウザが無難な見た目にしてくれるということです。このため、どんな制作者でも、CSSのテクノロジーを追加で学習することなく、利用できるWebページを作成できます。</p>
+<p>機能に沿った形状を採用したボタンデザインを行えば、ユーザーの認知能力を問わず、誰にとっても使いやすいアプリケーションまたはWebサイトになります。ブラウザがデフォルトで<code>&lt;button&gt;</code>をボタンらしい見た目で表示するのはこのためです。ボタンのスタイルを変える場合は、この慣習をヒントにするのがベストでしょう。</p>
+<h3 id="押したくなるボタン">押したくなるボタン</h3>
+<p>本書の執筆時点では「<a href="http://www.smashingmagazine.com/2013/09/03/flat-and-thin-are-in/">フラットデザイン</a>」が流行しており、人気という点でも、論争という点でも頂点に達しています。フラットデザインでは、これまでのアプリケーションやWebサイトのインターフェイスに組み込まれていた影、グラデーション、テクスチャといった要素が排除されています。</p>
+<p>アプリケーションを印象的でスタイリッシュな外観に仕上げ、すっきりとさせることができるため、世界中のデザイナーがフラットデザインを採用してきました。もしくは、圧倒的な流行としてのフラットデザインに巻き込まれたかのどちらかでしょう。</p>
+<p>いずれにしても、フラットデザインには注意が必要です。インタラクションデザインとは、見た目ばかりでなく使いやすさを重視するものであり、インタラクティブコントロールが認識しやすいものであれば、その用途がわかりやすくなります。</p>
+<p>次の例では、単純な<code>border-radius</code>と<code>box-shadow</code>を使ってページから少し浮かせることで、ボタンを「ボタンらしく」見せています。スクリーン自体がフラットであることに変わりはないため、文字通りに「浮く」わけではありませんが、それらしく見えるようになります。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button <span class="kw">{</span>
+    <span class="kw">background-color:</span> DarkSlateBlue<span class="kw">;</span>
+    <span class="kw">border-radius:</span> <span class="dt">0.25em</span><span class="kw">;</span>
+    <span class="kw">box-shadow:</span> <span class="dt">0</span> <span class="dt">4px</span> <span class="dt">0</span> <span class="dt">#222</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<figure>
+<img src="img-2-2_02.png" alt="図: 「保存」というテキストノードを持つ一般的なボタン" /><figcaption>図: 「保存」というテキストノードを持つ一般的なボタン</figcaption>
+</figure>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>この例には<code>background-color</code>指定がありますが、<code>color</code>の指定がないため、このままではボタンのラベルが読めなくなることがあります。実際に使用する際には、<code>color: white</code>など、適切な文字色を指定する必要があります。
+</dd>
+</dl>
+</div>
+<h4 id="サイズとコントラスト">サイズとコントラスト</h4>
+<p>ボタンを出し惜しみすることはありません。大きくし、目立たせましょう。これにより、マウスのコントロールが難しく、かといってキーボードを使用するわけではない人々にとって、使いやすいコントロールになります。同じ理由で、<code>type</code>に<code>checkbox</code>を指定した<code>&lt;input&gt;</code>要素は、<code>&lt;label&gt;</code>で囲みます。こうすると、その入力をクリックするためのターゲットエリアが拡張されます。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> value=</span><span class="st">&quot;Yes&quot;</span> <span class="kw">/&gt;</span>同意しますか？&lt;/label&gt;</code></pre></div>
+<blockquote>
+<p>ラベルをクリックまたは押下してコントロールに割り当てられたイベントをトリガーできる機能によって、コントロールのヒット領域が増え、ユーザビリティとアクセシビリティが向上します。<br />
+― W3C、「<a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#the-label-element">label要素（The label element）</a>」</p>
+</blockquote>
+<p>ボタンの場合は、背景色で塗りつぶした単独のボックスとしてデザインされるのが一般的です。押せるものの色を統一するために、ボタンの背景色をリンクの文字色とそろえたくなることもあるでしょう。必ずしもそろえる必要はありませんが、いずれにしても、文字色と背景色の間には十分なコントラストが必要です。</p>
+<blockquote>
+<p>コンテンツを、利用者にとって見やすくしたり聞きやすくしたりすること。これには、前景と背景を区別することも含む。<br />
+― WCAG 2.0ガイドライン1.4</p>
+</blockquote>
+<figure>
+<img src="img-2-2_03.png" alt="図: ボタンの背景色とリンクの文字色に同じ色を使用している" /><figcaption>図: ボタンの背景色とリンクの文字色に同じ色を使用している</figcaption>
+</figure>
+<p>ボタンのコントラストが適切であるかどうかを簡単にチェックするには、前景と背景の色を<a href="http://leaverou.github.io/contrast-ratio/">Lea Verou（リー・ヴェルー）のツール</a>に入力するという方法があります。本書の付録では、この他にもカラーテスト（および色覚シミュレーション）用のツールを紹介しています。</p>
+<h3 id="押せるボタンが取りうる状態">押せるボタンが取りうる状態</h3>
+<p>ボタンの状態は、ボタンを押す寸前に変化します。ボタンの上にカーソルを合わせたとき（<code>:hover</code>状態）や、キーボードでフォーカスを移したとき（<code>:focus</code>状態）、これらはいずれも押す準備ができた状態だと考えられます。この2つの状態はユーザーのタイプが異なるだけで同等であるため、<a href="https://twitter.com/rogerjohansson/status/382531860686848000">Roger Johansson（ロジャー・ヨハンソン）の提言</a>に従って、スタイルシートのルールを結合することをお勧めします。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:hover</span>, button<span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="co">/* 今まさに押せる状態になったとわかる見た目にする */</span>
+<span class="kw">}</span></code></pre></div>
+<p>ほとんどのブラウザは、フォーカスの所在を示すために、ハイパーリンクに何らかのアウトライン（たとえば<code>outline: thin dotted</code>）をデフォルトで適用しています。このルールを打ち消して良いのは、目に見える形でフォーカスの見た目を変えるときだけです。破線のアウトラインは文字の形が不規則であるリンクには効果的ですが、ボタンに使用すると、ボックスの形状とラインがぴったりとくっつきすぎてわかりにくくなります。</p>
+<blockquote>
+<p>キーボード操作が可能なあらゆるユーザーインターフェイスには、フォーカスインジケータが見える操作モードがある。<br />
+― WCAG ガイドライン 2.4.7</p>
+</blockquote>
+<p>ボタンが四角形である場合、より太くてはっきりとしたアウトラインを使用することで、<code>:hover</code>および<code>:focus</code>の状態をより見やすくすることができます。もしくは、<code>background-color</code>を変えるのも効果的です。もっと凝ったことをするなら、やはり<code>outline</code>を使い、あまり知られていない<code>outline-offset</code>プロパティに命を吹き込むこともできます。</p>
+<h4 id="ボタンのアウトラインのアニメーション">ボタンのアウトラインのアニメーション</h4>
+<p>フォーカスが移ったボタンコントロールにキーボードユーザーが気づきやすくなるように、アウトラインがコントロールに少しずつ近づいてくるようにするのはどうでしょうか？　CSSトランジションを使いながら<code>outline-offset</code>プロパティを小さくすることで、まずは広く網をかけて、次第にボタンの正確な位置を示すようにできます。</p>
+<p>そのためには、最初は<code>outline-offset</code>を広く設定すると同時に、アウトラインを不可視にしておきます。ページのあちこちに大きなボックスが表示されるようなことは避けなくてはなりません。また、トランジションのタイプも定義する必要があります。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button <span class="kw">{</span>
+    <span class="kw">outline:</span> <span class="dt">2px</span> <span class="dt">solid</span> <span class="dt">transparent</span><span class="kw">;</span>
+    <span class="kw">outline-offset:</span> <span class="dt">100px</span><span class="kw">;</span>
+    <span class="kw">transition:</span> <span class="dt">0.5s</span> all ease<span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>次に、網を小さくすると同時に、アウトラインを可視にします。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="kw">outline:</span> <span class="dt">2px</span> <span class="dt">solid</span> <span class="dt">#000</span><span class="kw">;</span>
+    <span class="kw">outline-offset:</span> <span class="dt">0</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>このスタイルではフォーカス枠は点線ではなく、実線になります。フォーカスを点線にする場合は、<code>outline</code>プロパティの<code>solid</code>を<code>dotted</code>に変更してください。
+</dd>
+</dl>
+</div>
+<p><code>outline-offset</code>をサポートしないブラウザ（どうせInternet Explorerは対応していないでしょう）のユーザーには、フォーカス時に2ピクセルのアウトラインが表示され、徐々にはっきり見えてくるようになっています。</p>
+<p>CSSトランジションや<code>outline-offset</code>を利用できないユーザーにも、この厚ぼったい2ピクセルのアウトラインが表示されます。取り残されるユーザーを最小限にしようという<a href="http://www.css3.info/graceful-degradation/">グレイスフルデグラデーション</a>のアプローチです。</p>
+<figure>
+<img src="img-2-2_04.png" alt="図: ボタンに向かって収縮していくアウトライン" /><figcaption>図: ボタンに向かって収縮していくアウトライン</figcaption>
+</figure>
+<p>この<a href="http://www.heydonworks.com/article/shrinking-button-outlines">アウトラインを縮めていくアプローチ</a>は、皆さんのニーズや好みに合わないかもしれませんし、ユーザーが便利だと思うとは限りません。</p>
+<p>しかし重要なことは、アクセシビリティは必ずしも雑用ではないということです。インターフェイスデザインの楽しい部分が終わった後に残されている義務などではないのです。アクセシビリティの向上を探ってみることが、クリエイティブな成果につながることもあります。</p>
+<h4 id="アクティブな状態">アクティブな状態</h4>
+<p>ボタンのことばかりでそろそろ気味悪がられてしまいそうですが、ボタンが押されたときは見た目にも<strong>押された状態</strong>になったほうがいいですよね？　認知という観点から言うと、これは、押されていないときに表面から浮き出しているボタンが押されたときの動作として、期待される動作です。このとき役に立つのが<code>:active</code>の状態です。最初の例を元に、ボタンを押し下げたのと同じ量だけ<code>box-shadow</code>を減らすことで、ボタンが実際に押されたように見える効果を作ってみましょう。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:active</span> <span class="kw">{</span>
+    <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
+    <span class="kw">top:</span> <span class="dt">3px</span><span class="kw">;</span> <span class="co">/* 3px凹む */</span>
+    <span class="kw">box-shadow:</span> <span class="dt">0</span> <span class="dt">0</span> <span class="dt">0</span> <span class="dt">#222</span><span class="kw">;</span> <span class="co">/* 3px減（0に） */</span>
+<span class="kw">}</span></code></pre></div>
+<figure>
+<img src="img-2-2_05.png" alt="図: 一般的なボタンのアクティブスタイルである、押し込まれた状態" /><figcaption>図: 一般的なボタンのアクティブスタイルである、押し込まれた状態</figcaption>
+</figure>
+<h3 id="htmlの要素にスタイルをつける方法">HTMLの要素にスタイルをつける方法</h3>
+<p>もう説明したじゃないか、ですって？　それは、「<strong>方法</strong>」という言葉の意味によって異なります。確かに、ボタンの外観をデザインする方法については説明しましたが、実際にそのようなボタンを作る方法についてはまだ説明していません。これから説明することは、ボタンに限らず、あらゆる要素のCSSにおいて重要な内容です。</p>
+<p><a href="http://usablica.github.io/front-end-frameworks/compare.html">CSSフレームワーク</a>のスタイルのルールの多くは、CSSクラスに基づいています。実際のところ、CSSフレームワークがHTMLを大量に含んでいたら、それは純粋なCSSフレームワークとは言えないでしょう。スタイルシートで<code>.button</code>などのクラスを使うことにより、ボタンの見た目の定義を汎用的なものにすることが可能になっています。CSSフレームワークの<code>.button</code>クラスをどの要素に適用するかは、制作者次第です。</p>
+<figure>
+<img src="img-2-2_06.png" alt="図: ボタンをマークアップするのにdivを使うのは間違っている" /><figcaption>図: ボタンをマークアップするのにdivを使うのは間違っている</figcaption>
+</figure>
+<p>これは、アクセシビリティという観点からすると問題があります。これまでに見てきたように、<strong>特定の動作を表す</strong>真の<code>&lt;button&gt;</code>だけをボタンらしい見た目にするべきです。<code>&lt;span&gt;</code>、<code>&lt;a&gt;</code>、その他の要素をボタンのように見せかけるのは、ごまかしです。にもかかわらず、<code>.button</code>という暗号がこの過ちを許してしまっています。</p>
+<p>CSSクラスはアクセシブルでも非アクセシブルでもありませんが、アクセシビリティに貢献するものではありません。ボタンのスタイルを<code>&lt;button&gt;</code>要素に限定することで、見た目がボタンであるものをボタンらしく動作させます。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.button</span> <span class="kw">{</span>
+    <span class="co">/* このスタイルは何にでも適用可 :-/ */</span>
+<span class="kw">}</span>
+
+button <span class="kw">{</span>
+    <span class="co">/* ボタンのみに適用されるスタイル */</span>
+<span class="kw">}</span></code></pre></div>
+<h4 id="ボタンの無効化">ボタンの無効化</h4>
+<p>これまで述べてきたように、アクセシブルなHTMLには要素だけでなく、要素の属性も関連しています。次はまさにそのための特別な属性について見ていきましょう。属性では、見た目だけでなく、指定された要素の動作も定義できます。<code>disabled</code>属性の場合でいうと、その目的は、有効になっているボタンならではの特徴の大部分を取り除くことです。安全のために銃から弾薬を外しておくのと同じことです。</p>
+<p><code>.button</code>と同じように、クラスを使ってボタンを無効に見せることには落とし穴があります。<code>.disabled</code>クラスと<code>.off</code>クラスは、どちらを選んだとしても、無効に見せかけるだけです。やはり、個別の<code>disabled</code>属性にまだ働いてもらわねばなりません。</p>
+<figure>
+<img src="img-2-2_07.png" alt="図: 無効化されたボタン「まあだだよ」" /><figcaption>図: 無効化されたボタン「まあだだよ」</figcaption>
+</figure>
+<p>クラスを使って要素の見た目だけを無効にする場合は、2つの危険が伴います。</p>
+<ol type="1">
+<li>すべての要素を無効にできるわけではない。</li>
+<li>無効にできる要素についても、適切に無効にすることはできない。</li>
+</ol>
+<p>話になりませんね。ボタンを無効にする唯一の方法は要素に<code>disabled</code>属性を含めることであり、ハイパーリンクを無効にする唯一の方法は<code>href</code>属性を取り除くことです。したがって、CSSは次のようになります。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[disabled]</span>, a<span class="dv">:not</span>(<span class="at">[href]</span>) <span class="kw">{</span>
+    <span class="co">/* disabled属性をもつすべての要素およびhref属性をもたないリンク用のスタイル */</span>
+<span class="kw">}</span></code></pre></div>
+<h4 id="test.css-1">test.css</h4>
+<p><code>href</code>のないリンクは、<code>disabled</code>を含むボタンのように、フォーカスを受け取らないし、受け取るべきではありません。それでも、 <code>href</code>をもたない<code>&lt;a&gt;</code>要素に<code>.button</code>クラスを使用し、きちんと機能する有効なボタンを作成したのだと勘違いしてしまう制作者はいなくならないでしょう。いま私の言ったことが何のことだかわからないという方は、心配いりません。あなたは正しい認識をもっているはずです。しかし、これまでに私がこのような間違いを何度見てきた（そして犯してきた）ことでしょうか！　</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="co">&lt;!-- 機能するボタンではなく無効なリンク --&gt;</span>
+<span class="kw">&lt;a</span><span class="ot"> class=</span><span class="st">&quot;button&quot;</span><span class="kw">&gt;</span>押してください<span class="kw">&lt;/a&gt;</span></code></pre></div>
+<p>それでは<strong>test.css</strong>ファイルに新しいルールを追加して、不適切なところに<code>.button</code>クラスを追加していないか、要素を正しく無効化しているかどうかをチェックしましょう。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.button</span><span class="dv">:not</span>(button)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：ここでは要素をボタンのような外観にしようとしています。この要素は本当にボタンですか？&#39;;</span>
+<span class="st">}</span>
+
+<span class="st">button.disabled:not([disabled]):after,</span>
+<span class="st">a.disabled[href]:after {</span>
+<span class="st">    background: red;</span>
+<span class="st">    color: white;</span>
+<span class="st">    content: &#39;</span>警告：要素が無効であるかのようなスタイルを設定しようとしています。この要素がきちんと無効化されていることを確認してください。<span class="st">&#39;;</span>
+<span class="st">}</span></code></pre></div>
+<p>=======================================</p>
+<h2 id="ボタンにラベルをつける">2-3 ボタンにラベルをつける</h2>
+<p>ここまではボタンのデザインに夢中になりすぎて、これが見えない人もいるのだということをすっかり忘れていました。こうした人々（とそれ以外のすべての人々）に、個々のボタンの目的を伝えるにはどうしたらよいでしょうか？　その答えは、単純に言えば「言葉で」、専門用語を使えば「<code>&lt;button&gt;</code>要素のテキストノードで」となります。WebAIMによる、<a href="http://webaim.org/techniques/forms/controls#button">アクセシブルなフォームにするためのガイド</a>には、ボタンにテキストを含めることの重要性について、これ以上ないほどはっきりと明記されています。</p>
+<blockquote>
+<p>入力ボタンのvalue属性と<code>&lt;button&gt;</code>要素に含まれたテキストは、ボタンにアクセスしたときにスクリーンリーダーによって読み上げられます。これらを空にしておくことは、あってはなりません。</p>
+</blockquote>
+<p>スクリーンリーダーは通常、フォーカスのあるコントロールが実際にボタンであることを通知した後に、そのボタンのラベルを読み上げます。たとえば「ボタン、保存」のように。</p>
+<p>意図的に推測ゲームを作ろうとしているのでない限り、単に「ボタン」であるという通知だけでは、アクセシビリティの観点からするとほめられたものではありません。たとえば、Victor Tsaran（ビクター・ツァラン）による<a href="https://www.youtube.com/watch?v=StI0iIufJzk">サウスウエスト航空のiPhoneアプリのテスト</a>では、画面の各コントロールが単に「ボタン」としか読み上げられていません。彼は最後に、「もうサウスウエストに用はないな」と顔をしかめています。</p>
+<p>ただし、ボタンにラベルをつける方法はテキストノードだけではありません。基本的にはそうであるべきなのでしょうが、実際はそうではないのです。たとえば「元に戻す」操作を示すカーブした左向きの矢印などの<code>&lt;img&gt;</code>要素をテキストの代わりに<code>&lt;button&gt;</code>の中に含めて、わかりやすいシンボルを表示することもできます。</p>
+<p>このような場合、次の2つの備えが必要です。</p>
+<ol type="1">
+<li>シンボルを理解できない人（そんなもん、わからなくて当然！）にテキストでヒントを提供するため、ツールチップを追加する。</li>
+<li>スクリーンリーダーユーザー向けにボタンの説明をテキストで提供するため、<code>alt</code>属性をもたせる。</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;undo_icon.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;元に戻す&quot;</span> <span class="kw">/&gt;&lt;/button&gt;</span>
+<span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;tooltip hidden&quot;</span><span class="kw">&gt;</span>元に戻す<span class="kw">&lt;/p&gt;</span></code></pre></div>
+<p><strong>注</strong>： JavaScriptで表示するツールチップよりも、代わりに標準の<code>title</code>属性を使用したほうが効率的と思えるかもしれません。しかし、<code>title</code>が表示されるのはhover時だけであり、フォーカス時には表示されないため、キーボードユーザーにとってはアクセシブルではありません。もちろん、使用するツールチップライブラリの作者がフォーカスイベントを考慮していない可能性もありますが、その場合は次のようにして調整することができます。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:hover</span> + <span class="fl">.tooltip</span>, button<span class="dv">:focus</span> + <span class="fl">.tooltip</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>Chapter 5「<a href="bodymatter_5_0.xhtml">いないいないばあ</a>」では、アクセシブルなWAI-ARIAベースのツールチップについてさらに見ていきます。</p>
+<p><code>alt</code>テキストは、標準のテキストラベルとして読めるであろうものを指定することが重要です。「元に戻す」ならよいのですが、「元に戻す矢印の絵」というのはナンセンスです。これは、機能を表現する代替手段であり、見えないものを説明するためのものではありません。</p>
+<h3 id="ariaによるラベルづけ">ARIAによるラベルづけ</h3>
+<blockquote>
+<p>すべての非テキストコンテンツには、拡大印刷、点字、音声、シンボル、平易な言葉などの利用者が必要とする形式に変換できるように、代替テキストを提供すること。<br />
+― WCAG 2.0ガイドライン1.1</p>
+</blockquote>
+<p>ここで初めてWeb Accessibility InitiativeのARIAが登場します。ARIA（Accessible Rich Internet Applications）は、<code>aria-label</code>と<code>aria-labelledby</code>という、フォームにアクセシブルなテキストを付与するための2つの方法を提供しています。前者は値にラベルテキストを含む属性であり、後者はテキストを含む他の要素を参照します。</p>
+<p>ARIAがこれらのプロパティを提供している目的は、読み上げのための追加のテキストコンテンツや足りないテキストコンテンツを提供することによってスクリーンリーダーのアクセシビリティを向上することです。</p>
+<p>ARIAプロパティおよびそのWebアプリケーションのアクセシビリティに対する貢献については、次の章でさらに詳しく見ていきます。</p>
+<h4 id="aria-label">aria-label</h4>
+<p>次の例では、アイコンフォントでアイコンを表現するために、特なUnicode 文字を使います。Unicode符号位置が<a href="http://en.wikipedia.org/wiki/Private_Use_Areas">私用領域（PUA）</a>にあるため、特定の意味はなく、読み上げることはできません。<code>aria-label</code>の値は、このような場合に読み上げるべき文字を追加します。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="co">&lt;!-- aria-labelのサンプル --&gt;</span>
+<span class="kw">&lt;button</span><span class="ot"> aria-label=</span><span class="st">&quot;元に戻す&quot;</span><span class="kw">&gt;</span><span class="dv">&amp;#xE000;</span><span class="kw">&lt;/button&gt;</span></code></pre></div>
+<figure>
+<img src="img-2-3_01.png" alt="図: aria-labelによって、スクリーンリーダーが「ボタン、元に戻す」と読み上げるボタン" /><figcaption>図: aria-labelによって、スクリーンリーダーが「ボタン、元に戻す」と読み上げるボタン</figcaption>
+</figure>
+<h4 id="aria-labelledby">aria-labelledby</h4>
+<p>この例では、ちょっとした説明文を使って、ユーザーにボタンの使い方を案内します。この説明文では元に戻すボタンについて言及されているため、元に戻すボタンとその説明との関係（リレーションシップ）をアクセシブルな方法でコーディングします。具体的には、説明文の<code>id</code>を使います。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>直前の操作を元に戻すには<span class="kw">&lt;strong</span><span class="ot"> id=</span><span class="st">&quot;undo-text&quot;</span><span class="kw">&gt;</span>元に戻す<span class="kw">&lt;/strong&gt;</span>ボタンを押します。<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;button</span><span class="ot"> aria-labelledby=</span><span class="st">&quot;undo-text&quot;</span><span class="kw">&gt;</span><span class="dv">&amp;#xE000;</span><span class="kw">&lt;/button&gt;</span></code></pre></div>
+<p>リレーションシップについては、本書の後半でさらに詳しく説明します。今のところ、<code>aria-label</code>と<code>aria-labelledby</code>は対症療法に過ぎず、ほかに選択肢がない場合に使うということだけを覚えておいてください。テキストラベルを含んだ魅力的なボタンの方が好ましいでしょう。</p>
+<h3 id="用語選択">用語選択</h3>
+<p>ユーザビリティと同様、アクセシビリティの要は慣習です。実際、そもそも先ほどのボタンの目的を伝えるために「元に戻す」の矢印を使ったのは、これがシンボリックだからという理由です。つまり、ボタンの意味が伝わったのは、カーブした左向きの矢印が操作の取り消しを示すという慣習があるからです。</p>
+<p>考えてみれば（特に、右から左へと読み進める言語もあることを考慮すれば）、操作の取り消しをもっとうまく表す方法もあるでしょう。しかし、カーブした左向きの矢印は一般に広まった慣習であり、もっと普遍的なシンボルがありそうではあっても、鼻であしらわれることもないのです。私たち皆がその意味に同意したということです。</p>
+<blockquote>
+<p>「クリエイティビティ」はできの悪いデザイナーに任せましょう。ここは人と違うことをやる場所ではないのです。慣習があるならば、それを使います。<br />
+― <a href="http://www.markboulton.co.uk/journal/icons-symbols-and-a-semiotic-web">Mark Boulton（マーク・ボルトン）</a></p>
+</blockquote>
+<p>言葉も、<a href="http://en.wikipedia.org/wiki/Pictogram">ピクトグラム</a>のようにシンボリックになりえます。慣習的な言葉を使って一般的なアクションを表すことはクリエイティブではないかもしれませんが、ユーザーが経験する<a href="http://www.nngroup.com/articles/navigation-cognitive-strain/">認知的緊張</a>が軽減されるため、そのユーザビリティはとても優れています。</p>
+<ul>
+<li><strong>保管</strong>ではなく<strong>保存</strong></li>
+<li><strong>破棄</strong>ではなく<strong>削除</strong></li>
+<li><strong>入れ替え</strong>ではなく<strong>編集</strong></li>
+</ul>
+<figure>
+<img src="img-2-3_02.png" alt="図: 送信ボタンのラベル。「送信」なら「よし、そうしよう」となる。「やってみよう！」だと「変わった言い回しはしないでくれよ」となる" /><figcaption>図: 送信ボタンのラベル。「送信」なら「よし、そうしよう」となる。「やってみよう！」だと「変わった言い回しはしないでくれよ」となる</figcaption>
+</figure>
+<h3 id="test.css-2">test.css</h3>
+<p>ここでtest.cssファイルにもうひとつのルールを加えましょう。この宣言ブロックは、一連のセレクタを使用して、Webページのボタンに、少なくとも何らかの方法でアクセシビリティを考慮したラベルがつけられているかどうかをチェックします。</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="dv">:empty:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>)<span class="dv">:after</span>,
+button<span class="dv">:empty:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>)<span class="dv">:after</span>,
+button<span class="dv">:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>) img<span class="dv">:only-child:not</span>(<span class="at">[alt]</span>)<span class="dv">:after</span>,
+a<span class="dv">:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>) img<span class="dv">:</span>onlychild<span class="dv">:not</span>(<span class="at">[alt]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;このボタンに関する情報が十分ではありません。ボタンの中にテキストを含めてください。&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>上のコードは、かみ砕いて言うと、「ボタンにコンテンツがない場合でかつアクセシブルなARIAラベルがない場合は、警告を表示する」という処理を行っています。また、「ボタンにコンテンツがあり、それが単なる画像である場合でかつ画像にalt属性がない場合は、警告を表示する」という処理も行っています。CSSの見た目は悪くなりますが、ラベルをチェックするうえで役に立つでしょう。</p>
+<div class="notice" markdown="1">
+<dl>
+<dt>訳注</dt>
+<dd>残念ながら、画像を使用している場合の警告表示は、ほとんどのモダンブラウザで機能しません。このCSSでは<code>img</code>要素に対して<code>:after</code>擬似要素を使っていますが、<code>:after</code>擬似要素は要素内容の末尾にノードを追加するため、置換要素である<code>img</code>要素に警告のテキストを挿入することはできません。機能させたければ、CSSを調整して他の場所に表示させる必要があるでしょう。
+</dd>
+</dl>
+</div>
+</body>
+</html>
