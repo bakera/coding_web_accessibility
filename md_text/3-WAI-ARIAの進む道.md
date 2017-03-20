@@ -58,9 +58,7 @@ ARIAによって、HTMLの意味（セマンティクス）を変更したり、
 
 この`<div>`がチェックボックスとして認識されるようにするためには、属性として[ARIAのチェックボックスのロール](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_checkbox_role)を追加します。こうすると、スクリーンリーダーに標準のチェックボックスであるかのように認識させることができます。加えて、チェックボックスが実際にチェックされているかどうかを示すために、`aria-checked`属性を使用する必要があります。
 
-```HTML
-<div class="toggle-thingy" role="checkbox" aria-checked="false" tabindex="0">Yes?</div>
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;toggle-thingy&quot;</span><span class="ot"> role=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> aria-checked=</span><span class="st">&quot;false&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>Yes?<span class="kw">&lt;/div&gt;</span></code></pre></div>
 
 この情報は、本来なら正規の`input`要素、`type`属性、`checked`属性を使って伝えるほうがよいでしょう。（比較的最近のものである）ARIAよりもサポートが充実しており、さらに`input`は前章のセマンティックな`<button>`と同じく、自動的にフォーカス可能となります（`tabindex`を必要としません）。とはいえ、アプリケーションのデザインを乱したくない場合などは、このようにARIAを使って迅速にマークアップを修正することができます。
 
@@ -70,15 +68,13 @@ ARIAによって、HTMLの意味（セマンティクス）を変更したり、
 
 例として、[ARIAの`aria-haspopup`属性](http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup)を見ていきましょう。これは、非表示のサブメニューをもつ特定の要素のプロパティです。このプロパティは`<a>`や`<button>`に指定され、この特殊な属性がなければ、サブメニューが存在していても、そのヒントは何も示されないのです。スクリーンリーダーのユーザーに与えられる情報は、これですべてとなります。
 
-```HTML
-<li>
-	<a href="#submenu" aria-haspopup="true" aria-controls="submenu">メインリンク</a>
-	<ul id="submenu">
-		<li><a href="/somehwere/">サブメニューリンク</a></li>
-		<li><a href="/somehwere/else/">もうひとつのリンク</a></li>
-	</ul>
-</li>
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;li&gt;</span>
+    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#submenu&quot;</span><span class="ot"> aria-haspopup=</span><span class="st">&quot;true&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;submenu&quot;</span><span class="kw">&gt;</span>メインリンク<span class="kw">&lt;/a&gt;</span>
+    <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;submenu&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/somehwere/&quot;</span><span class="kw">&gt;</span>サブメニューリンク<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/somehwere/else/&quot;</span><span class="kw">&gt;</span>もうひとつのリンク<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/li&gt;</span></code></pre></div>
 
 次の章「飛んでいこう」で扱うように、これらのARIA属性の一部は、単純なHTMLの要素と属性で置き換えられると予想されています。たとえば、本書の執筆時点では、ARIAのロール属性である`dialog`と`alertdialog`の後継として、[`<dialog>`要素が徐々に採用されつつあります](https://twitter.com/stevefaulkner/status/413263499863658496)。
 
@@ -153,30 +149,24 @@ Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたた�
 
 [Web Componentsとしてツールバーを作成](http://www.techrepublic.com/blog/web-designer/learn-more-about-web-components-with-thesedemos/)しない限り、HTMLに`<toolbar>`要素に該当するものはありません。ツールバーに対する標準の要素はないため、どんな場合でも、ツールバーのコンテナ（親）となる要素に`toolbar`ロールを含める必要があります。次のようにして、ウィジェットの範囲を示します。
 
-```HTML
-<div role="toolbar">
-	/* ツールバーの機能をここに記述 */
-</div>
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="kw">&gt;</span>
+    /* ツールバーの機能をここに記述 */
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
 
 **注**：`<menu>`要素という、`type`属性値に`toolbar`という値を指定できる要素がありますが、[この要素はまだブラウザには採用されていない](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu)ので、これを使って必要な情報を提供することはできません。
 
 コンテンツへの影響を視覚的な関係性として表すデザインにより、ツールバーの機能は一目瞭然なはずです。しかし、それだけでは耳で聞いて理解することはできないため、おなじみの`aria-label`プロパティを使ってツールバーに名前をつけなくてはなりません。ここまでで、1つのロールと1つのプロパティを指定しました。
 
-```HTML
-<div role="toolbar" aria-label="並び替えオプション">
-	/* ツールバーの機能をここに記述 */
-</div>
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="kw">&gt;</span>
+    /* ツールバーの機能をここに記述 */
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
 
 次に、コントロールとなるボタンを追加しましょう。
 
-```HTML
-<div role="toolbar" aria-label="並び替えオプション">
-	<button>昇順</button>
-	<button>降順</button>
-</div>
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
 
 ウィジェットにプロパティとステートをこれ以上追加しなくても、既にツールバーの認識を改善することができています。NVDAスクリーンリーダー使用時、またはJAWSスクリーンリーダーとFirefoxの組み合わせ使用時にユーザーが最初のボタンにフォーカスを移動すると、現在位置がツールバーの中であること、そして（`aria-label`のおかげで）その機能が読み上げられます。
 
@@ -186,21 +176,19 @@ Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたた�
 
 今のところ、ツールバーとそれがコントロールするコンテンツとを実際には関連づけていません。そのためには、要素間の関係を伝える特殊なタイプのプロパティであるリレーションシップ属性を使う必要があります。ここで作成しているウィジェットは、コンテンツをコントロールし、これを操作して並び替えるものですので、`aria-controls`を使いましょう。先ほどのポップアップメニューの例で行ったように、`id`値を使って関連づけていきます。
 
-```HTML
-<div role="toolbar" aria-label="並び替えオプション" aria-controls="sortable">
-	<button>昇順</button>
-	<button>降順</button>
-</div>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
 
-<ul id="sortable">
-	<li>Fiddler crab（シオマネキ）</li>
-	<li>Hermit crab（ヤドカリ）</li>
-	<li>Red crab（コシオレガニ）</li>
-	<li>Robber crab（ヤシガニ）</li>
-	<li>Sponge crab（カイカムリ）</li>
-	<li>Yeti crab（キワ・ヒルスタ）</li>
-</ul>
-```
+<span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）&lt;/li&gt;
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
 
 個々のボタンではなく、ツールバーそのものに`aria-controls`を追加していることに注目してください。どちらに追加することも可能ですが、1回だけ指定するほうが簡潔になりますし、いずれの場合も、ボタンはそれぞれ、ツールバーに属する独立したコンポーネントとみなされることになります。
 
@@ -233,30 +221,26 @@ Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたた�
 
 ここは`aria-pressed`ステートの使いどころです。押されているボタンには`true`、押されていないボタンには`false`の値を指定します。すでに説明したようにステートは動的なもので、JavaScriptで切り替えます。ページを読み込むときに、最初のボタンを`true`に設定しておきます。
 
-```HTML
-<div role="toolbar" aria-label="並び替えオプション" aria-controls="sortable">
-	<button aria-pressed="true">昇順</button>
-	<button aria-pressed="false">降順</button>
-</div>
-<ul id="sortable">
-	<li>Fiddler crab（シオマネキ）</li>
-	<li>Hermit crab（ヤドカリ）</li>
-	<li>Red crab（コシオレガニ）</li>
-	<li>Robber crab（ヤシガニ）</li>
-	<li>Sponge crab（カイカムリ）</li>
-	<li>Yeti crab（キワ・ヒルスタ）</li>
-</ul>
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）&lt;/li&gt;
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
 
 前の章で作成したアクティブな（`:active`）ボタンのスタイル、`aria-pressed`ボタンのスタイルを合わせてみるのも良いでしょう。一時的か半永久的かという違いはありますが、どちらも**押された**ボタンを表します。
 
-```CSS
-button:active, button[aria-pressed="true"] {
-	position: relative;
-	top: 3px; /* 3px凹む */
-	box-shadow: 0 1px 0 #222; /* 2px減（1pxに） */
-}
-```
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:active</span>, button<span class="at">[aria-pressed=</span><span class="st">&quot;true&quot;</span><span class="at">]</span> <span class="kw">{</span>
+    <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
+    <span class="kw">top:</span> <span class="dt">3px</span><span class="kw">;</span> <span class="co">/* 3px凹む */</span>
+    <span class="kw">box-shadow:</span> <span class="dt">0</span> <span class="dt">1px</span> <span class="dt">0</span> <span class="dt">#222</span><span class="kw">;</span> <span class="co">/* 2px減（1pxに） */</span>
+<span class="kw">}</span></code></pre></div>
 
 ![図: ボタンが押下されている表示により状態を表す、「昇順」「降順」と書かれた2つのトグルボタン。昇順ボタンにフォーカスを移動し押下すると、スクリーンリーダーは「並び替えオプション、2個のボタンのあるツールバー、昇順、押されました」と読み上げる](img-3-3_03.png)
 
@@ -274,23 +258,19 @@ Chromeブラウザの[ChromeVox](http://www.chromevox.com/)スクリーンリー
 
 その目的は、ユーザーが並び替えオプションを選択した後、リストに直接移動できるようにすることです。複数のボタンがあるツールバーでは、こうすることで、リストにたどり着くまで並んでいるボタンの数だけタブキーを押す、ということを避けられます。
 
-```HTML
-<div role="toolbar" aria-label="並び替えオプション" aria-controls="sortable">
-	<button aria-pressed="true">昇順</button>
-	<button aria-pressed="false">降順</button>
-</div>
-<ul id="sortable" tabindex="-1">
-	<li>Fiddler crab（シオマネキ）</li>
-	<li>Hermit crab（ヤドカリ）</li>
-	<li>Red crab（コシオレガニ）</li>
-	<li>Robber crab（ヤシガニ）</li>
-	<li>Sponge crab（カイカムリ）</li>
-	<li>Yeti crab（キワ・ヒルスタ）</li>
-</ul>
-```
-```JavaScript
-$(listToSort).focus();
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）&lt;/li&gt;
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(listToSort).<span class="at">focus</span>()<span class="op">;</span></code></pre></div>
 
 <div class="notice" markdown="1">
 訳注
@@ -321,9 +301,7 @@ ARIAを使用する目的がHTMLコードの改善、拡張であることはす
 
 ことによると、新しいHTML属性のサポートが、ARIAの該当する属性のサポートほど広がっていない場合もあります。たとえば、[数年前に行ったテスト](http://wps.pearsoned.com/wps/media/objects/8956/9171771/aria-required.html)では、`required`がスクリーンリーダーとブラウザのすべての組み合わせでサポートされておらず、`aria-required`のほうが広くサポートされている、という結果が出ています。当面のところ、両方の属性を含めるという二重の安全策をとることで、互換性を最大にしておいたほうが良いでしょう。インターオペラビリティ（相互運用性）の最大化については、本書の後半でも取り上げます。
 
-```HTML
-<input type="text" id="text-entry" required aria-required="true" />
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> id=</span><span class="st">&quot;text-entry&quot;</span><span class="ot"> required aria-required=</span><span class="st">&quot;true&quot;</span> <span class="kw">/&gt;</span></code></pre></div>
 
 ### ARIA使用の2番目のルール
 
@@ -333,9 +311,7 @@ ARIAを使用する目的がHTMLコードの改善、拡張であることはす
 
 Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」でクリック可能な見出しを作成するときは、代わりにJavaScriptを使用し、見出しの子として`<button>`を配置します。重要であることに変わりのない見出しのセマンティクスは残したままにするのです。これをW3Cの勧告に従って正確に書くと以下のようになります。
 
-```HTML
-<h1><button>見出しボタン</button></h1>
-```
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h1&gt;&lt;button&gt;</span>見出しボタン<span class="kw">&lt;/button&gt;&lt;/h1&gt;</span></code></pre></div>
 
 ### ARIA使用の3番目のルール
 
