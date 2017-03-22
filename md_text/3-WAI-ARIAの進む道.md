@@ -182,12 +182,12 @@ Chapter5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたたみ
 <span class="kw">&lt;/div&gt;</span>
 
 <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
-    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）<span class="kw">&lt;/li&gt;</span>
 <span class="kw">&lt;/ul&gt;</span></code></pre></div>
 
 個々のボタンではなく、ツールバーそのものに`aria-controls`を追加していることに注目してください。どちらに追加することも可能ですが、1回だけ指定するほうが簡潔になりますし、いずれの場合も、ボタンはそれぞれ、ツールバーに属する独立したコンポーネントとみなされることになります。
@@ -226,12 +226,12 @@ Chapter5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたたみ
     <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
 <span class="kw">&lt;/div&gt;</span>
 <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
-    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）<span class="kw">&lt;/li&gt;</span>
 <span class="kw">&lt;/ul&gt;</span></code></pre></div>
 
 前の章で作成したアクティブな（`:active`）ボタンのスタイル、`aria-pressed`ボタンのスタイルを合わせてみるのも良いでしょう。一時的か半永久的かという違いはありますが、どちらも**押された**ボタンを表します。
@@ -263,12 +263,12 @@ Chromeブラウザの[ChromeVox](http://www.chromevox.com/)スクリーンリー
     <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
 <span class="kw">&lt;/div&gt;</span>
 <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>
-    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）&lt;/li&gt;
-    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）&lt;/li&gt;
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）<span class="kw">&lt;/li&gt;</span>
 <span class="kw">&lt;/ul&gt;</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(listToSort).<span class="at">focus</span>()<span class="op">;</span></code></pre></div>
 
