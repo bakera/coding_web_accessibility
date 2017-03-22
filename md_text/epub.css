@@ -298,7 +298,18 @@ margin-left:1em;
 }
 
 /* 追加 */
-
+nav.toc h2{
+margin-top: 0;
+font-size:1.8em;
+}
+nav.toc ol{
+margin:0;
+padding:0;
+}
+nav.toc ol ol{
+padding-left:1.4em;
+list-style-type:disc;
+}
 blockquote {
 border-style:solid;
 border-width:0 0 0 2px;
@@ -329,6 +340,7 @@ margin-top: 0;
 pre {
   background-color: #f8f8f8;
   border: 1px solid #cccccc;
+  white-space: pre-wrap;
 	border-radius: 3px;
 	line-height: 1.5;
 	padding:0.6em 1em;
