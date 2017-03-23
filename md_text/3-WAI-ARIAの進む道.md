@@ -198,7 +198,7 @@ Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたた�
 
 <div class="notice" markdown="1">
 訳注
-: WAI-ARIAでは、各ロールに派生関係が定義されています。`toolbar`ロールは`group`ロールのサブクラスで、`roletype→structure→section→group→toolbar`という派生関係があります。`aria-controls`プロパティはどのロールにも適用できるグローバルなロールで、`roletype`から継承されています。
+: WAI-ARIAでは、各ロールに派生関係が定義されています。`toolbar`ロールは`group`ロールのサブクラスで、`roletype`→`structure`→`section`→`group`→`toolbar`という派生関係があります。`aria-controls`プロパティはどのロールにも適用できるグローバルなロールで、`roletype`から継承されています。
 </div>
 
 <div class="notice" markdown="1">
@@ -206,13 +206,13 @@ Chapter 5「[いないいないばあ](bodymatter_5_0.xhtml)」で折りたた�
 : 各ロールには、継承された"Inherited States and Properties"以外にも、ロール固有の"Supported States and Properties"が定義されていることがありますので、合わせて確認する必要があります。また、プロパティとステートの一覧"[Supported States and Properties](http://www.w3.org/TR/wai-aria/states_and_properties)"から、対応するロールを逆引きすることもできますので、こちらも確認しておくと良いでしょう。
 </div>
 
-このリレーションシップの情報をほとんど明らかにしないスクリーンリーダーもありますが、読み上げるものもあります。実際、JAWSはコントロールする要素にフォーカスを移動するためのキーボードコマンドを「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」のようにアナウンスします。関わりを持った相手については詳しく知りたくなるものです。JAWSはその手助けをしてくれます。
+このリレーションシップの情報をほとんど明らかにしないスクリーンリーダーもありますが、読み上げるものもあります。実際、JAWSはコントロールする要素にフォーカスを移動するためのキーボードコマンドを「use the JAWS key + ALT + M to move to the controlled element」のようにアナウンスします。関わりを持った相手については詳しく知りたくなるものです。JAWSはその手助けをしてくれます。
 
 ![図: aria-controls属性によって、ツールバーと、それに制御されるコンテンツとの関係性が示される。昇順ボタンにフォーカスを移動すると、スクリーンリーダーは"use the JAWS key + ALT + M to move to the controlled element"と読み上げる。そこからJAWSキー + alt + Mというコマンドによって、関連付けられたコンテンツに移動できる](img-3-3_02.png)
 
 <div class="notice" markdown="1">
 訳注
-: JAWS14日本語版でも、英語で「use the <kbd>JAWS key + ALT + M</kbd> to move to the controlled element」とアナウンスされます。
+: JAWS14日本語版でも、英語で「use the JAWS key + ALT + M to move to the controlled element」とアナウンスされます。
 </div>
 
 ### 押された状態と押されていない状態

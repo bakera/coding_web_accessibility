@@ -298,6 +298,9 @@ margin-left:1em;
 }
 
 /* 追加 */
+table th{
+  font-weight: normal;
+}
 nav.toc h2{
 margin-top: 0;
 font-size:1.8em;
