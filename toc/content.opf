@@ -7,9 +7,6 @@
 <dc:title id="title1" xml:lang="ja">コーディングWebアクセシビリティ</dc:title>
 <meta refines="#title1" property="title-type">main</meta>
 <meta refines="#title1" property="display-seq">1</meta>
-<dc:title id="title2" xml:lang="ja">WAI-ARIAで実現するマルチデバイス環境のWebアプリケーション</dc:title>
-<meta refines="#title2" property="title-type">subtitle</meta>
-<meta refines="#title2" property="display-seq">2</meta>
 
 <dc:creator id="creator1" xml:lang="ja">ヘイドン・ピカリング</dc:creator>
 <meta refines="#creator1" property="alternate-script" xml:lang="en">Heydon Pickering</meta>
