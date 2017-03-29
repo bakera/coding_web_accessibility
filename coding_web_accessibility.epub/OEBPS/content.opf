@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="identifier0" version="3.0" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+<dc:identifier id="unique-id">urn:uuid:73efd69f-a8d9-485a-ad63-193677828d80</dc:identifier>
+<meta refines="#unique-id" property="identifier-type" scheme="xsd:string">uuid</meta>
+
+<dc:title id="title1" xml:lang="ja">コーディングWebアクセシビリティ</dc:title>
+<meta refines="#title1" property="title-type">main</meta>
+<meta refines="#title1" property="display-seq">1</meta>
+
+<dc:creator id="creator1" xml:lang="ja">ヘイドン・ピカリング</dc:creator>
+<meta refines="#creator1" property="alternate-script" xml:lang="en">Heydon Pickering</meta>
+<meta refines="#creator1" property="role" scheme="marc:relators">aut</meta>
+<meta refines="#creator1" property="file-as">Heydon Pickering</meta>
+<dc:creator id="creator2" xml:lang="ja">太田良典</dc:creator>
+<meta refines="#creator2" property="alternate-script" xml:lang="en">Yoshinori Ohta</meta>
+<meta refines="#creator2" property="role" scheme="marc:relators">trl</meta>
+<meta refines="#creator2" property="file-as">Ohta, Yoshinori</meta>
+<dc:creator id="creator3" xml:lang="ja">伊原力也</dc:creator>
+<meta refines="#creator3" property="alternate-script" xml:lang="en">Rikiya Ihara</meta>
+<meta refines="#creator3" property="role" scheme="marc:relators">trl</meta>
+<meta refines="#creator3" property="file-as">Ihara, Rikiya</meta>
+
+<dc:publisher id="publisher" xml:lang="ja">株式会社ボーンデジタル</dc:publisher>
+<meta refines="#publisher" property="alternate-script" xml:lang="en">Born Digital, Inc</meta>
+
+<dc:format>application/epub+zip</dc:format>
+<dc:language>ja</dc:language>
+
+<meta property="ibooks:specified-fonts">true</meta>
+<dc:date id="date">2017-03-30T00:00:00Z</dc:date>
+<meta refines="#date" property="dcterms:created" scheme="dcterms:W3CDTF">2017-03-30T00:00:00Z</meta>
+<meta property="dcterms:modified">2017-03-30T00:00:00Z</meta>
+
+<dc:source id="src-id">urn:isbn:978-4-86246-266-4</dc:source>
+<meta refines="#src-id" property="source-of">pagination</meta>
+
+<meta name="cover" content="_cover.png" />
+</metadata>
+<manifest>
+<item media-type="text/css" href="style.css" id="_style.css" />
+<item media-type="image/png" href="cover.png" id="_cover.png" properties="cover-image" />
+<item media-type="text/css" href="template.css" id="_template.css" />
+<item media-type="application/xhtml+xml" href="cover.xhtml" id="_cover.xhtml" properties="svg" />
+<item media-type="application/xhtml+xml" href="nav.xhtml" id="_nav.xhtml" properties="nav" />
+<item media-type="application/xhtml+xml" href="bodymatter_0_0.xhtml" id="_bodymatter_0_0.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_0_1.xhtml" id="_bodymatter_0_1.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_0_2.xhtml" id="_bodymatter_0_2.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_1_0.xhtml" id="_bodymatter_1_0.xhtml" />
+<item media-type="image/png" href="img-1_01.png" id="_img-1_01.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_1_1.xhtml" id="_bodymatter_1_1.xhtml" />
+<item media-type="image/png" href="img-1-1_01.png" id="_img-1-1_01.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_1_2.xhtml" id="_bodymatter_1_2.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_1_3.xhtml" id="_bodymatter_1_3.xhtml" />
+<item media-type="image/png" href="img-1-3_02.png" id="_img-1-3_02.png" />
+<item media-type="image/png" href="img-1-3_01.png" id="_img-1-3_01.png" />
+<item media-type="image/png" href="img-1-3_03.png" id="_img-1-3_03.png" />
+<item media-type="image/png" href="img-1-3_04.png" id="_img-1-3_04.png" />
+<item media-type="image/png" href="img-1-3_05.png" id="_img-1-3_05.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_1_4.xhtml" id="_bodymatter_1_4.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_2_0.xhtml" id="_bodymatter_2_0.xhtml" />
+<item media-type="image/png" href="img-2_01.png" id="_img-2_01.png" />
+<item media-type="image/png" href="img-2_02.png" id="_img-2_02.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_2_1.xhtml" id="_bodymatter_2_1.xhtml" />
+<item media-type="image/png" href="img-2-1_01.png" id="_img-2-1_01.png" />
+<item media-type="image/png" href="img-2-1_02.png" id="_img-2-1_02.png" />
+<item media-type="image/png" href="img-2-1_03.png" id="_img-2-1_03.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_2_2.xhtml" id="_bodymatter_2_2.xhtml" />
+<item media-type="image/png" href="img-2-2_01.png" id="_img-2-2_01.png" />
+<item media-type="image/png" href="img-2-2_02.png" id="_img-2-2_02.png" />
+<item media-type="image/png" href="img-2-2_03.png" id="_img-2-2_03.png" />
+<item media-type="image/png" href="img-2-2_04.png" id="_img-2-2_04.png" />
+<item media-type="image/png" href="img-2-2_05.png" id="_img-2-2_05.png" />
+<item media-type="image/png" href="img-2-2_06.png" id="_img-2-2_06.png" />
+<item media-type="image/png" href="img-2-2_07.png" id="_img-2-2_07.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_2_3.xhtml" id="_bodymatter_2_3.xhtml" />
+<item media-type="image/png" href="img-2-3_01.png" id="_img-2-3_01.png" />
+<item media-type="image/png" href="img-2-3_02.png" id="_img-2-3_02.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_2_4.xhtml" id="_bodymatter_2_4.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_3_0.xhtml" id="_bodymatter_3_0.xhtml" />
+<item media-type="image/png" href="img-3_01.png" id="_img-3_01.png" />
+<item media-type="image/png" href="img-3_02.png" id="_img-3_02.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_3_1.xhtml" id="_bodymatter_3_1.xhtml" />
+<item media-type="image/png" href="img-3-1_01.png" id="_img-3-1_01.png" />
+<item media-type="image/png" href="img-3-1_02.png" id="_img-3-1_02.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_3_2.xhtml" id="_bodymatter_3_2.xhtml" />
+<item media-type="image/png" href="img-3-2_01.png" id="_img-3-2_01.png" />
+<item media-type="image/png" href="img-3-2_02.png" id="_img-3-2_02.png" />
+<item media-type="image/png" href="img-3-2_03.png" id="_img-3-2_03.png" />
+<item media-type="image/png" href="img-3-2_04.png" id="_img-3-2_04.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_3_3.xhtml" id="_bodymatter_3_3.xhtml" />
+<item media-type="image/png" href="img-3-3_01.png" id="_img-3-3_01.png" />
+<item media-type="image/png" href="img-3-3_02.png" id="_img-3-3_02.png" />
+<item media-type="image/png" href="img-3-3_03.png" id="_img-3-3_03.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_3_4.xhtml" id="_bodymatter_3_4.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_3_5.xhtml" id="_bodymatter_3_5.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_4_0.xhtml" id="_bodymatter_4_0.xhtml" />
+<item media-type="image/png" href="img-4_01.png" id="_img-4_01.png" />
+<item media-type="image/png" href="img-4_02.png" id="_img-4_02.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_4_1.xhtml" id="_bodymatter_4_1.xhtml" />
+<item media-type="image/png" href="img-4-1_01.png" id="_img-4-1_01.png" />
+<item media-type="image/png" href="img-4-1_02.png" id="_img-4-1_02.png" />
+<item media-type="image/png" href="img-4-1_03.png" id="_img-4-1_03.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_4_2.xhtml" id="_bodymatter_4_2.xhtml" />
+<item media-type="image/png" href="img-4-2_01.png" id="_img-4-2_01.png" />
+<item media-type="image/png" href="img-4-2_02.png" id="_img-4-2_02.png" />
+<item media-type="image/png" href="img-4-2_03.png" id="_img-4-2_03.png" />
+<item media-type="image/png" href="img-4-2_04.png" id="_img-4-2_04.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_4_3.xhtml" id="_bodymatter_4_3.xhtml" />
+<item media-type="image/png" href="img-4-3_01.png" id="_img-4-3_01.png" />
+<item media-type="image/png" href="img-4-3_02.png" id="_img-4-3_02.png" />
+<item media-type="image/png" href="img-4-3_03.png" id="_img-4-3_03.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_4_4.xhtml" id="_bodymatter_4_4.xhtml" />
+<item media-type="image/png" href="img-4-4_01.png" id="_img-4-4_01.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_4_5.xhtml" id="_bodymatter_4_5.xhtml" />
+<item media-type="image/png" href="img-4-5_01.png" id="_img-4-5_01.png" />
+<item media-type="image/png" href="img-4-5_02.png" id="_img-4-5_02.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_4_6.xhtml" id="_bodymatter_4_6.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_5_0.xhtml" id="_bodymatter_5_0.xhtml" />
+<item media-type="image/png" href="img-5_01.png" id="_img-5_01.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_5_1.xhtml" id="_bodymatter_5_1.xhtml" />
+<item media-type="image/png" href="img-5-1_01.png" id="_img-5-1_01.png" />
+<item media-type="image/png" href="img-5-1_02.png" id="_img-5-1_02.png" />
+<item media-type="image/png" href="img-5-1_03.png" id="_img-5-1_03.png" />
+<item media-type="image/png" href="img-5-1_04.png" id="_img-5-1_04.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_5_2.xhtml" id="_bodymatter_5_2.xhtml" />
+<item media-type="image/png" href="img-5-2_01.png" id="_img-5-2_01.png" />
+<item media-type="image/png" href="img-5-2_02.png" id="_img-5-2_02.png" />
+<item media-type="image/png" href="img-5-2_03.png" id="_img-5-2_03.png" />
+<item media-type="image/png" href="img-5-2_04.png" id="_img-5-2_04.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_5_3.xhtml" id="_bodymatter_5_3.xhtml" />
+<item media-type="image/png" href="img-5-3_01.png" id="_img-5-3_01.png" />
+<item media-type="image/png" href="img-5-3_02.png" id="_img-5-3_02.png" />
+<item media-type="image/png" href="img-5-3_03.png" id="_img-5-3_03.png" />
+<item media-type="image/png" href="img-5-3_04.png" id="_img-5-3_04.png" />
+<item media-type="image/png" href="img-5-3_05.png" id="_img-5-3_05.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_5_4.xhtml" id="_bodymatter_5_4.xhtml" />
+<item media-type="image/png" href="img-5-4_01.png" id="_img-5-4_01.png" />
+<item media-type="image/png" href="img-5-4_02.png" id="_img-5-4_02.png" />
+<item media-type="image/png" href="img-5-4_03.png" id="_img-5-4_03.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_5_5.xhtml" id="_bodymatter_5_5.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_6_0.xhtml" id="_bodymatter_6_0.xhtml" />
+<item media-type="image/png" href="img-6_01.png" id="_img-6_01.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_6_1.xhtml" id="_bodymatter_6_1.xhtml" />
+<item media-type="image/png" href="img-6-1_01.png" id="_img-6-1_01.png" />
+<item media-type="image/png" href="img-6-1_02.png" id="_img-6-1_02.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_6_2.xhtml" id="_bodymatter_6_2.xhtml" />
+<item media-type="image/png" href="img-6-2_01.png" id="_img-6-2_01.png" />
+<item media-type="image/png" href="img-6-2_02.png" id="_img-6-2_02.png" />
+<item media-type="image/png" href="img-6-2_03.png" id="_img-6-2_03.png" />
+<item media-type="image/png" href="img-6-2_04.png" id="_img-6-2_04.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_6_3.xhtml" id="_bodymatter_6_3.xhtml" />
+<item media-type="image/png" href="img-6-3_01.png" id="_img-6-3_01.png" />
+<item media-type="image/png" href="img-6-3_02.png" id="_img-6-3_02.png" />
+<item media-type="image/png" href="img-6-3_03.png" id="_img-6-3_03.png" />
+<item media-type="image/png" href="img-6-3_04.png" id="_img-6-3_04.png" />
+<item media-type="image/png" href="img-6-3_05.png" id="_img-6-3_05.png" />
+<item media-type="image/png" href="img-6-3_06.png" id="_img-6-3_06.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_6_4.xhtml" id="_bodymatter_6_4.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_7_0.xhtml" id="_bodymatter_7_0.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_7_1.xhtml" id="_bodymatter_7_1.xhtml" />
+<item media-type="image/png" href="img-7_01.png" id="_img-7_01.png" />
+<item media-type="application/xhtml+xml" href="bodymatter_7_2.xhtml" id="_bodymatter_7_2.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_7_3.xhtml" id="_bodymatter_7_3.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_7_4.xhtml" id="_bodymatter_7_4.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_7_5.xhtml" id="_bodymatter_7_5.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_7_6.xhtml" id="_bodymatter_7_6.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_8_0.xhtml" id="_bodymatter_8_0.xhtml" />
+<item media-type="application/xhtml+xml" href="bodymatter_8_1.xhtml" id="_bodymatter_8_1.xhtml" />
+<item media-type="application/x-dtbncx+xml" href="toc.ncx" id="_toc.ncx" />
+</manifest>
+<spine page-progression-direction="ltr" toc="_toc.ncx">
+<itemref idref="_cover.xhtml" linear="no" />
+<itemref idref="_nav.xhtml" />
+<itemref idref="_bodymatter_0_0.xhtml" />
+<itemref idref="_bodymatter_0_1.xhtml" />
+<itemref idref="_bodymatter_0_2.xhtml" />
+<itemref idref="_bodymatter_1_0.xhtml" />
+<itemref idref="_bodymatter_1_1.xhtml" />
+<itemref idref="_bodymatter_1_2.xhtml" />
+<itemref idref="_bodymatter_1_3.xhtml" />
+<itemref idref="_bodymatter_1_4.xhtml" />
+<itemref idref="_bodymatter_2_0.xhtml" />
+<itemref idref="_bodymatter_2_1.xhtml" />
+<itemref idref="_bodymatter_2_2.xhtml" />
+<itemref idref="_bodymatter_2_3.xhtml" />
+<itemref idref="_bodymatter_2_4.xhtml" />
+<itemref idref="_bodymatter_3_0.xhtml" />
+<itemref idref="_bodymatter_3_1.xhtml" />
+<itemref idref="_bodymatter_3_2.xhtml" />
+<itemref idref="_bodymatter_3_3.xhtml" />
+<itemref idref="_bodymatter_3_4.xhtml" />
+<itemref idref="_bodymatter_3_5.xhtml" />
+<itemref idref="_bodymatter_4_0.xhtml" />
+<itemref idref="_bodymatter_4_1.xhtml" />
+<itemref idref="_bodymatter_4_2.xhtml" />
+<itemref idref="_bodymatter_4_3.xhtml" />
+<itemref idref="_bodymatter_4_4.xhtml" />
+<itemref idref="_bodymatter_4_5.xhtml" />
+<itemref idref="_bodymatter_4_6.xhtml" />
+<itemref idref="_bodymatter_5_0.xhtml" />
+<itemref idref="_bodymatter_5_1.xhtml" />
+<itemref idref="_bodymatter_5_2.xhtml" />
+<itemref idref="_bodymatter_5_3.xhtml" />
+<itemref idref="_bodymatter_5_4.xhtml" />
+<itemref idref="_bodymatter_5_5.xhtml" />
+<itemref idref="_bodymatter_6_0.xhtml" />
+<itemref idref="_bodymatter_6_1.xhtml" />
+<itemref idref="_bodymatter_6_2.xhtml" />
+<itemref idref="_bodymatter_6_3.xhtml" />
+<itemref idref="_bodymatter_6_4.xhtml" />
+<itemref idref="_bodymatter_7_0.xhtml" />
+<itemref idref="_bodymatter_7_1.xhtml" />
+<itemref idref="_bodymatter_7_2.xhtml" />
+<itemref idref="_bodymatter_7_3.xhtml" />
+<itemref idref="_bodymatter_7_4.xhtml" />
+<itemref idref="_bodymatter_7_5.xhtml" />
+<itemref idref="_bodymatter_7_6.xhtml" />
+<itemref idref="_bodymatter_8_0.xhtml" />
+<itemref idref="_bodymatter_8_1.xhtml" />
+</spine>
+<guide>
+<reference type="cover" title="表紙" href="cover.xhtml" />
+<reference type="toc" title="目次" href="nav.xhtml" />
+<reference type="text" title="本文" href="bodymatter_0_0.xhtml" />
+</guide>
+</package>

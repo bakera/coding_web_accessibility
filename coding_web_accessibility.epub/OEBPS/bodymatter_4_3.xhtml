@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>4-2 有名なランドマーク</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">4-2 有名なランドマーク</h2>
+
+<p>セクショニング要素を控えめに正しく使用したとしても、ユーザーのコンテンツの読み方を改善できるのは直線的に上から下に読む場合だけです。先述の通り、ユーザーが見出しでできることは、見出し間のジャンプと、退屈な部分を読み飛ばすことだけです。</p>
+
+<p>セクショニング要素は建築用のブロックのようなものです。構造を作るという点では役に立ちますが、汎用的な要素とあまり変わりません。時代遅れの<code>&lt;div&gt;</code>よりは少しましだという程度です。</p>
+
+<p>私たちが本当に必要としているのは、ありふれたページデザインに含まれる、きちんとしたコードによって構成されたWebページの主要コンポーネント（言うなれば有名なランドマーク）を特定する方法です。その役目を果たすのがARIAの<a href="http://www.nomensa.com/blog/2010/wai-aria-document-landmark-roles/">ランドマークロール</a>です。Webページをセクショニング要素から組み立てていくことは、レンガを積んで壁を作るのと同じことです。ランドマークの使用は、ページの骨格を構成している基本的な要素を明確にするようなものです。</p>
+
+<p><img src="img-4-2_01.png" alt="図: 「うんぬん」「かんぬん」のレンガを積んで壁を作る" /></p>
+
+<p>ランドマークは<a href="http://www.w3.org/TR/WCAG20/#navigation-mechanisms">WCAGのガイドライン2.4</a>「ユーザーがナビゲートしたり、コンテンツを探し出したり、現在位置を確認するのを手助けする手段を提供すること」に関連しています。これから見ていくように、アプリケーションの主要な部分間をすばやく移動できるようになるので、ランドマークはWebアプリケーションのインターフェイスデザインに特に役に立ちます。</p>
+
+<p>ランドマークロールは以下の通りです。</p>
+
+<ul>
+<li><strong>banner：バナー</strong>（<code>role="banner"</code>）</li>
+<li><strong>contentinfo：コンテンツ情報</strong>（<code>role="contentinfo"</code>）</li>
+<li><strong>main：メイン</strong>（<code>role="main"</code>）</li>
+<li><strong>navigation：ナビゲーション</strong>（<code>role="navigation"</code>）</li>
+<li><strong>complementary：補足</strong>（<code>role="complementary"</code>）</li>
+<li><strong>search：検索</strong>（<code>role="search"</code>）</li>
+<li><strong>form：フォーム</strong>（<code>role="form"</code>）</li>
+</ul>
+
+<p>良心的なデザイナーのおかげでこれらのランドマークがすべて含まれているページを想像してみましょう。</p>
+
+<p><img src="img-4-2_02.png" alt="図: ページ内のランドマークの構成図" /></p>
+
+<p>各ランドマークロールの役割は以下の通りです。</p>
+
+<ul>
+<li><strong>banner</strong>：ページの序文。通常はメインの<code>&lt;h1&gt;</code>見出しを、場合によっては<code>role="navigation"</code>ランドマークも含みます。ページにつき1回だけ使用できます。</li>
+<li><strong>contentinfo</strong>：ページやWeb サイト全体についての情報。著作権や連絡先といった情報を配置するのに最も適した場所です。ページにつき1回だけ使用できます。</li>
+<li><strong>main</strong>：ページのメインコンテンツを配置する場所です。別のページですでにバナーを読んだユーザーは、直接ここにジャンプしたいと考えるでしょう。ページにつき1回だけ使用できます。</li>
+<li><strong>navigation</strong>：同じサイトの他のページへのリンクや、そのページの重要なセクションへのリンクを含むランドマーク。バナーやメインなどの他のランドマークの中にネストすることができます。1 ページに複数回使用できますが、使い過ぎないように注意します。リンクのリストに使用するものではありません。</li>
+<li><strong>complementary</strong>：<strong>complimentary</strong> とスペルを間違いやすいので注意。補足的またはあまり関係のない情報を配置するのに適したランドマークを構成します。HTML4の頃は、このランドマークに相当するものに<strong>sidebar</strong>というラベルをつけることもありました。ページのサイドに表示しなくてはならないという意味ではありません。例えばTwitterの最新ツイートやおすすめサイトへのリンクのリストなど、補足的なコンテンツが含まれた巨大なフッターはその一例です。このロールはHTML5の<code>&lt;aside&gt;</code>要素と対応しています。ページにつき1回のみ使用するのが最適でしょう。</li>
+<li><strong>search</strong>：サイトコンテンツの検索やフィルタを実行する、ページ内のフォームで使用する特殊なロールです。サイト全体の検索や、サイト内のセクションまたは単一ページの検索に、このロールを使用すると良いでしょう。ページにつき複数回使用することができます。</li>
+<li><strong>form</strong>：<code>&lt;form&gt;</code>に関する汎用的なロールです。ページ上でユーザーが入力を行うという、重要な領域を特定するために使用されます。シングルページアプリケーションでは、このロールによってアプリケーションのインタラクティブな部分を特定します。</li>
+</ul>
+
+<h3 id="toc_index_2">テレポーテーション</h3>
+
+<p>ARIAのランドマークロールは、他のARIA属性と同じようにHTMLから拾い上げられ、Webブラウザを介してスクリーンリーダーに伝えられ、ページの構造に関する特別な情報が明らかになります。</p>
+
+<p>JAWSやNVDAといったスクリーンリーダーのベンダーはランドマーク間を移動するためのキーボードショートカットを提供しているため、ランドマークを見出しと同じように使ってナビゲーションを補助することができます。たとえばJAWS 15では、<kbd>R</kbd>キーを押すと次のランドマークに移動でき、<kbd>Shift + R</kbd>キーを押すと1つ前のランドマークに移動できます。</p>
+
+<p>リンク間のジャンプと比較すると、この移動は大陸間をテレポートするようなイメージです。さらに良いことに、JAWSとNVDAにはページ内のランドマークをリストアップする特別なダイアログがあり、これを使ってランドマーク間を移動することもできます。NVDAでは、<kbd>Insert + F7</kbd>キーを押すとこのダイアログにアクセスできます。他のランドマークにネストされたランドマークでも、その位置づけがわかるので便利です。</p>
+
+<ul>
+    <li>banner
+        <ul>
+            <li>navigation</li>
+            <li>search</li>
+        </ul>
+    </li>
+    <li>main
+        <ul>
+            <li>navigation</li>
+            <li>form</li>
+        </ul>
+    </li>
+    <li>complementary</li>
+    <li>contentinfo</li>
+</ul>
+
+<p>上の例では、ナビゲーションランドマークが2つ使用されていることに注目してください。これは実に合理的で、ネストすることによって、構造全体におけるさまざまなロールを定義できます。</p>
+
+<p>このケースでは、バナーのナビゲーションはサイトの別の場所にジャンプするもの、<strong>メイン</strong>のナビゲーションはページ上のコンテンツ間をページ内リンクで移動できるようにするものと考えられます。</p>
+
+<h4 id="toc_index_3">有名なランドマークのキーボードツアー</h4>
+
+<p>ランドマークを表示するダイアログインターフェイスは強力なツールです。NVDAおよびJAWSのベンダーが、同じようなソリューションを実装し、それぞれの製品間をスムーズに簡単に切り替えられるようにした成果です。</p>
+
+<p>残念ながら、このスペシャルな機能を提供するには、スクリーンリーダーソフトウェアが実行されていなくてはならないため、キーボードユーザーはこれを利用できません。</p>
+
+<p>しかし心配はいりません。これについて考えた人がいます。ランドマーク（および暗黙的なランドマーク：次の項を参照）間をジャンプするためのキーボードショートカットを提供する<a href="https://github.com/davidtodd/landmarks">Firefox用の無償の拡張機能</a>があります。</p>
+
+<ul>
+<li><kbd>n</kbd> ̶ 次のランドマークにジャンプします。</li>
+<li><kbd>p</kbd> ̶ 前のランドマークにジャンプします。</li>
+</ul>
+
+<p>ボタンなどのコントロールにフォーカスを合わせると見た目が変わるように、この拡張機能でランドマークに移動すると、そのランドマークが色つきの境界線でハイライトされます。両者の違いは、ランドマークによるナビゲーションのほうがスケールがはるかに大きく、ずっと広い領域を扱えることです。アプリケーションにおいては、<code>&lt;main&gt;</code>領域を囲むランドマークに直接飛ぶことで、はるかに効率的に作業できるようになります。</p>
+
+<p><img src="img-4-2_03.png" alt="図: ページ内のランドマークの構成図。nまたはpキーによりフォーカスが当たった部分（この例では&quot;form&quot;）が赤色の境界線でハイライトされている" /></p>
+
+<h3 id="toc_index_4">ランドマークのコーディング</h3>
+
+<p>ARIAは<a href="http://www.w3.org/TR/wai-aria/introduction#co-evolution">橋渡しのテクノロジー</a>です。ARIAは、HTMLに足りていないアクセシブルなセマンティクスを提供するため、そしてARIA属性がHTMLの要素および属性として後に採用されることを期待して、HTMLの拡張機能として開発されました。言い換えれば、ARIAは私たちの将来に向けた、よりリッチなHTMLのプロトタイプです。</p>
+
+<p>時として、HTML側の表現でARIA側に追いつくことが可能になるケースがあり、これにより混乱が生じる可能性があります。いつARIAを使うのを止め、単純なHTMLを使い始めたら良いのでしょうか？　これに対する簡単な答えはありません。このため、当面の最善策は、将来的にARIAに頼らずとも意味の伝達が可能になるであろうHTMLの要素にARIA属性を記述しておくことです。</p>
+
+<p>たとえば、明示的なバナーロールのセマンティックな意味は、<code>&lt;body&gt;</code>の直接の子として存在する<code>&lt;header&gt;</code>要素によって伝えられる意味と同じだと考えることができます。<code>&lt;header&gt;</code>はセクションの導入に使用され、<code>&lt;body&gt;</code>は最大のセクションであるため、ブラウザは追加の指示がなくてもこの<code>&lt;header&gt;</code>をバナーとして解釈することができるはずです。しかし、（今のところは）ほとんどがそうではありません。このため、これを補助するものとしてロールを残しておくのです。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;header</span><span class="ot"> role=</span><span class="st">&quot;banner&quot;</span><span class="kw">&gt;</span> <span class="co">&lt;!-- 暗黙的/明示的バナー --&gt;</span>
+        <span class="kw">&lt;h1&gt;</span>ページタイトル<span class="kw">&lt;/h1&gt;</span>
+        <span class="kw">&lt;p&gt;</span>導入パラグラフ<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;/header&gt;</span>
+    <span class="kw">&lt;article&gt;</span>
+        <span class="kw">&lt;header&gt;</span> <span class="co">&lt;!-- ノーマルなヘッダー --&gt;</span>
+        ... 以下略...</code></pre></div>
+
+<p>この策は、自転車の補助輪のようなものだと考えてください。補助輪があるからといって自転車のタイヤを取り外すことはありません。補助輪は、補助輪なしで走れるようになるまで自転車のタイヤを支えるためにあるのです。W3Cは、どのHTML要素がどのARIA属性と同等であるかを示す<a href="http://www.w3.org/TR/aria-in-html/#recommendations-table">Recommendations Table</a>（対応表）を保守しています。</p>
+
+<p><img src="img-4-2_04.png" alt="図: ARIAはHTML5というタイヤに対する補助輪である" /></p>
+
+<p>Léonie Watson（レオニー・ワトソン、The Paciello Groupのシニアアクセシビリティエンジニア）は「<a href="http://www.slideshare.net/LeonieWatson/generate-2013-09">Rock ‘n’ Roll Guide to HTML5 and ARIA</a>（HTML5とARIAのロックンロールガイド）」の中で、要素とロールを別々に使用しないよう警告しています。</p>
+
+<p>以下は正しくない使い方の例で、<code>role="navigation"</code>属性と<code>&lt;nav&gt;</code>要素は同じことを意味しているので、この属性は<code>&lt;nav&gt;</code>要素に指定されるべきです。ロールと<code>&lt;nav&gt;</code>を別々にすることで、1つのランドマークに対するインジケーターが重複して作成されます。スクリーンリーダーは、「ナビゲーションランドマーク、ナビゲーションランドマーク」と読み上げるに違いありません。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;nav&gt;</span>
+    <span class="kw">&lt;ul</span><span class="ot"> role=</span><span class="st">&quot;navigation&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/nav&gt;</span></code></pre></div>
+
+    </body>
+</html>

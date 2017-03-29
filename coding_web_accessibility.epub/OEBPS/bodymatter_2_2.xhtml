@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>2-1 ＜button＞要素</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">2-1 <span class="sideways">＜</span>button<span class="sideways">＞</span>要素</h2>
+
+<p>Webデザイナーの中には、ややこしい勧告を出すW3Cをわずらわしく思っている人もいます。こうしたデザイナーの中に、<a href="http://www.w3.org/TR/html5/">HTML仕様書</a>を本当に全部読んだことがある人はわずかしかいないと思いますが、確かにHTMLに関する記述の細部には難解なものもあります。しかし、<code>&lt;button&gt;</code>の仕様については、まったくそんなことはありません。</p>
+
+<blockquote>
+  <p><a href="http://www.w3.org/TR/2011/WD-html5-20110525/the-button-element.html#the-button-element">button要素はボタンを表す。</a><br />
+  ― W3C</p>
+</blockquote>
+
+<p>この章では、WAI-ARIAのステートとプロパティを使って<code>&lt;button&gt;</code>要素を拡張し、そのさまざまな用途に関する詳細情報をアクセシブルに表現する方法を見ていきます。具体的には、押されたボタンと押されていないボタン、他の要素をコントロールするボタン、そしてアプリケーションのさまざまな部分の表示／非表示を切り替えるボタンなどです。</p>
+
+<p>まず、基本のボタン（アプリケーション内で何かを実行するボタン）は次のように記述します。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button&gt;</span>何かを実行<span class="kw">&lt;/button&gt;</span></code></pre></div>
+
+<h3 id="toc_index_2">ボタンをアクセシブルにするには？</h3>
+
+<p>正しいセマンティックHTMLの使用は手間がかかり難しすぎる、動作にふさわしい要素を使用することはあまり重要ではない、そんなふうに思われがちです。どのような要素でもJavaScriptでイベントを登録でき、CSSを使用してボタンに見せることができるのだから、使用する要素にこだわることは無意味なのでは？ などとも。</p>
+
+<p><img src="img-2-1_01.png" alt="図: 仲良し紙人形。中央がユーザー、両サイドに制作者とベンダー" /></p>
+
+<p>そんな気がするかもしれませんが、違います。Web標準は「取り決め」にほかなりません。この取り決めに従うことによってはじめて、処理を行い、できるだけ多くの人が予測する通りに動作させることができるのです。<code>&lt;button&gt;</code>要素に特定の動作を割り当てることによって、複数のブラウザベンダーがこの要素の表示と動作について共通の見解をもつのです。</p>
+
+<p>その結果、皆さんや私のような制作者は、こうした動作を引き出すためにはどの要素を使用すればよいかがわかります。私たちは、ユーザーを戸惑わせないためにも、ブラウザベンダーと連携する必要があります。取り決めがあるからこそ、ユーザーはボタンに出会ったときに、それがボタンであるとわかるのです。</p>
+
+<blockquote>
+  <p>支援技術ベンダーが制作者およびブラウザベンダーと協力して（HTMLコンテンツをアクセシブルにするべく）標準化されたインターフェイスによって提供される情報を利用しなければ、憂き目に遭うのはユーザーです。<br />
+  ― <a href="http://blog.paciellogroup.com/2013/11/short-note-aria-dragon-accessibility/">Paciello Groupブログ</a></p>
+</blockquote>
+
+<p>ボタンの場合で言うと、ボタンコントロールとして<code>&lt;button&gt;</code>要素を正しく使用することで、2つの重要なグループに属するユーザーにメリットがあります。キーボードユーザーとスクリーンリーダーのユーザーです。<code>&lt;button&gt;</code>要素を使用することで、次のことが可能になります。</p>
+
+<ul>
+<li>ボタンがフォーカスを受け取る。</li>
+<li>フォーカスを受け取ったボタンをキーボードで慣習通りに操作する。</li>
+<li>スクリーンリーダーがボタンを「ボタン」として読み上げる。</li>
+</ul>
+
+<p>キーボードユーザーは、マウスではなくキーボードを使ってWebページをナビゲートします。好みでそうするユーザーもいるかもしれませんが、ほとんどは必要があってそうしているユーザー（マウスで正確にポイントすることが難しい人、マウスカーソルの小さな矢印がスクリーン上のどこにあるかが見えない人など）です。キーボードでWebページを利用できるようにすることは、WCAG 2.0（Web Accessibility Initiative発行の「Web Content Accessibility Guidelines」）に規定されています。</p>
+
+<blockquote>
+  <p>すべての機能をキーボードから利用できるようにすること。<br />
+  ― WCAG 2.0ガイドライン2.1</p>
+</blockquote>
+
+<p>キーボードユーザーがボタンを動作させるためには、まずこのボタンにフォーカスを合わせなくてはなりません。要素にフォーカスを合わせることは、その要素に触れるようなものです。Webページで<kbd>Tab</kbd>キーを押すと、ページ内の次のインタラクティブ要素（ボタンなど）にフォーカスが移動します。<kbd>Enter</kbd>キーまたはスペースバーを押すと、要素がアクティブになり、イベントが実行されます。</p>
+
+<p>このイベントの種類はさまざまですが、ここで問題としているのは、どうしたらイベントに<strong>アクセス</strong>できるかということです。ユーザーが要素に触れることができなければ、アクションはアクセシブルにはなりません。</p>
+
+<p><img src="img-2-1_02.png" alt="図: 水に浮かんだスイレンの葉の間を飛ぶカエル。最後の葉まで行くために、中央の葉を通る必要がある。「僕は ここを通って こっちまで行くんだ」" /></p>
+
+<p>スクリーンリーダーユーザーも同様にキーボードをよく使う傾向にありますが、ボタンにフォーカスがあるかどうかを目で確認することができません。スクリーンリーダーは、ユーザーがフォーカスを合わせたとき、その要素が<code>&lt;button&gt;</code>であるかどうかを伝える必要があり、そのためにはボタンのマークアップに<code>&lt;button&gt;</code>要素を使うというのが最も簡単な方法です。</p>
+
+<p><img src="img-2-1_03.png" alt="スクリーンリーダーが「ボタン、保存」と読み上げるボタン" /></p>
+
+<h3 id="toc_index_3">ボタンのタイプ</h3>
+
+<p>これまでに述べた<code>&lt;button&gt;</code>要素に関するすばらしい情報を思うと驚くべきことですが、アプリケーションのボタンコントロールとして<code>&lt;button&gt;</code>が使われていないことも少なくありません。Webアプリケーションをよく調べてみると、ボタンが実際には<code>&lt;a&gt;</code>要素であることや、さらに悪い場合には、デフォルトではフォーカスを受け取れない<code>&lt;span&gt;</code>や<code>&lt;div&gt;</code>であることもよくあります。</p>
+
+<p>その主な理由は、「<code>&lt;button&gt;</code>はHTMLフォームに関連づけられているから、<code>&lt;button&gt;</code>にはフォームや送信のしくみが必要だ」と思って敬遠するデザイナーがいることです。</p>
+
+<p><code>&lt;button&gt;</code>がフォームやその他のフォーム要素と組み合わせて使用できることは事実です。<code>button</code>要素に<code>form</code>属性を指定して、フォームの<code>id</code>と関連づけることもあります。加えて、3つある<code>type</code>属性値の2つ、<code>submit</code>と<code>reset</code>は、明らかにフォーム内で使用するためのものです。</p>
+
+<p>しかし、さらに<code>button</code>という<code>type</code>属性値も提供されています。このタイプのボタンは、フォームと直接関連している必要がありません。実際、これに関し、仕様には<code>&lt;button type="button"&gt;</code>について次のように記述されています。</p>
+
+<blockquote>
+  <p><a href="http://www.w3.org/TR/2011/WD-html5-20110525/the-button-element.html#the-button-element">何もしない。</a><br />
+  ― W3C</p>
+</blockquote>
+
+<p>このため、フォームの送信やページのリロードを伴わない、キーボードで操作できるアクセシブルなコントロールを作成できます。モダンでアクセシブルなJavaScriptアプリケーション内のコントロールにはこのようなマークアップが最適であり、私たちはこれをふんだんに使っていくべきです。ボタンのタイプについて簡単にまとめると次のようになります。</p>
+
+<table id="table_index_1">
+<tr><th><code>submit</code></th><td>フォームを送信する</td></tr>
+<tr><th><code>button</code></th><td>JavaScriptイベントに適する</td></tr>
+<tr><th><code>reset</code></th><td>「誰だよ！　このボタンを置いたヤツは？」</td></tr>
+</table>
+
+<h4 id="toc_index_4">test.css</h4>
+
+<p>ほとんどのブラウザでは、<code>&lt;form&gt;</code>の外部にある単純な<code>&lt;button&gt;</code>は、大方の制作者が意図した方法で（<strong>JavaScriptを実行するものとして</strong>）処理されます。ただし、<code>&lt;button&gt;</code>の暗黙的な<code>type</code>は<code>submit</code>であるため、ブラウザによってはフォーム内にある<code>type</code>属性をもたないボタンが<code>submit</code>ボタンとして解釈されます。しかし、心配はいりません。これはテストで見つけることができます！</p>
+
+<p>本書では、全体を通じて<strong>test.css</strong>という名前の特別なスタイルシートを使用して、マークアップ上のミスやアクセシビリティの問題をチェックしていきます。CSSセレクタを使用すると、HTMLの望ましくないパターンを定義し、特定することができます。ここでは、フォーム内に配置するすべてのボタンに<code>type</code>属性が明示的に指定されているかどうかをチェックします。疑似要素を使用して、不正が見つかったときにスクリーン上に警告メッセージが表示されるようにしましょう。</p>
+
+<p><strong>test.css</strong>ファイルに次の宣言ブロックを追加し、ページの<code>&lt;head&gt;</code>に最後のスタイルシートとしてインクルードします。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">form button<span class="dv">:not</span>(<span class="at">[type]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：このボタンにはtype属性がありません。submitですか、resetですか、単純なボタンですか？&#39;;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>警告メッセージの見た目を変えることもできます。ここでは赤地に白いテキストにしました。</p>
+
+    </body>
+</html>

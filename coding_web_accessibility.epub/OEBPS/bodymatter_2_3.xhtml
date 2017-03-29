@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>2-2 ボタンのスタイル</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">2-2 ボタンのスタイル</h2>
+
+<blockquote>
+  <p>望む目的に最もよくかなうように、 必要な要素を組み立てる計画がデザインである。<br />
+  ― Charles Eames（チャールズ・イームズ）</p>
+  
+  <p>『Eames Design: The Work of the Office of Charles and Ray Eames』、1989年、John Neuhart、Charles Eames、Ray Eames、Marilyn Neuhart著</p>
+</blockquote>
+
+<p>これでアプリケーションにおけるボタンを作成するための正しいコードがわかりました。次は、このボタンをアピールすることを考えましょう。とは言っても、ボタンをセンスよく見せようということではなく（あまりにも醜いのは論外ですが）、ボタンが確実に見えるようにし、ユーザーの予想できる範囲で見た目を変えようということです。ボタンの見た目に関するユーザーの先入観はもちろん、ボタン自体に関する事前の理解や認識にも沿ったものにするべきです。</p>
+
+<p><a href="http://webaim.org/articles/cognitive/">認知障害に関するアクセシビリティ</a>は、認知機能に関する障害を医学的に診断された人だけでなく、すべての人に役立つ分野です。アクセシビリティと、もうひとつの高尚な目標である<a href="http://en.wikipedia.org/wiki/Usability">ユーザビリティ</a>を集約したものだとも言えるでしょう。</p>
+
+<p><img src="img-2-2_01.png" alt="図: アクセシビリティとユーザビリティのベン図。両者の円が交わるところなら、ユーザーに首を締められずに済む" /></p>
+
+<p>HTMLは「すべての人のために」あるため、優秀なアーティストでなかったとしても、ドキュメントやアプリケーションが制作できなくてはなりません。このため、CSSが関連づけられていないドキュメントに表示される<code>&lt;button&gt;</code>は、何らかの形でボタンに見えます。まったくスタイルがつけられないのではなく、制作者に代わってブラウザが無難な見た目にしてくれるということです。このため、どんな制作者でも、CSSのテクノロジーを追加で学習することなく、利用できるWebページを作成できます。</p>
+
+<p>機能に沿った形状を採用したボタンデザインを行えば、ユーザーの認知能力を問わず、誰にとっても使いやすいアプリケーションまたはWebサイトになります。ブラウザがデフォルトで<code>&lt;button&gt;</code>をボタンらしい見た目で表示するのはこのためです。ボタンのスタイルを変える場合は、この慣習をヒントにするのがベストでしょう。</p>
+
+<h3 id="toc_index_2">押したくなるボタン</h3>
+
+<p>本書の執筆時点では「<a href="http://www.smashingmagazine.com/2013/09/03/flat-and-thin-are-in/">フラットデザイン</a>」が流行しており、人気という点でも、論争という点でも頂点に達しています。フラットデザインでは、これまでのアプリケーションやWebサイトのインターフェイスに組み込まれていた影、グラデーション、テクスチャといった要素が排除されています。</p>
+
+<p>アプリケーションを印象的でスタイリッシュな外観に仕上げ、すっきりとさせることができるため、世界中のデザイナーがフラットデザインを採用してきました。もしくは、圧倒的な流行としてのフラットデザインに巻き込まれたかのどちらかでしょう。</p>
+
+<p>いずれにしても、フラットデザインには注意が必要です。インタラクションデザインとは、見た目ばかりでなく使いやすさを重視するものであり、インタラクティブコントロールが認識しやすいものであれば、その用途がわかりやすくなります。</p>
+
+<p>次の例では、単純な<code>border-radius</code>と<code>box-shadow</code>を使ってページから少し浮かせることで、ボタンを「ボタンらしく」見せています。スクリーン自体がフラットであることに変わりはないため、文字通りに「浮く」わけではありませんが、それらしく見えるようになります。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button <span class="kw">{</span>
+    <span class="kw">background-color:</span> <span class="dt">DarkSlateBlue</span><span class="kw">;</span>
+    <span class="kw">border-radius:</span> <span class="dt">0.25em</span><span class="kw">;</span>
+    <span class="kw">box-shadow:</span> <span class="dt">0</span> <span class="dt">4px</span> <span class="dt">0</span> <span class="dt">#222</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p><img src="img-2-2_02.png" alt="図: 「保存」というテキストノードを持つ一般的なボタン" /></p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>この例には<code>background-color</code>指定がありますが、<code>color</code>の指定がないため、このままではボタンのラベルが読めなくなることがあります。実際に使用する際には、<code>color: white</code>など、適切な文字色を指定する必要があります。</dd>
+</dl>
+
+</div>
+
+<h4 id="toc_index_3">サイズとコントラスト</h4>
+
+<p>ボタンを出し惜しみすることはありません。大きくし、目立たせましょう。これにより、マウスのコントロールが難しく、かといってキーボードを使用するわけではない人々にとって、使いやすいコントロールになります。同じ理由で、<code>type</code>に<code>checkbox</code>を指定した<code>&lt;input&gt;</code>要素は、<code>&lt;label&gt;</code>で囲みます。こうすると、その入力をクリックするためのターゲットエリアが拡張されます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> value=</span><span class="st">&quot;Yes&quot;</span> <span class="kw">/&gt;</span>同意しますか？<span class="kw">&lt;/label&gt;</span></code></pre></div>
+
+<blockquote>
+  <p>ラベルをクリックまたは押下してコントロールに割り当てられたイベントをトリガーできる機能によって、コントロールのヒット領域が増え、ユーザビリティとアクセシビリティが向上します。<br />
+  ― W3C、「<a href="http://w3c.github.io/html/sec-forms.html#the-label-element">label要素（The label element）</a>」</p>
+</blockquote>
+
+<p>ボタンの場合は、背景色で塗りつぶした単独のボックスとしてデザインされるのが一般的です。押せるものの色を統一するために、ボタンの背景色をリンクの文字色とそろえたくなることもあるでしょう。必ずしもそろえる必要はありませんが、いずれにしても、文字色と背景色の間には十分なコントラストが必要です。</p>
+
+<blockquote>
+  <p>コンテンツを、利用者にとって見やすくしたり聞きやすくしたりすること。これには、前景と背景を区別することも含む。<br />
+  ― WCAG 2.0ガイドライン1.4</p>
+</blockquote>
+
+<p><img src="img-2-2_03.png" alt="図: ボタンの背景色とリンクの文字色に同じ色を使用している" /></p>
+
+<p>ボタンのコントラストが適切であるかどうかを簡単にチェックするには、前景と背景の色を<a href="http://leaverou.github.io/contrast-ratio/">Lea Verou（リー・ヴェルー）のツール</a>に入力するという方法があります。本書の付録では、この他にもカラーテスト（および色覚シミュレーション）用のツールを紹介しています。</p>
+
+<h3 id="toc_index_4">押せるボタンが取りうる状態</h3>
+
+<p>ボタンの状態は、ボタンを押す寸前に変化します。ボタンの上にカーソルを合わせたとき（<code>:hover</code>状態）や、キーボードでフォーカスを移したとき（<code>:focus</code>状態）、これらはいずれも押す準備ができた状態だと考えられます。この2つの状態はユーザーのタイプが異なるだけで同等であるため、<a href="https://twitter.com/rogerjohansson/status/382531860686848000">Roger Johansson（ロジャー・ヨハンソン）の提言</a>に従って、スタイルシートのルールを結合することをお勧めします。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:hover</span>, button<span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="co">/* 今まさに押せる状態になったとわかる見た目にする */</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>ほとんどのブラウザは、フォーカスの所在を示すために、ハイパーリンクに何らかのアウトライン（たとえば<code>outline: thin dotted</code>）をデフォルトで適用しています。このルールを打ち消して良いのは、目に見える形でフォーカスの見た目を変えるときだけです。破線のアウトラインは文字の形が不規則であるリンクには効果的ですが、ボタンに使用すると、ボックスの形状とラインがぴったりとくっつきすぎてわかりにくくなります。</p>
+
+<blockquote>
+  <p>キーボード操作が可能なあらゆるユーザーインターフェイスには、フォーカスインジケータが見える操作モードがある。<br />
+  ― WCAG ガイドライン 2.4.7</p>
+</blockquote>
+
+<p>ボタンが四角形である場合、より太くてはっきりとしたアウトラインを使用することで、<code>:hover</code>および<code>:focus</code>の状態をより見やすくすることができます。もしくは、<code>background-color</code>を変えるのも効果的です。もっと凝ったことをするなら、やはり<code>outline</code>を使い、あまり知られていない<code>outline-offset</code>プロパティに命を吹き込むこともできます。</p>
+
+<h4 id="toc_index_5">ボタンのアウトラインのアニメーション</h4>
+
+<p>フォーカスが移ったボタンコントロールにキーボードユーザーが気づきやすくなるように、アウトラインがコントロールに少しずつ近づいてくるようにするのはどうでしょうか？　CSSトランジションを使いながら<code>outline-offset</code>プロパティを小さくすることで、まずは広く網をかけて、次第にボタンの正確な位置を示すようにできます。</p>
+
+<p>そのためには、最初は<code>outline-offset</code>を広く設定すると同時に、アウトラインを不可視にしておきます。ページのあちこちに大きなボックスが表示されるようなことは避けなくてはなりません。また、トランジションのタイプも定義する必要があります。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button <span class="kw">{</span>
+    <span class="kw">outline:</span> <span class="dt">2px</span> <span class="dt">solid</span> <span class="dt">transparent</span><span class="kw">;</span>
+    <span class="kw">outline-offset:</span> <span class="dt">100px</span><span class="kw">;</span>
+    <span class="kw">transition:</span> <span class="dt">0.5s</span> <span class="dt">all</span> <span class="dt">ease</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>次に、網を小さくすると同時に、アウトラインを可視にします。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="kw">outline:</span> <span class="dt">2px</span> <span class="dt">solid</span> <span class="dt">#000</span><span class="kw">;</span>
+    <span class="kw">outline-offset:</span> <span class="dt">0</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>このスタイルではフォーカス枠は点線ではなく、実線になります。フォーカスを点線にする場合は、<code>outline</code>プロパティの<code>solid</code>を<code>dotted</code>に変更してください。</dd>
+</dl>
+
+</div>
+
+<p><code>outline-offset</code>をサポートしないブラウザ（どうせInternet Explorerは対応していないでしょう）のユーザーには、フォーカス時に2ピクセルのアウトラインが表示され、徐々にはっきり見えてくるようになっています。</p>
+
+<p>CSSトランジションや<code>outline-offset</code>を利用できないユーザーにも、この厚ぼったい2ピクセルのアウトラインが表示されます。取り残されるユーザーを最小限にしようという<a href="http://www.css3.info/graceful-degradation/">グレイスフルデグラデーション</a>のアプローチです。</p>
+
+<p><img src="img-2-2_04.png" alt="図: ボタンに向かって収縮していくアウトライン" /></p>
+
+<p>この<a href="http://www.heydonworks.com/article/shrinking-button-outlines">アウトラインを縮めていくアプローチ</a>は、皆さんのニーズや好みに合わないかもしれませんし、ユーザーが便利だと思うとは限りません。</p>
+
+<p>しかし重要なことは、アクセシビリティは必ずしも雑用ではないということです。インターフェイスデザインの楽しい部分が終わった後に残されている義務などではないのです。アクセシビリティの向上を探ってみることが、クリエイティブな成果につながることもあります。</p>
+
+<h4 id="toc_index_6">アクティブな状態</h4>
+
+<p>ボタンのことばかりでそろそろ気味悪がられてしまいそうですが、ボタンが押されたときは見た目にも<strong>押された状態</strong>になったほうがいいですよね？　認知という観点から言うと、これは、押されていないときに表面から浮き出しているボタンが押されたときの動作として、期待される動作です。このとき役に立つのが<code>:active</code>の状態です。最初の例を元に、ボタンを押し下げたのと同じ量だけ<code>box-shadow</code>を減らすことで、ボタンが実際に押されたように見える効果を作ってみましょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:active</span> <span class="kw">{</span>
+    <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
+    <span class="kw">top:</span> <span class="dt">3px</span><span class="kw">;</span> <span class="co">/* 3px凹む */</span>
+    <span class="kw">box-shadow:</span> <span class="dt">0</span> <span class="dt">0</span> <span class="dt">0</span> <span class="dt">#222</span><span class="kw">;</span> <span class="co">/* 3px減（0に） */</span>
+<span class="kw">}</span></code></pre></div>
+
+<p><img src="img-2-2_05.png" alt="図: 一般的なボタンのアクティブスタイルである、押し込まれた状態" /></p>
+
+<h3 id="toc_index_7">HTMLの要素にスタイルをつける方法</h3>
+
+<p>もう説明したじゃないか、ですって？　それは、「<strong>方法</strong>」という言葉の意味によって異なります。確かに、ボタンの外観をデザインする方法については説明しましたが、実際にそのようなボタンを作る方法についてはまだ説明していません。これから説明することは、ボタンに限らず、あらゆる要素のCSSにおいて重要な内容です。</p>
+
+<p><a href="http://usablica.github.io/front-end-frameworks/compare.html">CSSフレームワーク</a>のスタイルのルールの多くは、CSSクラスに基づいています。実際のところ、CSSフレームワークがHTMLを大量に含んでいたら、それは純粋なCSSフレームワークとは言えないでしょう。スタイルシートで<code>.button</code>などのクラスを使うことにより、ボタンの見た目の定義を汎用的なものにすることが可能になっています。CSSフレームワークの<code>.button</code>クラスをどの要素に適用するかは、制作者次第です。</p>
+
+<p><img src="img-2-2_06.png" alt="図: ボタンをマークアップするのにdivを使うのは間違っている" /></p>
+
+<p>これは、アクセシビリティという観点からすると問題があります。これまでに見てきたように、<strong>特定の動作を表す</strong>真の<code>&lt;button&gt;</code>だけをボタンらしい見た目にするべきです。<code>&lt;span&gt;</code>、<code>&lt;a&gt;</code>、その他の要素をボタンのように見せかけるのは、ごまかしです。にもかかわらず、<code>.button</code>という暗号がこの過ちを許してしまっています。</p>
+
+<p>CSSクラスはアクセシブルでも非アクセシブルでもありませんが、アクセシビリティに貢献するものではありません。ボタンのスタイルを<code>&lt;button&gt;</code>要素に限定することで、見た目がボタンであるものをボタンらしく動作させます。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.button</span> <span class="kw">{</span>
+    <span class="co">/* このスタイルは何にでも適用可 :-/ */</span>
+<span class="kw">}</span>
+
+button <span class="kw">{</span>
+    <span class="co">/* ボタンのみに適用されるスタイル */</span>
+<span class="kw">}</span></code></pre></div>
+
+<h4 id="toc_index_8">ボタンの無効化</h4>
+
+<p>これまで述べてきたように、アクセシブルなHTMLには要素だけでなく、要素の属性も関連しています。次はまさにそのための特別な属性について見ていきましょう。属性では、見た目だけでなく、指定された要素の動作も定義できます。<code>disabled</code>属性の場合でいうと、その目的は、有効になっているボタンならではの特徴の大部分を取り除くことです。安全のために銃から弾薬を外しておくのと同じことです。</p>
+
+<p><code>.button</code>と同じように、クラスを使ってボタンを無効に見せることには落とし穴があります。<code>.disabled</code>クラスと<code>.off</code>クラスは、どちらを選んだとしても、無効に見せかけるだけです。やはり、個別の<code>disabled</code>属性にまだ働いてもらわねばなりません。</p>
+
+<p><img src="img-2-2_07.png" alt="図: 無効化されたボタン「まあだだよ」" /></p>
+
+<p>クラスを使って要素の見た目だけを無効にする場合は、2つの危険が伴います。</p>
+
+<ol>
+<li>すべての要素を無効にできるわけではない。</li>
+<li>無効にできる要素についても、適切に無効にすることはできない。</li>
+</ol>
+
+<p>話になりませんね。ボタンを無効にする唯一の方法は要素に<code>disabled</code>属性を含めることであり、ハイパーリンクを無効にする唯一の方法は<code>href</code>属性を取り除くことです。したがって、CSSは次のようになります。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[disabled]</span>, a<span class="dv">:not</span>(<span class="at">[href]</span>) <span class="kw">{</span>
+    <span class="co">/* disabled属性をもつすべての要素およびhref属性をもたないリンク用のスタイル */</span>
+<span class="kw">}</span></code></pre></div>
+
+<h4 id="toc_index_9">test.css</h4>
+
+<p><code>href</code>のないリンクは、<code>disabled</code>を含むボタンのように、フォーカスを受け取らないし、受け取るべきではありません。それでも、 <code>href</code>をもたない<code>&lt;a&gt;</code>要素に<code>.button</code>クラスを使用し、きちんと機能する有効なボタンを作成したのだと勘違いしてしまう制作者はいなくならないでしょう。いま私の言ったことが何のことだかわからないという方は、心配いりません。あなたは正しい認識をもっているはずです。しかし、これまでに私がこのような間違いを何度見てきた（そして犯してきた）ことでしょうか！　</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="co">&lt;!-- 機能するボタンではなく無効なリンク --&gt;</span>
+<span class="kw">&lt;a</span><span class="ot"> class=</span><span class="st">&quot;button&quot;</span><span class="kw">&gt;</span>押してください<span class="kw">&lt;/a&gt;</span></code></pre></div>
+
+<p>それでは<strong>test.css</strong>ファイルに新しいルールを追加して、不適切なところに<code>.button</code>クラスを追加していないか、要素を正しく無効化しているかどうかをチェックしましょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.button</span><span class="dv">:not</span>(button)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：ここでは要素をボタンのような外観にしようとしています。この要素は本当にボタンですか？&#39;;</span>
+<span class="kw">}</span>
+
+button<span class="fl">.disabled</span><span class="dv">:not</span>(<span class="at">[disabled]</span>)<span class="dv">:after</span>,
+a<span class="fl">.disabled</span><span class="at">[href]</span><span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：要素が無効であるかのようなスタイルを設定しようとしています。この要素がきちんと無効化されていることを確認してください。&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+    </body>
+</html>

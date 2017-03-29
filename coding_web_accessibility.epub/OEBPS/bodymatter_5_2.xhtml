@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>5-1 何をどう隠すべきか</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">5-1 何をどう隠すべきか</h2>
+
+<p>姿を現す前に、隠れなくてはなりません。</p>
+
+<p>一部のユーザーに対してのみコンテンツを隠すという方法には、地雷原のような危険性があります。地雷の危険性が隠されているという意味で、この場合にぴったりの例えです。一部の人にだけ隠すという行為は、本質的には差別行動です。しかし、「差別」にはもう1つの意味もあります。</p>
+
+<blockquote>
+  <p><strong>差別</strong><br />
+  1. ある人や集団を別の人や集団とは公平でない方法で扱うこと。<br />
+  2. ある事柄と別の事柄が異なっていることを理解する能力。<br />
+  ̶ <a href="http://www.merriam-webster.com/dictionary/discrimination">Merriam-Websterの定義</a></p>
+</blockquote>
+
+<h3 id="toc_index_2">悪い意味での差別</h3>
+
+<p>公平でない扱い（悪い意味での差別）の例として、特定の種類のデバイス上でのみ機能するアプリケーションを作ることが挙げられます。アップルのiPhoneでのみ機能する<strong>Web</strong>アプリケーションを作成することは、<a href="http://www.w3.org/wiki/Open_Web_Platform">オープンウェブ</a>の精神に反します。アプリケーションの作成に使用するフリーで<a href="http://en.wikipedia.org/wiki/Web_interoperability">インターオペラブル</a>（相互運用可能）なテクノロジーは、本来ならデバイスには依存しません。コンテンツを利用できるユーザーを限定することは、恣意的な差別という、最悪の差別です。</p>
+
+<p><img src="img-5-1_01.png" alt="図: 「この機種は嫌いです」というメッセージと「終了」と書かれたボタンが表示されたスマートフォン" /></p>
+
+<p>アクセシビリティとは、特定の障害に対処することではなく、できる限り多くの人々が同じ情報にアクセスできるようにすることです。Webの基本原則はオープンさであり、特定の人々を締め出して良い理由はほとんどありません。</p>
+
+<h3 id="toc_index_3">良い意味での差別</h3>
+
+<p>悪い意味でない差別は、単にユーザーが利用できるコンテンツのタイプと利用できないコンテンツのタイプを識別することです。私たちは特定のニーズや選択に配慮する必要があります。しかし、<strong>代替手段を提供せずにコンテンツを隠す</strong>ようなことをするべきではありません。WCAG 2.0の原則「知覚可能」のガイドライン1.1には「すべての非テキストコンテンツには、拡大印刷、点字、音声、シンボル、平易な言葉などのユーザーが必要とする形式に変換できるように、テキストによる代替を提供すること」と規定されています。</p>
+
+<h3 id="toc_index_4">aria-hiddenステート</h3>
+
+<p>aria-hiddenステートは、通常、すべてのユーザーに対してコンテンツを隠したい要素（およびその子孫である要素）に使用します。このためaria-hiddenの仕様では、要素が見えないようにする場合は、ステートに結びつけることが推奨されています。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="at">]</span> <span class="kw">{</span> <span class="kw">display:</span> <span class="dt">none</span> <span class="kw">}</span></code></pre></div>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>実際にWAI-ARIAの仕様に出ているCSSの例は微妙に異なり、以下のようになっています。</dd>
+</dl>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="at">]</span> <span class="kw">{</span> <span class="kw">visibility:</span> <span class="dt">hidden</span><span class="kw">;</span> <span class="kw">}</span></code></pre></div>
+
+</div>
+
+<p>しかしこの仕様には、支援技術のユーザーにとってそのコンテンツが「冗長または不要」である場合は、<code>aria-hidden</code>を<strong>慎重に</strong>使用して、支援技術のユーザーに対してだけそのコンテンツを隠しても良い、とも述べられています。なお、一部のユーザーに対してある形のコンテンツを隠す場合には、そのユーザーに対して別の形のコンテンツを提供する必要があることを忘れないでください。</p>
+
+<h4 id="toc_index_5">aria-hiddenを安全に使用する</h4>
+
+<p>さて、<code>aria-hidden</code>を使って、スクリーンリーダーユーザーに対してコンテンツを隠すのはどんなときでしょうか？　一般に、重複を取り除くときです。Roger Johansson（ロジャー・ヨハンソン）は、CSSでのスタイル調整が困難とされるセレクトボックスのデザイン性を高められるようにした、<a href="http://www.456bereastreet.com/archive/201111/an_accessible_keyboard_friendly_custom_select_menu/">カスタムの<code>&lt;select&gt;</code>要素</a>を紹介しています。</p>
+
+<p>このテクニックを機能させるには、<code>&lt;select&gt;</code>そのものを、より柔軟な<code>&lt;span&gt;</code>ベースの構造によって視覚的に置き換える必要があります。アクセシビリティを確保するため、セマンティックな<code>&lt;select&gt;</code>要素は削除せずに残します。その結果、コンテンツの重複が発生します。<code>&lt;span&gt;</code>ベースの構造を<code>aria-hidden</code>で隠すことによって、この重複が取り除かれます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;select</span><span class="ot"> id=</span><span class="st">&quot;id&quot;</span><span class="ot"> class=</span><span class="st">&quot;custom replaced&quot;</span><span class="ot"> name=</span><span class="st">&quot;id&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/select&gt;</span>
+<span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;custom-select&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/span&gt;</span></code></pre></div>
+
+<p><code>opacity: 0</code>によって隠された標準の<code>&lt;select&gt;</code>を、カスタマイズした<code>&lt;span&gt;</code>の上に置いているのがポイントです。これにより、マウスユーザーのクリックがキャプチャされます。つまり、視覚的には隠されていますが、マウスユーザー<strong>および</strong>キーボードユーザーとのインタラクティビティは保たれています。<code>&lt;select&gt;</code>などの要素の機能を完全に模倣することは困難ですが、この方法ではたとえ見えなくても標準の<code>&lt;select&gt;</code>とのインタラクティビティが失われないため、その必要はありません。</p>
+
+<p><img src="img-5-1_02.png" alt="図: 視覚的に見えないようにした本物のselectコントロールを、aria-hiddenによって読み上げないようにしたフェイクのselectコントロールの上に重ねる" /></p>
+
+<h3 id="toc_index_6">視界から隠す</h3>
+
+<p>先ほどの「良い意味での差別」の例に戻り、スクリーンには表示されない支援技術用の代替テキストを提供するというシナリオについて考えてみましょう。</p>
+
+<p>文字を画像にしたものがあるとしましょう。これは実際にはテキストではないため、インターオペラブル（相互運用可能）ではありません。見た目が文字なので、多くの人は文字として解釈します。しかし、スクリーンリーダーがこの画像のピクセルを分解して読み取り、テキストとして伝えることはできないのです。スクリーンリーダーには代替として実際にテキストを提供する必要があります。</p>
+
+<p><img src="img-5-1_03.png" alt="図: 「私のサイトへようこそ!」という文字画像。「ニセモノだ!」「画像じゃないよ!」「ウソつき!」といった声があがっている" /></p>
+
+<p>画像の代替コンテンツを提供する場合、一般には<code>alt</code>属性を使います。やっかいなのは、スクリーンリーダーが画像に遭遇すると、<code>alt</code>属性の値の前や後で「画像」「イメージ」などと読み上げることです（「画像、代替テキスト」のように）。</p>
+
+<p>画像が画像であると説明されるにふさわしいコンテンツの一部である場合はこれでかまいません。しかし、この例での画像の役割はテキストとして機能することです。テキストの前に「画像」と読み上げるのでは、画像全体に「これは画像です」という透かし文字が入っているのと同じことになります。そんなことを知りたい人はいません。</p>
+
+<p>ユーザーに同じコンテンツが繰り返し提示されないようにするため、チャネルを分ける必要があります。視覚的コンテンツのチャネルと、テキストコンテンツのチャネルです。ターゲットユーザーに対して、それぞれは排他的になっている必要があります。あるユーザーにとって不要なチャネルは、そのユーザーから隠さなくてはなりません。</p>
+
+<p>ここではまず、<a href="http://www.w3.org/TR/WCAG-TECHS/H67.html"><code>alt</code>属性を空にします</a>。<code>alt</code>属性に空文字列を指定して、<code>alt=""</code>とします。これにより、画像はスクリーンリーダーには認識されなくなります。次に、代替テキストを追加し、かつこれが表示されないようにします。ここがポイントです。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;images/myTitleText.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;&quot;</span> <span class="kw">/&gt;&lt;span&gt;</span>タイトルテキスト<span class="kw">&lt;/span&gt;&lt;/h2&gt;</span></code></pre></div>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd><a href="bodymatter_5_2.xhtml#flg-text-presentation">後に述べられているとおり</a>、テキストの画像化は避け、Webフォントなどで表現することがベストです。ここでは、それができない場合の次善策を例として取り上げています。この実装が望ましいというわけではありません。</dd>
+</dl>
+
+</div>
+
+<h4 id="toc_index_7">隠さずに隠す</h4>
+
+<p>残る問題は、テキストを視覚的に隠したいだけの場合にはどうするかということです。<a href="http://webaim.org/techniques/css/invisiblecontent/">WebAIMでいくつかのテクニックが説明されています</a>が、そのほとんどは、スクリーン外にテキストを配置するか、CSSの<code>clip</code>プロパティを使用しています。最近登場したもうひとつの面白い方法は、タイポグラフィー自体を使用したものです。</p>
+
+<p>AdobeのType Teamによって<a href="http://blog.typekit.com/2013/03/28/introducing-adobe-blank/">Blankというフォント</a>が開発されました。その名の通り、文字が見えない空のフォントです。このフォントの優れたところは、文字の形は見えなくても、HTMLコードにはテキストが存在していることです。</p>
+
+<p><img src="img-5-1_04.png" alt="図: 文字A, B, C, D, Eに空文字の字形が割り当てられている" /></p>
+
+<p>Blankを使用するのは簡単で、テキストを囲む<code>&lt;span&gt;</code>に<code>class</code>を指定して、<code>font-family</code>を<code>Blank</code>に設定するだけです。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.visually-hidden</span> <span class="kw">{</span>
+    <span class="kw">font-family:</span> Blank<span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;images/myTitleText.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;&quot;</span> <span class="kw">/&gt;&lt;span</span><span class="ot"> class=</span><span class="st">&quot;visually-hidden&quot;</span><span class="kw">&gt;</span>タイトルテキスト<span class="kw">&lt;/span&gt;&lt;/h2&gt;</span></code></pre></div>
+
+<p>もちろん<code>@font-face</code>からフォントを読み込む必要もありますが、本書では説明しません。<a href="https://github.com/stowball/Adobe-Blank">文字セットを減らしたバージョンのAdobe Blank</a>を使用すると、ロード時間は短くなります。アクセシビリティにとってはパフォーマンスも大切です！　</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>ここで参照されている「文字セットを減らしたバージョン」には、日本語の文字に対するフォントが入っていません。日本語の文書では、フルセットのバージョンを使わざるをえないでしょう。</dd>
+</dl>
+
+</div>
+
+<p><span id="flg-text-presentation">当然ですが</span>、ステキなWebフォントが使えるのであれば、<a href="http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-text-presentation.html">画像にしたテキストを使用する理由はありません</a>。ほとんどの場合、テキストの画像化は避けるべきです。</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>ここで紹介されている手法には、フォントが有効かつ画像が無効の環境で文字が読めなくなるという問題もあります。その意味でも、テキストの画像化は避けるべきでしょう。</dd>
+</dl>
+
+</div>
+
+<p>テキストノードは相互運用性がとても高く、アクセシブルなインターフェイスには欠かせません。</p>
+
+<p>隠すことについてはこれで十分ですね。次は、表示することについてお話ししましょう。</p>
+
+    </body>
+</html>

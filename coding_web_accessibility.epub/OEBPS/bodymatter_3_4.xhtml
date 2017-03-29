@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>3-3 初めてのARIAウィジェット</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">3-3 初めてのARIAウィジェット</h2>
+
+<p>これまでにロール、プロパティ、ステートについて学んだことを実践に移すときが来ました。ARIAウィジェットを構築してみましょう。</p>
+
+<p>ウィジェットとはJavaScript開発でよく使用される言葉で、スクリプトによるインタラクティブ機能を1つにまとめたものを指します。幸い、ARIAでの定義もこれと一致しており、ARIAウィジェットとは適切なARIA属性の使用によってアクセシブルになったJavaScriptウィジェットだと考えることができます。</p>
+
+<p>次の例では、単純なツールバーを作成します。コンテンツを操作できるボタンコントロールのグループです。ここでは、コンテンツをアルファベット順（昇順）およびその逆の順（降順）にソートするコントロールを作成しましょう。ありがたいことに、「<a href="http://www.w3.org/WAI/PF/aria-practices/#accessiblewidget">General Steps for Building an Accessible Widget with WAI-ARIA</a>（ARIAを使ってアクセシブルなウィジェットを構築するための一般的なステップ）」という、ARIAウィジェット作成に関するW3Cのガイドがあり、これに似たようなツールバーの例が記載されています。</p>
+
+<h3 id="toc_index_2">ツールバーのロール</h3>
+
+<p><a href="http://www.techrepublic.com/blog/web-designer/learn-more-about-web-components-with-thesedemos/">Web Componentsとしてツールバーを作成</a>しない限り、HTMLに<code>&lt;toolbar&gt;</code>要素に該当するものはありません。ツールバーに対する標準の要素はないため、どんな場合でも、ツールバーのコンテナ（親）となる要素に<code>toolbar</code>ロールを含める必要があります。次のようにして、ウィジェットの範囲を示します。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="kw">&gt;</span>
+    /* ツールバーの機能をここに記述 */
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p><strong>注</strong>：<code>&lt;menu&gt;</code>要素という、<code>type</code>属性値に<code>toolbar</code>という値を指定できる要素がありますが、<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu">この要素はまだブラウザには採用されていない</a>ので、これを使って必要な情報を提供することはできません。</p>
+
+<p>コンテンツへの影響を視覚的な関係性として表すデザインにより、ツールバーの機能は一目瞭然なはずです。しかし、それだけでは耳で聞いて理解することはできないため、おなじみの<code>aria-label</code>プロパティを使ってツールバーに名前をつけなくてはなりません。ここまでで、1つのロールと1つのプロパティを指定しました。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="kw">&gt;</span>
+    /* ツールバーの機能をここに記述 */
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p>次に、コントロールとなるボタンを追加しましょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p>ウィジェットにプロパティとステートをこれ以上追加しなくても、既にツールバーの認識を改善することができています。NVDAスクリーンリーダー使用時、またはJAWSスクリーンリーダーとFirefoxの組み合わせ使用時にユーザーが最初のボタンにフォーカスを移動すると、現在位置がツールバーの中であること、そして（<code>aria-label</code>のおかげで）その機能が読み上げられます。</p>
+
+<p><img src="img-3-3_01.png" alt="図: 「昇順」「降順」と書かれた2つのボタン。昇順ボタンにフォーカスを移動すると、スクリーンリーダーは「並び替えオプション、2個のボタンのあるツールバー、昇順、ボタン」と読み上げる" /></p>
+
+<h3 id="toc_index_3">リレーションシップ</h3>
+
+<p>今のところ、ツールバーとそれがコントロールするコンテンツとを実際には関連づけていません。そのためには、要素間の関係を伝える特殊なタイプのプロパティであるリレーションシップ属性を使う必要があります。ここで作成しているウィジェットは、コンテンツをコントロールし、これを操作して並び替えるものですので、<code>aria-controls</code>を使いましょう。先ほどのポップアップメニューの例で行ったように、<code>id</code>値を使って関連づけていきます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+
+<p>個々のボタンではなく、ツールバーそのものに<code>aria-controls</code>を追加していることに注目してください。どちらに追加することも可能ですが、1回だけ指定するほうが簡潔になりますし、いずれの場合も、ボタンはそれぞれ、ツールバーに属する独立したコンポーネントとみなされることになります。</p>
+
+<p><code>toolbar</code>のようなウィジェットのロールに対してどのプロパティとステートが適用できるかは、WAI-ARIAの仕様書の<a href="http://www.w3.org/WAI/PF/aria/roles#toolbar">Inherited States and Properties</a>（継承したステートとプロパティ）のリストを見れば確認できます。ウィジェットを構築するときはこれを参考にするといいでしょう。</p>
+
+<p>ごらんの通り、<a href="http://www.w3.org/WAI/PF/aria/roles#toolbar"><code>aria-controls</code>は<code>toolbar</code>の継承プロパティ</a>として記載されています。</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>WAI-ARIAでは、各ロールに派生関係が定義されています。<code>toolbar</code>ロールは<code>group</code>ロールのサブクラスで、<code>roletype</code>→<code>structure</code>→<code>section</code>→<code>group</code>→<code>toolbar</code>という派生関係があります。<code>aria-controls</code>プロパティはどのロールにも適用できるグローバルなロールで、<code>roletype</code>から継承されています。</dd>
+</dl>
+
+</div>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>各ロールには、継承された"Inherited States and Properties"以外にも、ロール固有の"Supported States and Properties"が定義されていることがありますので、合わせて確認する必要があります。また、プロパティとステートの一覧"<a href="http://www.w3.org/TR/wai-aria/states_and_properties">Supported States and Properties</a>"から、対応するロールを逆引きすることもできますので、こちらも確認しておくと良いでしょう。</dd>
+</dl>
+
+</div>
+
+<p>このリレーションシップの情報をほとんど明らかにしないスクリーンリーダーもありますが、読み上げるものもあります。実際、JAWSはコントロールする要素にフォーカスを移動するためのキーボードコマンドを「use the JAWS key + ALT + M to move to the controlled element」のようにアナウンスします。関わりを持った相手については詳しく知りたくなるものです。JAWSはその手助けをしてくれます。</p>
+
+<p><img src="img-3-3_02.png" alt="図: aria-controls属性によって、ツールバーと、それに制御されるコンテンツとの関係性が示される。昇順ボタンにフォーカスを移動すると、スクリーンリーダーは&quot;use the JAWS key + ALT + M to move to the controlled element&quot;と読み上げる。そこからJAWSキー + alt + Mというコマンドによって、関連付けられたコンテンツに移動できる" /></p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>JAWS14日本語版でも、英語で「use the JAWS key + ALT + M to move to the controlled element」とアナウンスされます。</dd>
+</dl>
+
+</div>
+
+<h3 id="toc_index_4">押された状態と押されていない状態</h3>
+
+<p>現在設定されている並び替えオプションがどちらなのかにより、対応するボタンは<strong>選択されて押された状態</strong>にあると言えます。</p>
+
+<p>ここは<code>aria-pressed</code>ステートの使いどころです。押されているボタンには<code>true</code>、押されていないボタンには<code>false</code>の値を指定します。すでに説明したようにステートは動的なもので、JavaScriptで切り替えます。ページを読み込むときに、最初のボタンを<code>true</code>に設定しておきます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+
+<p>前の章で作成したアクティブな（<code>:active</code>）ボタンのスタイル、<code>aria-pressed</code>ボタンのスタイルを合わせてみるのも良いでしょう。一時的か半永久的かという違いはありますが、どちらも<strong>押された</strong>ボタンを表します。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:active</span>, button<span class="at">[aria-pressed=</span><span class="st">&quot;true&quot;</span><span class="at">]</span> <span class="kw">{</span>
+    <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
+    <span class="kw">top:</span> <span class="dt">3px</span><span class="kw">;</span> <span class="co">/* 3px凹む */</span>
+    <span class="kw">box-shadow:</span> <span class="dt">0</span> <span class="dt">1px</span> <span class="dt">0</span> <span class="dt">#222</span><span class="kw">;</span> <span class="co">/* 2px減（1pxに） */</span>
+<span class="kw">}</span></code></pre></div>
+
+<p><img src="img-3-3_03.png" alt="図: ボタンが押下されている表示により状態を表す、「昇順」「降順」と書かれた2つのトグルボタン。昇順ボタンにフォーカスを移動し押下すると、スクリーンリーダーは「並び替えオプション、2個のボタンのあるツールバー、昇順、押されました」と読み上げる" /></p>
+
+<p><code>aria-pressed</code>が指定されたボタンにフォーカスを移したとき、NVDA使用時、またはJAWSとFirefoxの組み合わせ使用時であれば、このボタンを「トグルボタン」として認識します。JAWSの最新バージョンを使用し、<code>aria-pressed="true"</code>のボタンにフォーカスを合わせると、読み上げの後に随時「押されました」というアナウンスが追加されます。</p>
+
+<p>Chromeブラウザの<a href="http://www.chromevox.com/">ChromeVox</a>スクリーンリーダーでは、<code>aria-pressed="true"</code>のボタンは「button pressed」と読み上げられ、<code>aria-pressed="false"</code>は「button not pressed」と読み上げられます。</p>
+
+<p>程度に差はあれ、最新のブラウザおよびスクリーンリーダーのほとんどは、これらのボタンのステートに関する情報をはっきりと読み上げることができます。</p>
+
+<h3 id="toc_index_5">キーボードコントロール</h3>
+
+<p>もう一息です。W3Cは（多くのARIAウィジェットと同様に）<a href="http://www.w3.org/WAI/PF/aria-practices/#toolbar">ツールバーにも特定のキーボード操作機能を推奨</a>し、多くの場合は同等のデスクトップソフトウェアを模倣するよう勧めています。</p>
+
+<p>左右の矢印キーを押すとボタンのフォーカスが移動し、<kbd>Tab</kbd>キーを押すとフォーカスがツールバーから別の項目に移動するようにするべきです。<code>tabindex="-1"</code>をリストに追加し、JavaScriptを使って、ユーザーが<kbd>Tab</kbd>キーを押したときにフォーカスがリストに移動するようにしましょう。</p>
+
+<p>その目的は、ユーザーが並び替えオプションを選択した後、リストに直接移動できるようにすることです。複数のボタンがあるツールバーでは、こうすることで、リストにたどり着くまで並んでいるボタンの数だけタブキーを押す、ということを避けられます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> role=</span><span class="st">&quot;toolbar&quot;</span><span class="ot"> aria-label=</span><span class="st">&quot;並び替えオプション&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;sortable&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>昇順<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button</span><span class="ot"> aria-pressed=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>降順<span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;sortable&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Fiddler crab（シオマネキ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Hermit crab（ヤドカリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Red crab（コシオレガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Robber crab（ヤシガニ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Sponge crab（カイカムリ）<span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;</span>Yeti crab（キワ・ヒルスタ）<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(listToSort).<span class="at">focus</span>()<span class="op">;</span></code></pre></div>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>listToSortという変数はスクリプトの別の部分で定義されており、<code>aria-controls</code>属性で指定されたID（ここでは"<code>#sortable</code>"）が格納されるようになっています。</dd>
+</dl>
+
+</div>
+
+<p>このようなフォーカスの制御については、後の例でより詳しく説明します。</p>
+
+<h3 id="toc_index_6">完成</h3>
+
+<p>これで初めてのARIAウィジェットが完成しました。本書の多くの例と同じく、操作を試してテストできる<a href="http://heydonworks.com/practical_aria_examples/#toolbar-widget">ライブデモ</a>を用意しました。目的は並び替えそのものではなく、すべてJavaScriptで作られていることだという点を忘れないでください。</p>
+
+<p>ここでの目的は、並び替え、編集、検索、作成、再作成など、コンテンツにどのような操作を行う場合であっても、キーボードユーザーとスクリーンリーダーユーザーがその機能を使用できるよう、アプリケーションのリレーションシップとステートを明らかにすることです。</p>
+
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>3-1 ARIA：平等への情熱</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">3-1 ARIA：平等への情熱</h2>
+
+<p><a href="http://www.w3.org/WAI/intro/aria">WAI-ARIA</a>は、WCAG 2.0と同じくアクセシビリティに関するリソースですが、いくつか顕著な違いがあります。この両者を兄弟だと考えるとわかりやすいかもしれません。同じ環境で育ち、基本的な価値観は同じですが、性格はそれぞれ異なります。WCAG 2.0は、家が火事にならないよう守る用心深いマイホーム主義者であるのに対し、WAI-ARIAはもっと積極的で、アクセシビリティを新しい領域に導こうという志をもっています。</p>
+
+<p>WCAG 2.0と異なり、ARIAは単なる一連の推奨事項ではなく、HTMLに含めるための属性の集まりです。HTMLに対し、支援技術のユーザー向けに情報を追加したり変更したりする手段を提供しています。Webアプリケーションを作成する場合には、要素のロール、プロパティ、ステート、リレーションシップがきわめて複雑で動的になることが多いため、ARIAの属性は非常に役立ちます。ARIAが提供するツールは、WebアプリケーションにおいてWCAGの要件を満たすためのものである、という見方もできます。</p>
+
+<p><img src="img-3-1_01.png" alt="図: 2つのボタン。JavaScriptを使用しない場合のボタンの用途は送信とリセットのみだが、JavaScriptが組み合わさるとその用途は多種多様に広がる" /></p>
+
+<h3 id="toc_index_2">ARIAの2つの目的</h3>
+
+<p>ARIAによって、HTMLの意味（セマンティクス）を変更したり、補強することができるようになります。とても便利そうですが、その目的は何でしょう？　ARIAの主な用途は2つあります。</p>
+
+<h4 id="toc_index_3">手当ての策</h4>
+
+<p>コーディングが不十分でセマンティックではないマークアップが支援技術に対して提供する情報を改善するために、ARIAは手当ての策として使用できます。</p>
+
+<p><img src="img-3-1_02.png" alt="図: 傷テープ（バンドエイド）のブランドとしてのARIA（傷テープの表面に“ARIA”と書かれている）" /></p>
+
+<p>たとえば、制作者が<code>&lt;div&gt;</code>とJavaScriptを使用して、<code>type="checkbox"</code>を再現したとします。本来はそうするべきではありませんが、そのようなこともあるでしょう。</p>
+
+<p>この<code>&lt;div&gt;</code>がチェックボックスとして認識されるようにするためには、属性として<a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_checkbox_role">ARIAのチェックボックスのロール</a>を追加します。こうすると、スクリーンリーダーに標準のチェックボックスであるかのように認識させることができます。加えて、チェックボックスが実際にチェックされているかどうかを示すために、<code>aria-checked</code>属性を使用する必要があります。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;toggle-thingy&quot;</span><span class="ot"> role=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> aria-checked=</span><span class="st">&quot;false&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>Yes?<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p>この情報は、本来なら正規の<code>input</code>要素、<code>type</code>属性、<code>checked</code>属性を使って伝えるほうがよいでしょう。（比較的最近のものである）ARIAよりもサポートが充実しており、さらに<code>input</code>は前章のセマンティックな<code>&lt;button&gt;</code>と同じく、自動的にフォーカス可能となります（<code>tabindex</code>を必要としません）。とはいえ、アプリケーションのデザインを乱したくない場合などは、このようにARIAを使って迅速にマークアップを修正することができます。</p>
+
+<h4 id="toc_index_4">拡張</h4>
+
+<p>これまでに見てきた通り、Webアプリケーションは単なるWebドキュメントに比べて複雑であり、HTMLの要素は、本来備えている基本的なセマンティクスを超えて使用されることがよくあります。ARIAの目玉機能は、このような意欲的な取り組みをアクセシブルに伝えるという点で、私たち制作者の助けとなります。</p>
+
+<p>例として、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup">ARIAの<code>aria-haspopup</code>属性</a>を見ていきましょう。これは、非表示のサブメニューをもつ特定の要素のプロパティです。このプロパティは<code>&lt;a&gt;</code>や<code>&lt;button&gt;</code>に指定され、この特殊な属性がなければ、サブメニューが存在していても、そのヒントは何も示されないのです。スクリーンリーダーのユーザーに与えられる情報は、これですべてとなります。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;li&gt;</span>
+    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#submenu&quot;</span><span class="ot"> aria-haspopup=</span><span class="st">&quot;true&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;submenu&quot;</span><span class="kw">&gt;</span>メインリンク<span class="kw">&lt;/a&gt;</span>
+    <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;submenu&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/somehwere/&quot;</span><span class="kw">&gt;</span>サブメニューリンク<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/somehwere/else/&quot;</span><span class="kw">&gt;</span>もうひとつのリンク<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/li&gt;</span></code></pre></div>
+
+<p>次の章「飛んでいこう」で扱うように、これらのARIA属性の一部は、単純なHTMLの要素と属性で置き換えられると予想されています。たとえば、本書の執筆時点では、ARIAのロール属性である<code>dialog</code>と<code>alertdialog</code>の後継として、<a href="https://twitter.com/stevefaulkner/status/413263499863658496"><code>&lt;dialog&gt;</code>要素が徐々に採用されつつあります</a>。</p>
+
+<p>可能であれば、ARIAをプレーンなHTML（5）で置き換えたほうが良いでしょう。マークアップの記述が簡略化されますし、参照するべきW3Cのドキュメントも集約されます。しかし、特定の文脈に沿った情報を伝える多くの属性、たとえば上記のコードの<code>aria-haspopup</code>プロパティや<a href="http://msdn.microsoft.com/en-us/library/ie/cc848872%28v=vs.85%29.aspx"><code>aria-controls</code>プロパティ</a>のようなものについては、これらをhaspopupやcontrolsのような属性としてHTMLに含めようとしても、多くの賛同は得られないでしょう。</p>
+
+<p>Steve Faulkner（スティーブ・フォルクナー）が「<a href="http://blog.paciellogroup.com/2010/04/html5-and-the-myth-of-wai-aria-redundance/">HTML5 and the myth of WAI-ARIA redundance</a>（HTML5とWAI-ARIAの冗長説について）」で指摘するように、ARIAの大部分は今後も変わらず存続するでしょう。本書の主なテーマである、視力のあるWebユーザーと視力のないWebユーザーの体験の間にあるギャップを埋めるというのが、ARIA特有の力です。</p>
+
+    </body>
+</html>

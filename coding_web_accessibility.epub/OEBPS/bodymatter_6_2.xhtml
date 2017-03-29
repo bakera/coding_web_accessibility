@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>6-1 警告！</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">6-1 警告！</h2>
+
+<p>Web開発会社のオフィスで起こりうる事態で火事よりも深刻なのは、おそらく、Webに接続できなくなることでしょう。確かに、私がオンラインアプリケーションを使って作業しているとしたら、アプリケーションの動作が通常と異なる場合にはそのことを把握し、おそらくはデータをきちんと保存しようとするはずです。</p>
+
+<p>同じ理由から、Gmailにはユーザーがオフラインになったときには必ず警告する機能があります。<a href="http://www.marcozehe.de/2008/08/04/aria-in-gmail-1-alerts/">Marco Zehe（マルコ・ツィーエ）の2008年のブログ記事</a>にあるように、GoogleはARIAライブリージョンをいち早く採用しました。</p>
+
+<p><img src="img-6-1_01.png" alt="図: 「Gmailに接続できません。インターネット接続をご確認ください。」と書かれている黄色のボックス" /></p>
+
+<p>ここでは、ユーザーがオンラインであるかどうかをテストし、オフラインの場合はARIAを使ってスクリーンリーダーユーザーに警告し、引き続き作業するか、呑みにでも出かけるかを選択してもらうというスクリプトを作成します。</p>
+
+<h3 id="toc_index_2">セットアップ</h3>
+
+<p>ライブリージョンに関して、ARIAは<code>role</code>属性と<code>aria-live</code>属性の両方で値を定義しています。これらの一部は機能が重複しており、スクリーンリーダーの中には<code>role</code>と<code>aria-live</code>のいずれかしかサポートしていないものがあるため、混乱を招くことがあります。ただし、解決方法があるので問題はありません。</p>
+
+<p>最も基本的なレベルでは、メッセージには2つの共通タイプがあります。</p>
+
+<ol>
+<li>「これは大変重要な情報ですが、現在の作業内容に関わらず、あなたの作業が終わるまでお待ちしてからお伝えします」</li>
+<li>「すべての作業を中止してください！　今すぐにこの情報を確認しないと大変なことになります。ぬわーーっっ！」</li>
+</ol>
+
+<p>それぞれを<code>role</code>および<code>aria-live</code>属性に当てはめると、これらの共通タイプは以下のように記述されます。</p>
+
+<ol>
+<li>「これは大変重要な情報ですが、現在の作業内容に関わらず、あなたの作業が終わるまでお待ちしてからお伝えします」（<code>aria-live="polite"</code>または<code>role="status"</code>）</li>
+<li>「すべての作業を中止してください！　今すぐにこの情報を確認しないと大変なことになります。ぬわーーっっ！」（<code>aria-live="assertive"</code>または<code>role="alert"</code>）</li>
+</ol>
+
+<p>独自のライブリージョンをマークアップする場合は、最大限の互換性をもたせるために、同等の属性と値を2つとも指定します。なぜなら、ユーザーエージェントの中には残念ながら同等の属性のどちらかをサポートしていないものがあるからです。ライブリージョンに関する詳細は、<a href="https://developer.mozilla.org/en-US/docs/Accessibility/ARIA/ARIA_Live_Regions">Mozillaのドキュメント</a>を参照してください。</p>
+
+<p>インターネット接続が失われるというのは大問題ですので、積極的な方の属性値を使います。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;message&quot;</span><span class="ot"> role=</span><span class="st">&quot;alert&quot;</span><span class="ot"> aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="ot"> class=</span><span class="st">&quot;online&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;p&gt;</span>現在オンラインです。<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p>上のコード自体は何も警告していません。アラートが発生するのは、ライブリージョンのコンテンツが動的に変更されている場合です。</p>
+
+<p>一方、次のページのスクリプトは、<strong>test_resource.html</strong>をロードできるかどうかのチェックを3秒ごとに実行します。ロードできなかった場合や、ロードに失敗した後にロードできた場合は、このライブリージョンの<code>class</code>値を更新し、文の記述を変更します。予期に反してオフラインになった場合は、次のようなメッセージが表示されます。<code>&lt;p&gt;インターネットに接続できません。あきらめて呑みに行きましょう！&lt;/p&gt;</code></p>
+
+<p>変更が発生すると、その時点でページ上で読み上げられているものが何であれ、それに割り込んで<code>#message</code>ライブリージョンの内容がアナウンスされます。</p>
+
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// オフラインになった場合に実行する関数</span>
+<span class="kw">var</span> offline <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="cf">if</span> (<span class="op">!</span><span class="at">$</span>(<span class="st">&#39;#message&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;offline&#39;</span>)) <span class="op">{</span>
+        <span class="at">$</span>(<span class="st">&#39;#message&#39;</span>) <span class="co">// [role=&quot;alert&quot;]かつ[aria-live=&quot;assertive&quot;]である要素</span>
+            .<span class="at">attr</span>(<span class="st">&#39;class&#39;</span><span class="op">,</span> <span class="st">&#39;offline&#39;</span>)
+            .<span class="at">text</span>(<span class="st">&#39;インターネットに接続できません。あきらめて呑みに行きましょう！&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="co">// オンラインに戻った場合に実行する関数</span>
+<span class="kw">var</span> online <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="cf">if</span> (<span class="op">!</span><span class="at">$</span>(<span class="st">&#39;#message&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;online&#39;</span>)) <span class="op">{</span>
+        <span class="at">$</span>(<span class="st">&#39;#message&#39;</span>) <span class="co">// [role=&quot;alert&quot;]かつ[aria-live=&quot;assertive&quot;]である要素</span>
+        .<span class="at">attr</span>(<span class="st">&#39;class&#39;</span><span class="op">,</span> <span class="st">&#39;online&#39;</span>)
+        .<span class="at">text</span>(<span class="st">&#39;現在オンラインです。&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="co">// ファイルをポーリングして確認</span>
+<span class="kw">function</span> <span class="at">testConnection</span>(url) <span class="op">{</span>
+    <span class="kw">var</span> xmlhttp <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span>
+    <span class="va">xmlhttp</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="at">online</span>()<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="va">xmlhttp</span>.<span class="at">onerror</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="at">offline</span>()<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="va">xmlhttp</span>.<span class="at">open</span>(<span class="st">&quot;GET&quot;</span><span class="op">,</span>url<span class="op">,</span><span class="kw">true</span>)<span class="op">;</span>
+    <span class="va">xmlhttp</span>.<span class="at">send</span>()<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// ループして3秒ごとに「test_resource.html」を確認</span>
+<span class="kw">function</span> <span class="at">start</span>() <span class="op">{</span>
+    rand <span class="op">=</span> <span class="va">Math</span>.<span class="at">floor</span>(<span class="va">Math</span>.<span class="at">random</span>()<span class="op">*</span><span class="dv">90000</span>) <span class="op">+</span> <span class="dv">10000</span><span class="op">;</span>
+    <span class="at">testConnection</span>(<span class="st">&#39;test_resource.html?fresh=&#39;</span> <span class="op">+</span> rand)<span class="op">;</span>
+    <span class="at">setTimeout</span>(start<span class="op">,</span> <span class="dv">3000</span>)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// 最初のテストを開始</span>
+<span class="at">start</span>()<span class="op">;</span></code></pre></div>
+
+<p><img src="img-6-1_02.png" alt="図: 警告表示。スクリーンリーダーは「警告、インターネットに接続できません、あきらめて呑みにいきましょう!」と読み上げる" /></p>
+
+<p><a href="http://github.hubspot.com/offline/docs/welcome/">offline.js</a>という専用のスクリプトを使って、アプリケーションがオンラインであるかどうかをより包括的にテストする方法もありますが、ここでは話の流れから短いほうのスクリプトを紹介しました。一部のスクリーンリーダーではアナウンスの前に「警告！」と付加されることがあるので、<strong>よほど重要な情報である場合</strong>以外は、実際のテキストには「警告」という単語を使わないほうが良いでしょう。</p>
+
+<p><a href="http://heydonworks.com/practical_aria_examples/#offline-alert">このサンプルのデモ</a>を確認してください。</p>
+
+<h3 id="toc_index_3">test.css</h3>
+
+<p>ライブリージョンがブラウザや支援技術の種類に依存しないように、最大限の互換性をもたせたいものです。<strong>test.css</strong>にルールを追加して、次のように、同等の属性がすべて含まれるようにしましょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[role=</span><span class="st">&quot;status&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[aria-live=</span><span class="st">&quot;polite&quot;</span><span class="at">]</span>),
+<span class="at">[role=</span><span class="st">&quot;alert&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="at">]</span>) <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：より広範なサポートを提供するために、aria-live属性を使って、ライブリージョンにポライトネスを追加しましょう&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-live=</span><span class="st">&quot;polite&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;status&quot;</span><span class="at">]</span>),
+<span class="at">[aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;alert&quot;</span><span class="at">]</span>) <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：より広範なサポートを提供するために、aria-liveのポライトネス設定に対応したロールを追加しましょう&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+    </body>
+</html>

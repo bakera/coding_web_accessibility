@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>4-5 リンクをハイジャック</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">4-5 リンクをハイジャック</h2>
+
+<p>あなたがJavaScriptの初心者で、ハイパーリンクに設計上定義されている動作を意図的に無効化する、特殊なコード行を追加することができるのだと聞かされたとしましょう。まずどんな感想をもちますか？　Chapter 2「<a href="bodymatter_2_0.xhtml">ボタンのすべて</a>」に登場した、決して押してはならないビッグレッドボタンを思い出させるものがあると思いませんか？　</p>
+
+<p>きちんとした理由がある場合に、<code>return false</code>または<code>e.preventDefault</code>を使って、JavaScriptでハイパーリンクの通常の動作をキャンセルすることがあります。</p>
+
+<p>たとえばサムネイルギャラリーでは、プログレッシブエンハンスメントを使って、ユーザーの環境でJavaScriptを使えるかどうかによって、異なる方法でリンクを動作させることがあります。JavaScriptが使えない場合には、サムネイルリンクがクリックされたら単に<code>href</code>に従って大きな画像を開きま。JavaScriptが使える場合には、このデフォルトの動作は無効となり、同じページに大きな画像のポップアップを生成します。</p>
+
+<p>ここで<code>&lt;a&gt;</code>要素が行うアクションは、リンクよりもむしろボタンのアクションに似ています。この動作の変更を支援技術ユーザーに伝えるには、<code>button</code>ロールを追加し、JavaScriptを通じて動作を変更します。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;path/to/large/image&quot;</span><span class="ot"> role=</span><span class="st">&quot;button&quot;</span><span class="kw">&gt;</span>大きな画像<span class="kw">&lt;/a&gt;</span></code></pre></div>
+
+<p><a href="http://en.wikipedia.org/wiki/Progressive_enhancement#Benefits_for_accessibility">プログレッシブエンハンスメントがアクセシビリティに与えるメリット</a>は明白です。コンテンツへの基本的なアクセスが基盤であるため、セーフティーネットが提供され、取り残されるユーザーが少なくなります。通常、混乱が生じ始めるのは、デフォルトの動作を強化しようとしたときではなく、置き換えようとし始めたときです。</p>
+
+<p>たとえば、ページ内のアンカーに移動するスクロールの動作にアニメーションの効果を取り入れてみましょう。<a href="http://css-tricks.com/snippets/jquery/smooth-scrolling/">CSS-Tricks</a>に示されている再利用可能なjQueryを使用します。</p>
+
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="kw">function</span>() <span class="op">{</span>
+    <span class="at">$</span>(<span class="st">&#39;a[href*=#]:not([href=#])&#39;</span>).<span class="at">click</span>(<span class="kw">function</span>() <span class="op">{</span>
+        <span class="cf">if</span> (<span class="va">location</span>.<span class="va">pathname</span>.<span class="at">replace</span>(<span class="ss">/</span><span class="sc">^\/</span><span class="ss">/</span><span class="op">,</span><span class="st">&#39;&#39;</span>) <span class="op">==</span> <span class="kw">this</span>.<span class="va">pathname</span>.<span class="at">replace</span>(<span class="ss">/</span><span class="sc">^\/</span><span class="ss">/</span><span class="op">,</span><span class="st">&#39;&#39;</span>) <span class="op">&amp;&amp;</span> <span class="va">location</span>.<span class="at">hostname</span> <span class="op">==</span> <span class="kw">this</span>.<span class="at">hostname</span>) <span class="op">{</span>
+            <span class="kw">var</span> target <span class="op">=</span> <span class="at">$</span>(<span class="kw">this</span>.<span class="at">hash</span>)<span class="op">;</span>
+            target <span class="op">=</span> <span class="va">target</span>.<span class="at">length</span> <span class="op">?</span> target : <span class="at">$</span>(<span class="st">&#39;[name=&#39;</span> <span class="op">+</span> <span class="kw">this</span>.<span class="va">hash</span>.<span class="at">slice</span>(<span class="dv">1</span>) <span class="op">+</span><span class="st">&#39;]&#39;</span>)<span class="op">;</span>
+            <span class="cf">if</span> (<span class="va">target</span>.<span class="at">length</span>) <span class="op">{</span>
+                <span class="at">$</span>(<span class="st">&#39;html,body&#39;</span>).<span class="at">animate</span>(<span class="op">{</span>
+                    <span class="dt">scrollTop</span><span class="op">:</span> <span class="va">target</span>.<span class="at">offset</span>().<span class="at">top</span>
+                <span class="op">},</span> <span class="dv">1000</span>)<span class="op">;</span>
+                <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span>
+            <span class="op">}</span>
+        <span class="op">}</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+
+<p>このコードのすばらしい点は、このjQueryコードが、正確で標準化されたマークアップに基づいてページ内リンクを作成しているところです。</p>
+
+<p>つまり、JavaScriptがオフになっていれば、リンクの<code>href</code>とターゲットの<code>id</code>の間にある<code>hash</code>の関係を引き続き使用し、予期した通りの動作でターゲットにジャンプできます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="kw">&gt;</span>セクション2にジャンプ<span class="kw">&lt;/a&gt;</span>
+
+<span class="co">&lt;!-- 多くのコンテンツ --&gt;</span>
+
+<span class="co">&lt;!-- さらなるコンテンツ --&gt;</span>
+
+<span class="co">&lt;!-- さらに多くのコンテンツ --&gt;</span>
+
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h2&gt;</span>セクション2<span class="kw">&lt;/h2&gt;</span>
+    <span class="co">&lt;!-- 以下略 --&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre></div>
+
+<p>問題は、スクリーンリーダーユーザーは<strong>JavaScriptが使えないユーザー</strong>ではないことです。実際のところ、これから本書で見ていくアクセシブルなパターンの多くは、属性値やウィジェットのその他の特性の管理をJavaScriptに頼っています。</p>
+
+<p>スクリーンリーダーユーザーをJavaScriptが使えないユーザーとみなすなど勘違いもいいところで、車いすに乗った人に、「この人は耳が聞こえないのだろう」と思いこんで大声で話しかけるのと同じです。</p>
+
+<p>この例では、スクリーンリーダーユーザーのアクションはJavaScriptが引き受けますが、JavaScriptが行っているのはスクロールバーを動かすことだけです。スクロールバーを動かしてリンク先のアンカーを表示していますが、スクリーンリーダーが理解できるような方法で明示的にリンクしているわけではありません。このため、残念ながら新たに表示されたセクションはフォーカスを受けていません。スクリーン上に表示はされてはいますが、あまり意味がありません。厳密には移動していないのと同じです。</p>
+
+<p><img src="img-4-5_01.png" alt="図: JavaScriptによってスクロールしたあとの状態。多くのユーザーはスクロール後の箇所を見ているが、スクリーンリーダーのユーザーはまだスクロール前の箇所を読んでいる" /></p>
+
+<p>ターゲットセクションにフォーカスを合わせ、読んだり操作したりできる状態にするには、JavaScriptコードに2行を追加する必要があります。まずは、ターゲットセクションをフォーカス可能にする行です。<code>&lt;section&gt;</code>要素はデフォルトではフォーカスを受け取ることができません。フォーカスを受け取るためには、<code>tabindex</code>の値を追加し、<code>-1</code>に設定します。</p>
+
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">target</span>.<span class="at">attr</span>(<span class="st">&#39;tabindex&#39;</span><span class="op">,</span> <span class="st">&#39;-1&#39;</span>)<span class="op">;</span></code></pre></div>
+
+<p><code>-1</code>という値を見ると無効化や配列の末尾の要素を連想するかもしれませんが、この場合はJavaScriptがターゲットにフォーカスを合わせることができるという意味です。<code>tabindex="0"</code>でも同じように機能しますが、こうするとユーザーもこの要素にフォーカスを合わせられるようになります。セクションは非インタラクティブであるため、これは期待される動作とは異なり、ユーザーを混乱させるおそれがあります。ただし、<code>tabindex</code>を正の整数にするよりはましでしょう。こうすると、WebAIMの<a href="http://webaim.org/techniques/keyboard/tabindex"><code>tabindex</code>に関する記事</a>で立証されているように、タブ順序がすぐにめちゃくちゃになります。</p>
+
+<p>追加の必要があるもうひとつの行は、クリックイベントによってスクロールされた後に、ターゲットセクションにフォーカスするものです。</p>
+
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">target</span>.<span class="at">focus</span>()<span class="op">;</span></code></pre></div>
+
+<p>セクション自体にフォーカスを合わせると、次にフォーカスできるのは同じセクションの内部にある最初のフォーカス可能な要素です。こうしないと、キーボードユーザーはこのセクションを見ているときに<kbd>Tab</kbd>キーを押した場合、前のセクションのリンクが切り替わることになってしまいます。</p>
+
+<h3 id="toc_index_2">ビューの問題</h3>
+
+<p>フォーカスに関連した問題の影響を受けるもうひとつのインターフェイスタイプは、JavaScript MV*のビューインターフェイスです。AngularJSなどの最近のJavaScriptフレームワークのナビゲーションは、1つのページ内であらゆる操作を実行し、ユーザーデータをメモリ内に保管できる「ビュー」に基づいています。ビューは、ユーザーから新しい画面が要求されるたび、その場でHTMLを再構築するように動作します。まるで新しいページが開いたように見えますが、実際にはユーザーがすでにいるページが再構築されるだけです。</p>
+
+<blockquote>
+  <p><code>ngView</code>は、主レイアウト（<code>index.html</code>）ファイルに現在のrouteの描画されたテンプレートを含めることによって、<code>$route</code>サービスを補完するディレクティブです。<br />
+  ̶ <a href="http://docs.angularjs.org/api/ngRoute.directive:ngView">AngularJSドキュメント</a></p>
+</blockquote>
+
+<p><img src="img-4-5_02.png" alt="図: ベルトコンベアに載ったビューが、index.htmlというラベルがついた箱に収められていく" /></p>
+
+<p>この機能はJavaScript開発者にとっては面白いかもしれませんが、従来のアクセシブルなナビゲーションを実現しようとするブラウザにとってはまったく意味をなしません。先ほどの例のように、JavaScriptを修正するためのJavaScriptをさらに加える必要があります。<strong>いつも</strong>のことですね。</p>
+
+<p>ビューコンテナは変化しないので、ここに手動で<code>tabindex="-1"</code>を指定します。こうすれば、必要なのは<code>$route</code>が変わった場合に、<code>focus()</code>メソッドでビューコンテナにフォーカスを合わせることだけです。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;view-container&quot;</span><span class="ot"> ng-view tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>
+    <span class="co">&lt;!-- ここでページのメインコンテンツを動的に再構築 --&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p>状況に応じて、スクリーンリーダーが新しいビューを検出したら、すぐにそのコンテンツの読み上げを開始できるよう、ビューコンテナを<a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions">ARIAライブリージョン</a>に変えることもできます。</p>
+
+<p>この場合も、やはりインタラクションのためにビューコンテナにフォーカスを合わせる必要があります。また、気をつけないと、ライブリージョンのすべてのコンテンツが立て続けに読み上げられてしまうという問題もあります。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;view-container&quot;</span><span class="ot"> ng-view tabindex=</span><span class="st">&quot;-1&quot;</span><span class="ot"> aria-live=</span><span class="st">&quot;assertive&quot;</span><span class="kw">&gt;</span>
+    <span class="co">&lt;!-- ここでページのメインコンテンツを動的に再構築 --&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p>ライブリージョンについてはChapter 6「<a href="bodymatter_6_0.xhtml">生きてる！ 生きてる！</a>」で詳しく説明しますが、その前にちょっとした<strong>いないいないばあ</strong>ゲームを作成しましょう。</p>
+
+    </body>
+</html>

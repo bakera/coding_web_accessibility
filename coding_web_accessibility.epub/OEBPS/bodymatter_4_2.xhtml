@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>4-1 分割する</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">4-1 分割する</h2>
+
+<p>HTML5には、いくつかの新しい要素があります。<a href="http://www.w3.org/WAI/GL/wiki/Using_HTML5_section_elements">セクショニング要素</a>（<code>&lt;section&gt;</code>、<code>&lt;article&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;aside&gt;</code>）については皆さんもよくご存じでしょうが、これらの要素についてアクセシビリティという点から考えてみたことがありますか？　</p>
+
+<p>セクショニングコンテンツは、HTMLの3つの基本カテゴリのひとつです。フレージングコンテンツ（<code>&lt;em&gt;</code>、<code>&lt;strong&gt;</code>などのインライン要素）とフローコンテンツ（主に<code>&lt;p&gt;</code>、<code>&lt;div&gt;</code>などのブロックレベル要素）があり、そして、ページの各部分の範囲を定義するのに使用されるセクションがあります。言い換えると、小さなコンテンツ、これより大きなコンテンツ、そして範囲をもった大きな領域のコンテンツがあるということです。</p>
+
+<p>しっかりと構成されたWebページでは、フレージングコンテンツはフローコンテンツの中に入り、フローコンテンツはセクショニングコンテンツの中に入るはずです。HTML5のセクショニング関連要素を使用しない場合、<code>&lt;body&gt;</code>は1つの区画を囲む単一のセクションとみなすことができます。</p>
+
+<p><img src="img-4-1_01.png" alt="図: セクショニングコンテンツ内のフローコンテンツ内にフレージングコンテンツを表示する" /></p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>実際には内容モデルのフロー（flow）という分類は非常に幅広く、フレーズやセクションに属する要素は同時にフローにも属していますが、上図のフローは主に<code>&lt;p&gt;</code>、<code>&lt;div&gt;</code>などのブロックレベル要素を指しています。HTML5ではブロックという分類がなくなり、これらの要素をひとことで言い表すことが難しくなってしまいました。</dd>
+</dl>
+
+</div>
+
+<p>HTML5のセクショニング要素がもつ潜在的なメリットは、コンテンツを処理しやすい塊に分割できることです。JAWSスクリーンリーダーのいくつかのバージョンでは、ページ内で<code>&lt;section&gt;</code>および<code>&lt;article&gt;</code>要素に到達したときに通知が行われ、その最後に達したときには（たとえば「アーティクル終了」などのように）その終わりが通知されます。</p>
+
+<p><img src="img-4-1_02.png" alt="図: スクリーンリーダーがarticle要素の先頭で「アーティクル」、終端で「アーティクル終了」と読み上げる" /></p>
+
+<p>これまで一般的だった<code>&lt;div&gt;</code>よりも、セクショニング要素のほうが優れていることは明らかです。セクショニング要素は多くの場合、耳で聞いて認識できますが、<code>&lt;div&gt;</code>は認識できません。<code>&lt;div&gt;</code>はグリッドの構築には適していますが、実際のところ、これは石積みのようなものです。支援技術のユーザーには何の意味ももたらしません。実際、セマンティックな情報を伝えることはまったく想定されていないのです。</p>
+
+<blockquote>
+  <p>HTMLのspan要素とdiv要素は、一般的に、意味をもった現存の要素では目的を果たせない場合において、汎用的な組織化や様式の適用のために使用される。<br />
+  ̶ <a href="http://en.wikipedia.org/wiki/Span_and_div">Wikipedia</a></p>
+</blockquote>
+
+<p><code>&lt;section&gt;</code>が間違って<code>&lt;div&gt;</code>と同じ意味で使用されている場合、セクショニング要素の使用によって見込まれるメリットは、失われます。次のマークアップの例を見てください。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;outer&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;inner&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;content&quot;</span><span class="kw">&gt;</span>
+            <span class="co">&lt;!-- ここにコンテンツを記述 --&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre></div>
+
+<p><code>&lt;div&gt;</code>をあまり深くネストするとHTMLコードが無意味に長くなるので良くないとされていますが、<code>&lt;section&gt;</code>のネストではさらにずっと深刻な問題が発生します。少なくとも、疲れやすいスクリーンリーダーユーザーに対して、すべての余分な<code>&lt;div&gt;</code>が通知されるわけではありません！</p>
+
+<p><img src="img-4-1_03.png" alt="図: スクリーンリーダーの読み上げ「セクション、セクション、セクション、セクション、セクション、セクション　ようこそ!」" /></p>
+
+<p>このため、<a href="http://www.w3.org/html/wg/drafts/html/master/sections.html#the-section-element">HTML5.1仕様</a>（HTML5仕様の最新バージョン）が先日変更され、セクションごとの目的の強調とラベルづけに見出し（heading）を使用することが強く推奨されています。</p>
+
+<blockquote>
+  <p>各<code>section</code>の主題は、一般に<code>section</code>要素の子として見出し（<code>h1</code> - <code>h6</code>要素）を含むことによって識別されるべきである。</p>
+</blockquote>
+
+<p>これに加えて、現在W3Cは、ブラウザと支援技術のベンダーに「<a href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sec-implicit-aria-semantics"><code>section</code>要素に名前がつけられている場合のみ、［中略］<code>section</code>要素が存在することを通知すること</a>」を推奨しています。制作者のミスを考慮して、この安全策が広く取り入れられることが望まれます。</p>
+
+<p>Webページのアクセシビリティにおける見出しの役割については、後で説明します。ここでは、NVDAおよびJAWSスクリーンリーダーのユーザーはキーボードショートカットを使用して見出し間を移動できること、これは基本的にセクション間のジャンプを意味することがわかっていれば十分です。たとえば、JAWSでは、1～6のキーがHTMLの見出し要素<code>&lt;h1&gt;</code>～<code>&lt;h6&gt;</code>に対応しています。WebAIMによって、<a href="http://webaim.org/articles/jaws/#quick">JAWSのキーボードショートカット（「ナビゲーションクイックキー」）のまとめ</a>が公開されています。</p>
+
+<h3 id="toc_index_2">test.css</h3>
+
+<p><code>&lt;section&gt;</code>を使い過ぎていないか、また<code>&lt;div&gt;</code>のように使っていないかをチェックするには、ごく単純なルールをCSSに追加します。test.cssスタイルシートに以下を追加します。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">section &gt; section<span class="dv">:first-child:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">#fff</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：sectionがdivのように使われているようです。各sectionに見出しを追加しましょう。&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+    </body>
+</html>

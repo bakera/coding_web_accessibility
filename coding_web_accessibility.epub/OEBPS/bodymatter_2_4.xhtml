@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>2-3 ボタンにラベルをつける</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">2-3 ボタンにラベルをつける</h2>
+
+<p>ここまではボタンのデザインに夢中になりすぎて、これが見えない人もいるのだということをすっかり忘れていました。こうした人々（とそれ以外のすべての人々）に、個々のボタンの目的を伝えるにはどうしたらよいでしょうか？　その答えは、単純に言えば「言葉で」、専門用語を使えば「<code>&lt;button&gt;</code>要素のテキストノードで」となります。WebAIMによる、<a href="http://webaim.org/techniques/forms/controls#button">アクセシブルなフォームにするためのガイド</a>には、ボタンにテキストを含めることの重要性について、これ以上ないほどはっきりと明記されています。</p>
+
+<blockquote>
+  <p>入力ボタンのvalue属性と<code>&lt;button&gt;</code>要素に含まれたテキストは、ボタンにアクセスしたときにスクリーンリーダーによって読み上げられます。これらを空にしておくことは、あってはなりません。</p>
+</blockquote>
+
+<p>スクリーンリーダーは通常、フォーカスのあるコントロールが実際にボタンであることを通知した後に、そのボタンのラベルを読み上げます。たとえば「ボタン、保存」のように。</p>
+
+<p>意図的に推測ゲームを作ろうとしているのでない限り、単に「ボタン」であるという通知だけでは、アクセシビリティの観点からするとほめられたものではありません。たとえば、Victor Tsaran（ビクター・ツァラン）による<a href="https://www.youtube.com/watch?v=StI0iIufJzk">サウスウエスト航空のiPhoneアプリのテスト</a>では、画面の各コントロールが単に「ボタン」としか読み上げられていません。彼は最後に、「もうサウスウエストに用はないな」と顔をしかめています。</p>
+
+<p>ただし、ボタンにラベルをつける方法はテキストノードだけではありません。基本的にはそうであるべきなのでしょうが、実際はそうではないのです。たとえば「元に戻す」操作を示すカーブした左向きの矢印などの<code>&lt;img&gt;</code>要素をテキストの代わりに<code>&lt;button&gt;</code>の中に含めて、わかりやすいシンボルを表示することもできます。</p>
+
+<p>このような場合、次の2つの備えが必要です。</p>
+
+<ol>
+<li>シンボルを理解できない人（そんなもん、わからなくて当然！）にテキストでヒントを提供するため、ツールチップを追加する。</li>
+<li>スクリーンリーダーユーザー向けにボタンの説明をテキストで提供するため、<code>alt</code>属性をもたせる。</li>
+</ol>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;button&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;undo_icon.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;元に戻す&quot;</span> <span class="kw">/&gt;&lt;/button&gt;</span>
+<span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;tooltip hidden&quot;</span><span class="kw">&gt;</span>元に戻す<span class="kw">&lt;/p&gt;</span></code></pre></div>
+
+<p><strong>注</strong>： JavaScriptで表示するツールチップよりも、代わりに標準の<code>title</code>属性を使用したほうが効率的と思えるかもしれません。しかし、<code>title</code>が表示されるのはhover時だけであり、フォーカス時には表示されないため、キーボードユーザーにとってはアクセシブルではありません。もちろん、使用するツールチップライブラリの作者がフォーカスイベントを考慮していない可能性もありますが、その場合は次のようにして調整することができます。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">button<span class="dv">:hover</span> + <span class="fl">.tooltip</span>, button<span class="dv">:focus</span> + <span class="fl">.tooltip</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>Chapter 5「<a href="bodymatter_5_0.xhtml">いないいないばあ</a>」では、アクセシブルなWAI-ARIAベースのツールチップについてさらに見ていきます。</p>
+
+<p><code>alt</code>テキストは、標準のテキストラベルとして読めるであろうものを指定することが重要です。「元に戻す」ならよいのですが、「元に戻す矢印の絵」というのはナンセンスです。これは、機能を表現する代替手段であり、見えないものを説明するためのものではありません。</p>
+
+<h3 id="toc_index_2">ARIAによるラベルづけ</h3>
+
+<blockquote>
+  <p>すべての非テキストコンテンツには、拡大印刷、点字、音声、シンボル、平易な言葉などの利用者が必要とする形式に変換できるように、代替テキストを提供すること。<br />
+  ― WCAG 2.0ガイドライン1.1</p>
+</blockquote>
+
+<p>ここで初めてWeb Accessibility InitiativeのARIAが登場します。ARIA（Accessible Rich Internet Applications）は、<code>aria-label</code>と<code>aria-labelledby</code>という、フォームにアクセシブルなテキストを付与するための2つの方法を提供しています。前者は値にラベルテキストを含む属性であり、後者はテキストを含む他の要素を参照します。</p>
+
+<p>ARIAがこれらのプロパティを提供している目的は、読み上げのための追加のテキストコンテンツや足りないテキストコンテンツを提供することによってスクリーンリーダーのアクセシビリティを向上することです。</p>
+
+<p>ARIAプロパティおよびそのWebアプリケーションのアクセシビリティに対する貢献については、次の章でさらに詳しく見ていきます。</p>
+
+<h4 id="toc_index_3">aria-label</h4>
+
+<p>次の例では、アイコンフォントでアイコンを表現するために、特殊なUnicode文字を使います。Unicode符号位置が<a href="http://en.wikipedia.org/wiki/Private_Use_Areas">私用領域（PUA）</a>にあるため、特定の意味はなく、読み上げることはできません。<code>aria-label</code>の値は、このような場合に読み上げるべき文字を追加します。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="co">&lt;!-- aria-labelのサンプル --&gt;</span>
+<span class="kw">&lt;button</span><span class="ot"> aria-label=</span><span class="st">&quot;元に戻す&quot;</span><span class="kw">&gt;</span><span class="dv">&amp;#xE000;</span><span class="kw">&lt;/button&gt;</span></code></pre></div>
+
+<p><img src="img-2-3_01.png" alt="図: aria-labelによって、スクリーンリーダーが「ボタン、元に戻す」と読み上げるボタン" /></p>
+
+<h4 id="toc_index_4">aria-labelledby</h4>
+
+<p>この例では、ちょっとした説明文を使って、ユーザーにボタンの使い方を案内します。この説明文では元に戻すボタンについて言及されているため、元に戻すボタンとその説明との関係（リレーションシップ）をアクセシブルな方法でコーディングします。具体的には、説明文の<code>id</code>を使います。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>直前の操作を元に戻すには<span class="kw">&lt;strong</span><span class="ot"> id=</span><span class="st">&quot;undo-text&quot;</span><span class="kw">&gt;</span>元に戻す<span class="kw">&lt;/strong&gt;</span>ボタンを押します。<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;button</span><span class="ot"> aria-labelledby=</span><span class="st">&quot;undo-text&quot;</span><span class="kw">&gt;</span><span class="dv">&amp;#xE000;</span><span class="kw">&lt;/button&gt;</span></code></pre></div>
+
+<p>リレーションシップについては、本書の後半でさらに詳しく説明します。今のところ、<code>aria-label</code>と<code>aria-labelledby</code>は対症療法に過ぎず、ほかに選択肢がない場合に使うということだけを覚えておいてください。テキストラベルを含んだ魅力的なボタンの方が好ましいでしょう。</p>
+
+<h3 id="toc_index_5">用語選択</h3>
+
+<p>ユーザビリティと同様、アクセシビリティの要は慣習です。実際、そもそも先ほどのボタンの目的を伝えるために「元に戻す」の矢印を使ったのは、これがシンボリックだからという理由です。つまり、ボタンの意味が伝わったのは、カーブした左向きの矢印が操作の取り消しを示すという慣習があるからです。</p>
+
+<p>考えてみれば（特に、右から左へと読み進める言語もあることを考慮すれば）、操作の取り消しをもっとうまく表す方法もあるでしょう。しかし、カーブした左向きの矢印は一般に広まった慣習であり、もっと普遍的なシンボルがありそうではあっても、鼻であしらわれることもないのです。私たち皆がその意味に同意したということです。</p>
+
+<blockquote>
+  <p>「クリエイティビティ」はできの悪いデザイナーに任せましょう。ここは人と違うことをやる場所ではないのです。慣習があるならば、それを使います。<br />
+  ― <a href="http://www.markboulton.co.uk/journal/icons-symbols-and-a-semiotic-web">Mark Boulton（マーク・ボルトン）</a></p>
+</blockquote>
+
+<p>言葉も、<a href="http://en.wikipedia.org/wiki/Pictogram">ピクトグラム</a>のようにシンボリックになりえます。慣習的な言葉を使って一般的なアクションを表すことはクリエイティブではないかもしれませんが、ユーザーが経験する<a href="http://www.nngroup.com/articles/navigation-cognitive-strain/">認知的緊張</a>が軽減されるため、そのユーザビリティはとても優れています。</p>
+
+<ul>
+<li><strong>保管</strong>ではなく<strong>保存</strong></li>
+<li><strong>破棄</strong>ではなく<strong>削除</strong></li>
+<li><strong>入れ替え</strong>ではなく<strong>編集</strong></li>
+</ul>
+
+<p><img src="img-2-3_02.png" alt="図: 送信ボタンのラベル。「送信」なら「よし、そうしよう」となる。「やってみよう！」だと「変わった言い回しはしないでくれよ」となる" /></p>
+
+<h3 id="toc_index_6">test.css</h3>
+
+<p>ここでtest.cssファイルにもうひとつのルールを加えましょう。この宣言ブロックは、一連のセレクタを使用して、Webページのボタンに、少なくとも何らかの方法でアクセシビリティを考慮したラベルがつけられているかどうかをチェックします。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="dv">:empty:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>)<span class="dv">:after</span>,
+button<span class="dv">:empty:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>)<span class="dv">:after</span>,
+button<span class="dv">:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>) img<span class="dv">:only-child:not</span>(<span class="at">[alt]</span>)<span class="dv">:after</span>,
+a<span class="dv">:not</span>(<span class="at">[aria-label]</span>)<span class="dv">:not</span>(<span class="at">[aria-labelledby]</span>) img<span class="dv">:only-child</span><span class="dv">:not</span>(<span class="at">[alt]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;このボタンに関する情報が十分ではありません。ボタンの中にテキストを含めてください。&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>上のコードは、かみ砕いて言うと、「ボタンにコンテンツがない場合でかつアクセシブルなARIAラベルがない場合は、警告を表示する」という処理を行っています。また、「ボタンにコンテンツがあり、それが単なる画像である場合でかつ画像にalt属性がない場合は、警告を表示する」という処理も行っています。CSSの見た目は悪くなりますが、ラベルをチェックするうえで役に立つでしょう。</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>残念ながら、画像を使用している場合の警告表示は、ほとんどのモダンブラウザで機能しません。このCSSでは<code>img</code>要素に対して<code>:after</code>擬似要素を使っていますが、<code>:after</code>擬似要素は要素内容の末尾にノードを追加するため、置換要素である<code>img</code>要素に警告のテキストを挿入することはできません。機能させたければ、CSSを調整して他の場所に表示させる必要があるでしょう。</dd>
+</dl>
+
+</div>
+
+    </body>
+</html>

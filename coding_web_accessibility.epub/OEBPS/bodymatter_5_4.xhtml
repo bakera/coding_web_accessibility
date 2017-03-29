@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>5-3 プログレッシブな折りたたみ項目</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">5-3 プログレッシブな折りたたみ項目</h2>
+
+<p>次はプログレッシブエンハンスメントを使用した、より複雑な「いないいないばあ」の例を見ていきましょう。</p>
+
+<p>よくある質問と回答（FAQ）のページを作成したとしましょう。Webアプリケーションに関する質問が数多く届いているため、このページはかなり長くなっています。各質問は<code>&lt;h2&gt;</code>でマークアップされ、この<code>&lt;h2&gt;</code>の後に、数段落にわたる回答、画像、その他のコンテンツが続きます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;</span>パスワードはどのように変更するのですか？&lt;/h2&gt;
+<span class="kw">&lt;p&gt;</span>それは、…<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;p&gt;</span>です。<span class="kw">&lt;/p&gt;</span>
+
+<span class="kw">&lt;h2&gt;</span>私のデータはどこかに格納されますか？&lt;/h2&gt;
+<span class="kw">&lt;p&gt;</span>それは、…<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;images/diagram.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;データモデル&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;p&gt;</span>です。<span class="kw">&lt;/p&gt;</span>
+
+<span class="kw">&lt;h2&gt;</span>問い合わせ先を教えてください<span class="kw">&lt;h2&gt;</span>
+<span class="kw">&lt;p&gt;</span>それは、…<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;p&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://www.example.com/article&quot;</span><span class="kw">&gt;</span>リンクを含むテキスト<span class="kw">&lt;/a&gt;</span>です。<span class="kw">&lt;/p&gt;</span></code></pre></div>
+
+<p>セマンティクスという観点から言えば、このマークアップはかなり優秀です。適切な見出しで質問をマークアップしており、視覚的にもわかりやすく、スクリーンリーダーユーザーもクイックキー（数字の「２」のキー）を使って質問項目を簡単にジャンプできる階層構造になっています。</p>
+
+<p>惜しいのはページの長さです。これでは、分類したり全体を把握したりするのが困難です。<code>&lt;h2&gt;</code>要素はキーボードではフォーカスできないため、キーボードユーザーが個々の質問項目を簡単に移動する方法もありません。</p>
+
+<p>基盤はしっかりとしていますが、プログレッシブエンハンスメントによって、JavaScriptを利用できる多くの人々の体験を向上させてみましょう。</p>
+
+<p><img src="img-5-3_01.png" alt="図: 繰り返されるタイトルと段落のセットを、押すと中身が展開される矢印付きのボタンに変えた例" /></p>
+
+<h3 id="toc_index_2">HTML</h3>
+
+<p>各セクションのコンテンツを折りたたんで、質問だけを残しましょう。そしてユーザーがクリック、タップ、キーストロークのいずれかで、個々の質問の答えを表示できるようにします。全体として、質問を見つけ、その回答を表示する体験がより快適になるはずです。</p>
+
+<p>ここで補助として使用する要素や属性の多くは、JavaScriptが利用できない場合、ページに存在しても意味をなさないので、jQueryで追加します。また、手作業で記述するマークアップが少なくなるというのも利点です。このスクリプトで変更した質問と回答のパネルのHTMLを見てみましょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;&lt;button</span><span class="ot"> aria-expanded=</span><span class="st">&quot;false&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;howdo-I-change-my-password&quot;</span><span class="kw">&gt;</span>パスワードはどのように変更するのですか？&lt;/button&gt;<span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;how-do-I-change-my-password&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;p&gt;</span>それは、<span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://example.com&quot;</span><span class="kw">&gt;</span>リンク<span class="kw">&lt;/a&gt;</span>を…<span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;p&gt;</span>…ください。<span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<ol>
+<li>回答を項目ごとに展開または折りたたみできるよう、すべての回答のコンテンツを共通の<code>&lt;div&gt;</code>で囲みました。これをjQueryで行うのは簡単です。<code>$('h2').nextUntil('h2').wrapAll('div');</code>とします。</li>
+<li><code>&lt;h2&gt;</code>の内容を、回答の<code>&lt;div&gt;</code>を展開するのに使用する<code>&lt;button&gt;</code>で囲みました。<code>&lt;h2&gt;</code>に<code>button</code>の<code>role</code>を使用することもできますが、見出しのセマンティクスが失われます（<a href="http://www.w3.org/TR/aria-in-html/#second-rule-of-aria-use">ARIA使用の2番目のルール</a>を思い出してください）。</li>
+<li>どの要素がどの要素から影響を受けるかを支援技術がわかるよう、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls"><code>aria-controls</code>プロパティ</a>と生成された<code>id</code>を使用して見出しボタンと隠された回答のリレーションシップを設定しました。このような質問テキストから有効なスラッグ（識別用のキー）を生成するには<a href="https://github.com/pmcelhaney/jQuery-Slugify-Plugin">この小さなヘルパープラグイン</a>を使用するか、ランダムなキーを生成します。リレーションシップを確立するための<code>id</code>は、一意であれば何でもかまいません。</li>
+<li><code>button</code>には、対応する回答が使用できる（表示されていて読むことができる）かどうかを示す、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls"><code>aria-expanded</code>ステート</a>が含まれています。もちろん、はじめは<code>false</code>に設定されています。</li>
+<li><code>aria-hidden</code>で、展開されていない回答の<code>&lt;div&gt;</code>を隠すよう、支援技術に伝えています。<code>aria-hidden</code>によって、回答が不用意に発見されないようにしています。</li>
+</ol>
+
+<h3 id="toc_index_3">CSS</h3>
+
+<p>CSSについてはいくつかの注意点のみ述べます。Chapter 2「<a href="bodymatter_2_0.xhtml">ボタンのすべて</a>」で説明したように、CSSでの表示状態をステートと結びつけるという方法が適しています。</p>
+
+<blockquote>
+  <p>CSSの<code>display</code>プロパティをARIAの<code>hidden</code>ステートに結びつける。これは、ユーザーエージェントがサポートするプラットフォームアクセシビリティAPIではなく、ユーザーエージェントのDOMと直接やりとりする支援技術にとって重要である。<br />
+  ̶ <a href="http://www.w3.org/WAI/PF/aria-practices/#docmgt">WAI-ARIAオーサリングプラクティス</a></p>
+</blockquote>
+
+<p>こうすることで、無関係な<code>class</code>属性と値を省くことができるだけでなく、実際のステート変更を視覚的な変化に反映させることができます。たとえば、<code>aria-hidden</code>ステートを切り替えることで、各回答を折りたたんだり展開したりします。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-hidden]</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">none</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-hidden=</span><span class="st">&quot;false&quot;</span><span class="at">]</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>加えて、<code>:before</code>疑似コンテンツを使用して、質問テキストの横に矢印を配置します。この矢印の向き（折りたたまれているときは右向き、展開されているときは下向き）は、<code>aria-expanded</code>ステートの値（<code>false</code>または<code>true</code>）と連動しています。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[aria-expanded]</span><span class="dv">:before</span> <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;\25ba\0020&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-expanded=</span><span class="st">&quot;true&quot;</span><span class="at">]</span><span class="dv">:before</span> <span class="kw">{</span>
+    <span class="kw">content:</span> <span class="st">&#39;\25bc\0020&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>矢印にUnicodeの絵文字を使用すると、グラフィックや背景画像を挿入するよりもずっと簡単で効率的です。また、ユーザーがページをズームしても画質の低下が起こりません。なお、\0020エンコードは、<a href="http://www.fileformat.info/info/unicode/char/0020/index.htm">U+0020によるスペース</a>に対応しており、見出しのタイポグラフィーとの単語間隔が保持されます。一部のスクリーンリーダーが「<strong>右向きの黒三角</strong>」などのように読み上げる可能性があることに注意してください。</p>
+
+<h3 id="toc_index_4">それからどうなる？</h3>
+
+<p>マークアップを組み立てたら、JavaScriptでボタンクリックを処理し、ボタンの<code>aria-expanded</code>ステートと対応するパネルの<code>aria-hidden</code>ステートを切り替えるようにします。これらの属性の追加と変更で実際に起こることは、とても興味深いものです。</p>
+
+<p><img src="img-5-3_02.png" alt="図: ボタンにフォーカスを移すと、スクリーンリーダーが「見出しレベル2、パスワードはどのように変更するのですか、ボタン、折りたたみ」と読み上げる" /></p>
+
+<p>質問を表すボタンがフォーカスを受け取ると、スクリーンリーダーは以下の4つの重要な情報を読み上げます。</p>
+
+<ul>
+<li>見出し（質問）テキスト。</li>
+<li>その見出しのレベル（この例では2）。</li>
+<li>ボタンがフォーカスを受け取ったこと。</li>
+<li>このボタンの状態（折りたたまれている、または展開されている）。</li>
+</ul>
+
+<p><code>&lt;button&gt;</code>を押すと、その<code>aria-expanded</code>ステートが<code>true</code>に切り替えられ、対応するパネルの<code>aria-hidden</code>ステートが<code>false</code>に設定されます。「パスワードはどのように変更するのですか、ボタン、展開」と読み上げられると、ユーザーはコンテンツが読める状態になったことがわかります。そして通常は下矢印キーを使用して、そのコンテンツに移動することができます。</p>
+
+<p><img src="img-5-3_03.png" alt="図: 「パスワードはどのように変更するのですか？」のボタンを押すと、フォーカスが対応するコンテンツに切り替わり、読み上げが始まる。「17個の手順があります…」" /></p>
+
+<p>JAWSではさらに、「<strong>use the JAWS key + ALT + M to move to the controlled element</strong>」という情報がアナウンスされます。</p>
+
+<p>JAWSは<code>aria-controls</code>によって作られたリレーションシップを明らかにし、展開したコンテンツにジャンプする方法をユーザーに提供します。この例では、展開されたコンテンツはコントローラのすぐ後に表示されるため、実際にはジャンプする必要はありません。しかし、展開されたコンテンツがページの別の場所にある場合には有用です。</p>
+
+<p>この例の<a href="http://heydonworks.com/practical_aria_examples/#progressive-collapsibles">実際に動くデモ</a>を用意しましたので、参考にしてください。</p>
+
+<h3 id="toc_index_5">すべてを支配する1つのパターン</h3>
+
+<p>先ほどの例では、いくらかのセマンティックなHTMLを使い、さらにいくらかのARIAとほんの少しのJavaScriptを使って、プログレッシブエンハンスメントを実現しました。これで、文章で構成されたページがクイックリファレンスに変化しました。このテクニックのアクセシビリティ上のポイントは、以下の2点です。</p>
+
+<ol>
+<li>JavaScriptにエラーがある場合や、JavaScriptがロードされていない、またはセキュリティ上ブロックされているユーザーでも、コンテンツにアクセスできるようにする。</li>
+<li>JavaScriptで拡張された同じコンテンツのビューを、キーボードでナビゲーションするユーザーや、スクリーンリーダーユーザーにとって有益なものにする。</li>
+</ol>
+
+<p>ビューを拡張するという考え方の本質には、システム的な観点での複雑さはほとんどなく、用途は非常に多岐にわたります。ここで使ったARIAの展開／折りたたみの考え方は、アコーディオンメニュー（一度に1つの領域のみを展開する）や、“☰”アイコン（ナビコン）に隠されたナビゲーションメニューの表示にも応用できます。</p>
+
+<h4 id="toc_index_6">ナビコン</h4>
+
+<p>先ほどの例と、これから見ていくナビコンから展開されるナビゲーションメニューの例の大きな違いは、基本的なHTMLにデグレードする方法だけです。JavaScriptを使わずに、ナビゲーションランドマークへの単純なページ内リンクを表示しなくてはなりません。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#navigation&quot;</span><span class="kw">&gt;</span>メニュー<span class="kw">&lt;/a&gt;</span>
+<span class="co">&lt;!-- 場合によってその他のマークアップ --&gt;</span>
+<span class="kw">&lt;nav</span><span class="ot"> id=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> role=</span><span class="st">&quot;navigation&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;ul&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>ホーム<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/about&quot;</span><span class="kw">&gt;</span>本サイトについて<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/blog&quot;</span><span class="kw">&gt;</span>ブログ<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/nav&gt;</span></code></pre></div>
+
+<p>JavaScriptを使う場合は、ARIAの<code>role="button"</code>を使用してリンクを<code>button</code>に見せかけます。これは、ナビゲーションを開いてそこに移動するようにアクションを変えようとしているためです。つまり、リンクは<code>return false</code>にします。それ以外はご存じの通りです。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#navigation&quot;</span><span class="ot"> role=</span><span class="st">&quot;button&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> aria-expanded=</span><span class="st">&quot;false&quot;</span><span class="kw">&gt;</span>メニュー<span class="kw">&lt;/a&gt;</span>
+<span class="co">&lt;!-- 場合によってその他のマークアップ --&gt;</span>
+<span class="kw">&lt;nav</span><span class="ot"> id=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> role=</span><span class="st">&quot;navigation&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;ul&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>ホーム<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/about&quot;</span><span class="kw">&gt;</span>本サイトについて<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;/blog&quot;</span><span class="kw">&gt;</span>ブログ<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;/nav&gt;</span></code></pre></div>
+
+<p><img src="img-5-3_04.png" alt="図: navigationランドマークが付いている要素が表示されているとき、メニューボタンはaria-expanded=&quot;true&quot;となる" /></p>
+
+<h3 id="toc_index_7">注意点</h3>
+
+<ul>
+<li>メニューボタンが押されたとき、スクリーンリーダーは「メニューボタンが展開されました」というような通知を行う必要があります。これにより、スクリーンリーダーユーザーは、自分が現在ナビゲーションメニューを使用していることがわかります。</li>
+<li><code>$([aria-expanded])</code>に<code>keypress</code>イベントを割り当て、ユーザーが<kbd>Tab</kbd>キーを押したときにナビゲーションメニューの最初の項目にフォーカスが移動するようにします。メニューがタブオーダーにおける次の項目であるとは限らないため（DOMの編成によっては、メニューボタンとメニューの間に他のインタラクティブ要素が存在する可能性があります）、これはプログラムで行う必要があります。</li>
+<li><code>aria-hidden</code>を使ってナビゲーションランドマークを隠すと、スクリーンリーダーユーザーはランドマーク一覧のダイアログからこのナビゲーションにアクセスすることはできなくなります。<a href="http://heydonworks.com/practical_aria_examples/#hamburger">このオフキャンバスナビゲーションのデモ</a>では、ランドマークをもったナビゲーションそのものを複製し、これをページの最下部で見えないように隠すことによって問題を解決しています。</li>
+</ul>
+
+<p><img src="img-5-3_05.png" alt="図: メニューボタンに対する読み上げは、フォーカス時は「メニューボタン、折りたたまれている」、クリック時は「メニューボタン、展開されている」となる。その状態でTabキーが押されると、メニューにフォーカスが移る" /></p>
+
+<h3 id="toc_index_8">test.css</h3>
+
+<p>このオフキャンバスメニューのパターンは、クラスを取り除いた設計によって本質的な部分だけに凝縮されています。知らぬ間に望ましくないコーディングをする可能性はあまり高くありません。すべてのARIA属性はスタイルをつけるための仕掛けとしても使用されているからです。</p>
+
+<p>それでも、用心するに越したことはありません。以下のルールを<strong>test.css</strong>ファイルに追加します。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">#navigation</span><span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;navigation&quot;</span><span class="at">]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：主要なナビゲーションブロックへのページ内リンクが可能なように設定しようとしています。ARIAのナビゲーションロールがあることを確認してください&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[aria-controls=</span><span class="st">&quot;navigation&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[href=</span><span class="st">&quot;#navigation&quot;</span><span class="at">]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：JavaScriptが無効な場合、これはナビゲーションランドマークに移動するリンクになっているべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>この<strong>test.css</strong>は、navigationという<code>id</code>が決め打ちになっており、ここで紹介したサンプルに特化した内容となっています。この<code>id</code>を他の用途で使ったり、メニューに他の<code>id</code>をつける場合は調整が必要になります。</dd>
+</dl>
+
+</div>
+
+<p><strong>注</strong>：「メニュー」の文字を付加せずにナビコンのシンボルだけを表示したい場合は、Chapter 2「<a href="bodymatter_2_0.xhtml">ボタンのすべて</a>」で説明したように、<code>aria-label</code>属性を追加して「ナビゲーションメニュー」などの値を設定します。これによりスクリーンリーダーユーザーはボタンを認識できるようになりますが、だからと言って、他の多くのユーザーにとってシンボルがわかりにくいという事実を埋め合わせることにはなりません。</p>
+
+<p>Luis Abreu（ルイス・アブレウ）が「<a href="http://lmjabreu.com/post/why-and-how-to-avoid-hamburger-menus/">Why And How To Avoid Hamburger Menus</a>」で立証した通り、この横に出てくるメニューパターンは全体的なユーザビリティを損なう可能性があります。デザインパターンが使いにくいものだとわかっている場合は、それをアクセシブルにしても意味がありません。誰も望んでいないものへのアクセスが向上するだけです。</p>
+
+    </body>
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>テスティングツール</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">テスティングツール</h2>
+
+<p>Webアプリケーションのアクセシビリティのテストに最適なオープンソースツールをいくつか選んで紹介しています（繰り返しになりますが、このリストに記載されたものがすべてだというわけではありません）。</p>
+
+<p>ただし、自動化ツールを使うことは必要ではありますが、ツールを使えばそれで<strong>十分だというわけでもありません</strong>。セマンティックHTMLを正しく用いたインターフェイスから始めるのは良いことではありますが、アプリケーションが使用可能であることを保証するものではありません。詳細は、<a href="http://www.techopedia.com/definition/3887/user-acceptance-testing-uat">User Acceptance Testing</a>を参照してください。</p>
+
+<div class="appendix">
+
+<h3 id="toc_index_2">ブラウザ拡張</h3>
+
+<h4 id="toc_index_3"><a href="https://addons.mozilla.org/en-US/firefox/addon/accessibility-evaluation-toolb/">Accessibility Evaluation Toolbar</a></h4>
+
+<p>ずいぶん前から私が頼りにしているツールです。HTMLに潜むアクセシビリティの問題を概観できます。</p>
+
+<p>作者：Jon Gunderson</p>
+
+<h4 id="toc_index_4"><a href="https://addons.mozilla.org/en-US/firefox/addon/dom-inspector-6622/">Dom Inspector（DOMi）</a></h4>
+
+<p>Firebugによく似たFirefoxのアドオンですが、DOMのどの部分が実際にアクセシブルなのかを示す追加機能があります。「アクセシブルツリー」モードに切り替えると、アクセシブルなノードのみ（HTMLの一部）が表示されます。</p>
+
+<h4 id="toc_index_5"><a href="https://addons.mozilla.org/en-US/firefox/addon/juicy-studio-accessibility-too/">Juicy Studio Accessibility Toolbar</a></h4>
+
+<p>Gez Lemonが作成した、ARIAのライブリージョンに関する情報を提供する機能をもったツールです。</p>
+
+<p>作者：Gez Lemon</p>
+
+<h4 id="toc_index_6"><a href="https://addons.mozilla.org/en-US/firefox/addon/wave-toolbar/?src=ss">WAVE Toolbar</a></h4>
+
+<p>ページのデザインに追加されたグラフィックスを使用して、問題や機能（ARIA機能など）をすばやく把握することができます。</p>
+
+<p>作者：WebAIM</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>WAVE Toolbarは2017年3月時点でリンク切れとなっています。同様の機能を持つツールとして<a href="https://addons.mozilla.org/en-US/firefox/addon/wave-accessibility-tool/">WAVE Accessibility Extension</a>がリリースされています。</dd>
+</dl>
+
+</div>
+
+<h4 id="toc_index_7"><a href="https://chrome.google.com/webstore/detail/chromevox/kgejglhpjiefppelpmljglcjbhoiplfn">ChromeVox</a></h4>
+
+<p>Google Chromeブラウザの拡張として設計された、本格的なスクリーンリーダーです。ARIAにしっかりと対応しており、どんなスクリーンリーダーのテストスイートにも追加する価値があります。</p>
+
+<p>作者：Google</p>
+
+<h3 id="toc_index_8">Webベースのツールおよびブックマークレット</h3>
+
+<h4 id="toc_index_9"><a href="http://www.squizlabs.com/general/html-codesniffer">HTML_CodeSniffer</a></h4>
+
+<p>HTML_CodeSnifferは、WCAG 2.0準拠に関してエラー、警告、通知を報告するブックマークレットです。すぐれたインターフェイスをもち、フォーク機能や拡張機能があります</p>
+
+<p>作者：Squiz</p>
+
+<h4 id="toc_index_10"><a href="http://www.accesslint.com/">accesslint.com</a></h4>
+
+<p>URLを入力するだけで使用できる、Webベースのアクセシビリティ検証ツールです。</p>
+
+<p>作者：Cameron Cundiff</p>
+
+<h4 id="toc_index_11"><a href="http://pa11y.org/">pa11y</a></h4>
+
+<p>多数のサイトのアクセシビリティを同時に監視するための、ブラウザベースのダッシュボードです。node.js、MongoDB、PhantomJSが必要です。</p>
+
+<h4 id="toc_index_12"><a href="http://www.deque.com/deque-fireeyes">FireEyes</a></h4>
+
+<p>FireEyesはFirebugの拡張のひとつで、包括的なレポートサービスです。アカウントを作成する必要はありますが無料で使用できます。</p>
+
+<p>作者：Deque</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>FireEyesは2017年3月時点でリンク切れとなっています。同様の機能を持つツールとして<a href="https://addons.mozilla.org/en-us/firefox/addon/axe-devtools/">aXe Developer Tools</a>がリリースされています。</dd>
+</dl>
+
+</div>
+
+<h4 id="toc_index_13"><a href="http://wave.webaim.org/">WAVE</a></h4>
+
+<p>WebAIMのブラウザ拡張にかわる、Webベースのツールです。</p>
+
+<p>作者：WebAIM</p>
+
+<h4 id="toc_index_14"><a href="http://www.karlgroves.com/2013/09/07/diagnostic-css-super-quick-web-accessibility-testing">Diagnostic.css</a></h4>
+
+<p>CSSのみを使用した「超迅速な」テスティングツールです。本書のtest.cssによく似ていますが、より複雑かつ包括的です。</p>
+
+<p>作者：Karl Groves</p>
+
+<h4 id="toc_index_15"><a href="http://heydonworks.com/revenge_css_bookmarklet/">REVENGE.CSS</a></h4>
+
+<p>私が作成したCSSベースのテスティングツールです。ピンク色のボックス内にComic Sansフォントで警告が表示されます。アクセシブルでないWebページには、<strong>見苦しい見た目</strong>がふさわしいのです（修正されるまではね！）。</p>
+
+<p>作者：Heydon Pickering</p>
+
+<h3 id="toc_index_16">コントラストおよび色覚異常</h3>
+
+<h4 id="toc_index_17"><a href="http://colororacle.org/">Color Oracle</a></h4>
+
+<p>Windows、Mac、Linux向けの強力なデスクトップアプリケーションで、一般的な色覚機能障害をシミュレートします。デザインのどの部分の鮮明度が足りないのかがひと目でわかるようになっています。</p>
+
+<h4 id="toc_index_18"><a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a></h4>
+
+<p>とても使いやすいコントラストチェッカーです。前景色と背景色を入力すると、WCAG 2.0の定義に従ったコントラスト比を示してくれます。</p>
+
+<p>作者：Lea Verou</p>
+
+<h4 id="toc_index_19"><a href="http://webaim.org/resources/contrastchecker/">Color Contrast Checker</a></h4>
+
+<p>Lea Verouのツールに似た、WebAIMのツールです。前景か背景のいずれかの色の濃さをインクリメントおよびデクリメントできるため、どの時点でコントラストが不足するのかがわかります。</p>
+
+<p>作者：WebAIM</p>
+
+<h4 id="toc_index_20"><a href="http://www.paciellogroup.com/resources/contrastAnalyser">Colour Contrast Analyser</a></h4>
+
+<p>The Paciello Groupの優秀な人材によるアナライザーです。Windows用とMac OS X用があります（日本版は<a href="http://weba11y.jp/tools/cca/index.html">カラー・コントラスト・アナライザー 2013J</a>）。</p>
+
+<h4 id="toc_index_21"><a href="http://snook.ca/technical/colour_contrast/colour.html">Colour Contrast Check</a></h4>
+
+<p>一歩進んだコンセプトをもったツールで、色相や彩度などのカラーコンポーネントをスライダーで微調整できます。</p>
+
+<p>作者：Jonathan Snook</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>その他、日本語で使うことができるものとして、以下の3点を紹介します。</dd>
+</dl>
+
+<h4 id="toc_index_22"><a href="http://alfasado.net/apps/colortester-ja.html">ColorTester</a></h4>
+
+<p>アルファサード株式会社の<a href="https://twitter.com/junnama">@junnama</a>氏によるカラーテスターツールです。特定箇所の色を取得してチェックするだけでなく、画像の前景・背景を自動判定して直接チェックする機能があります。</p>
+
+<h4 id="toc_index_23"><a href="http://weba11y.jp/tools/aviewer/index.html">aViewer 2013 日本語版</a></h4>
+
+<p>アクセシビリティAPIの検証ツールです。アクセシビリティツリーの状態を確認でき、ARIAのロールやステートが実際にどのように反映されているのかを見ることができます。</p>
+
+<h4 id="toc_index_24"><a href="http://www.concentinc.jp/labs/2014/01/pixel-perfect-precision-handbook-2-japanese/">The ustwo™Pixel Perfect Precision Handbook 2 日本語版</a></h4>
+
+<p>Pixel Perfect Precision™ Handbook 2は、ustwo™社による、Webサイトなどのデジタル環境用のデザインをする上での基本原則と、実践ですぐに使える具体的なPhotoshopのテクニックが収録されているドキュメントです。全体のうち40ページ強を割き、アクセシブルなビジュアルデザインの原則を紹介しています。日本語版は、ustwo™社の許可を得て、株式会社コンセントにより全文を日本語に翻訳、スクリーンショットなど英語のままではわかりづらい箇所も改訂されたものです。</p>
+
+</div>
+
+</div>
+
+    </body>
+</html>

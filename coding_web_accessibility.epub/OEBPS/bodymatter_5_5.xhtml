@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>5-4 タブを1つください！</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">5-4 タブを1つください！</h2>
+
+<p>最近では、Webを利用すれば必ずタブを使ったインターフェイスを見かけます。一列に並んだタブには、ファイリングキャビネットで使われているタブの場合と同じように、それぞれ対応するコンテンツのペインやパネルがあります。興味のないコンテンツを非表示にしつつ、コンテンツを切り替えながら閲覧することができるので、人気のあるパターンです。</p>
+
+<p>タブを使ったインターフェイスは実に広く普及しているので、<strong>やり尽くされた</strong>ものだと考えたくなります。パネルを表示したり隠したりするJavaScriptを書くのは簡単ですし、どこかから拝借するのはもっと簡単なので、視覚的なデザインを考える余地が生まれます。</p>
+
+<ul>
+<li>タブの角に丸みをつけるべきか？</li>
+<li>重なり合っていた方が見栄えが良いか？</li>
+<li>どのようにして選択されたタブが一番上にあるように見せるか？</li>
+<li>そんなピンクで大丈夫か？</li>
+</ul>
+
+<p>これらの疑問もたしかに大切ですが、タブインターフェイスの見た目が優れていても、それだけでは優秀なタブインターフェイスとは言えません。基盤となる構造は確実にセマンティックでアクセシブルになっていますか？　JavaScriptによって、1つのパネルが表示され他のパネルが隠されますが、このアクションはすべての人に本当に伝わっているでしょうか？　そもそも、すべての人がそのアクションを実行できるでしょうか？</p>
+
+<p><img src="img-5-4_01.png" alt="図: 3つのセクションに対応した3つのタブを持つタブインターフェイス" /></p>
+
+<p>タブインターフェイスが普及していること、そしてこれが比較的複雑であることを受け、ARIAは複数のタブをもつウィジェットを構築するための専用のロールと、それに関連するプロパティ、ステートを提供しています。</p>
+
+<p>これらを使えば、この種のナビゲーションをスクリーンリーダーユーザーでも実際に使えるようにすることができます。入念にデザインしたキーボードサポートとこれらの属性を組み合わせることで、ようやくアクセシブルなタブインターフェイスを作成するための基本要件を満たすことができるのです。</p>
+
+<p>一度だけ作ってしまえば、あとはそのパターンを再利用し、何度でも好きなだけスタイルを変えることができます。</p>
+
+<h3 id="toc_index_2">セットアップ</h3>
+
+<p>Léonie Watson（レオニー・ワトソン）のプレゼンテーション「<a href="http://www.slideshare.net/LeonieWatson/generate-2013-09">A Rock ‘n’ Roll Guide To HTML5 And ARIA</a>」のタブつきウィジェットのセクションには、Bachman Turner Overdrive（バックマン・ターナー・オーヴァードライヴ）の曲名を引用して「You Ain’t Seen Nothin’ Yet （まだまだこれから）」というタイトルがつけられています。これまでにやってきたことに比べて難しいのは確かですが、落ち着いて詳しく見てみれば問題はないはずです。</p>
+
+<p>ここでもプログレッシブエンハンスメントを採用し、基本のHTMLから始めましょう。タブインターフェイスの作成は常に、別のコンテンツ部分にジャンプするためのナビゲーションリンクのリストから始まります。Chapter 4「<a href="bodymatter_4_0.xhtml">飛んでいこう</a>」で修正した、アニメーションするページ内リンクを覚えていますか？　あれこそが私たちが求めるマークアップです。そのまま使いましょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section1&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section3&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section1&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section3&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span></code></pre></div>
+
+<p><strong>注</strong>：タブインターフェイスは、ユーザーが同じページ上にあるコンテンツのセクションを切り替えるためのインターフェイスに適します。メインのWebサイトナビゲーションを一連のタブに見せかけたスタイルにすることもできますが、セマンティクスという観点で言うと、これは真のタブインターフェイスではありません。</p>
+
+<p>順調なスタートですが、これはタブインターフェイスではありません。そう見えるようにスタイルをつけたとしてもです。ARIA属性を追加し、セマンティクスを拡張して、アクセシブルなウィジェットを作成しましょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul</span><span class="ot"> role=</span><span class="st">&quot;tablist&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section1&quot;</span><span class="ot"> aria-selected=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section2&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section3&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/section&gt;</span></code></pre></div>
+
+<p>おっと！?　新しい属性がたくさんありますね。それぞれ、説明すると次のようになります。</p>
+
+<ul>
+<li><strong><code>tablist</code></strong>（ロール）：「<a href="http://www.w3.org/TR/wai-aria/roles#composite">composite</a>」のひとつです。つまり、ウィジェットの一部としてナビゲーション項目をグループ化します。ここではタブを収容します。</li>
+<li><strong><code>tab</code></strong>（ロール）： タブリストを構成する1つのタブ。</li>
+<li><strong><code>aria-selected</code></strong>（ステート）： 選択されたタブまたは開いたタブを、（支援技術に何も通知しない）<code>class="selected"</code>よりもずっとアクセシブルな方法で示します。</li>
+<li><strong><code>tabpanel</code></strong>（ロール）： 1つのタブに関連づけられたコンテンツのパネルを定義します。前の例のように、<code>aria-controls</code>を通じて、各<code>tab</code>とその<code>tabpanel</code>の間にリレーションシップが作成されます。</li>
+<li><strong><code>presentation</code></strong>（ロール）： 要素のもともとの意味を取り除く特殊なロールです。<code>&lt;li&gt;</code>は実質的に<code>&lt;&gt;</code>になります。要素のセマンティクスが必要なくなった時は、要素を完全に取り除かなくても、ロールやステートを追加することで<code>&lt;li&gt;</code>として認識されないようにすることができます。</li>
+</ul>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>ここでの<code>&lt;&gt;</code>の表記は、<code>&lt;li&gt;</code>から意味が取り除かれた状態を表しています。<code>&lt;li&gt;</code>は暗黙的に<code>role="listitem"</code>が指定されているものとみなされますが、<code>role="presentation"</code>を指定することでこれを打ち消し、特定のロールをもたない状態にしています。</dd>
+</dl>
+
+</div>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>上の例では<code>section</code>要素に<code>tabpanel</code>ロールが指定されていますが、当初、<a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a>では、<code>section</code>要素に<code>tabpanel</code>ロールを指定することは許されていませんでした。2016年11月の更新で<code>section</code>要素に<code>tabpanel</code>ロールの指定が可能とされ、現在では指定できるようになっています。</dd>
+</dl>
+
+</div>
+
+<h3 id="toc_index_3">フォーカスの管理</h3>
+
+<p>要素にいくつかの意匠を凝らした新しい属性をつけることは簡単ですが、<a href="http://www.w3.org/TR/wai-aria/usage#managingfocus">フォーカスの管理</a>について、そしてさまざまなユーザーがウィジェットとやり取りする方法について考えることは簡単ではありません。幸い、ここでのキーボードコントロールは、次の2つに絞られます。</p>
+
+<ol>
+<li>左右の矢印キーを使って隣接するタブを切り替える（フォーカスを移す）。これは対応するタブパネルを表示するアクションでもあります。</li>
+<li>アクティブな（<code>aria-selected</code>な）タブと対応する<code>tabpanel</code>との間を、<kbd>Tab</kbd>キーで切り換え、<kbd>Shift + Tab</kbd>キーで戻れるようにする。</li>
+</ol>
+
+<p>項目2については、<code>tabindex="0"</code>を使って<code>tabpanel</code>自体をフォーカス可能にすることもできますが、パネル自体にフォーカスを合わせると、ユーザーエージェントによっては「タブパネル」という説明が読み上げられなくなります。そこで、フォーカスをパネル内の最初の要素に移動しましょう。この例では、<code>section</code>は見出しをもっているはずなので、最初の要素は常に見出しになります。この場合、フォーカス取得時に「見出しレベル3、（見出しテキスト）、タブパネル」のように通知されるはずです。</p>
+
+<p>隠されたパネル（<code>display: none</code>と<code>aria-hidden="true"</code>が指定されたもの）はタブオーダーから取り除かれ、開いているパネルだけが残ります。これにより、<code>tabindex="0"</code>が指定された<code>&lt;h3&gt;</code>の中で見えているもの（下のコードの最初の<code>&lt;h3&gt;</code>）が次のタブオーダーになります。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h3</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/h3&gt;</span>
+<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> style=</span><span class="st">&quot;display: none&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h3</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/h3&gt;</span>
+<span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tabpanel&quot;</span><span class="ot"> style=</span><span class="st">&quot;display: none&quot;</span><span class="ot"> aria-hidden=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h3</span><span class="ot"> tabindex=</span><span class="st">&quot;0&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/h3&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre></div>
+
+<p>開いた<code>tabpanel</code>と対応するタブとの間には他のタブがあり、これらが<kbd>Tab</kbd>キーによるフォーカスを受け付けると、タブパネルに直接移動することができません。<code>aria-selected</code>なタブ以外のすべてのタブに<code>tabindex="-1"</code>を指定することで、それらをタブオーダーから取り除き、タブパネルに直接移動できるようにします。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul</span><span class="ot"> role=</span><span class="st">&quot;tablist&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section1&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section1&quot;</span><span class="ot"> aria-selected=</span><span class="st">&quot;true&quot;</span><span class="kw">&gt;</span>セクション1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section2&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section2&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>セクション2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li</span><span class="ot"> role=</span><span class="st">&quot;presentation&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#section3&quot;</span><span class="ot"> role=</span><span class="st">&quot;tab&quot;</span><span class="ot"> aria-controls=</span><span class="st">&quot;section3&quot;</span><span class="ot"> tabindex=</span><span class="st">&quot;-1&quot;</span><span class="kw">&gt;</span>セクション3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+
+<p><img src="img-5-4_02.png" alt="図: 選択したタブの隣にある2つのタブには、Tabキーではフォーカスできない。Shift + Tabキーを押すと、開いているパネルから選択されていたタブにフォーカスが戻る" /></p>
+
+<p>他のタブもフォーカス可能にしておきたいところです（さもなければ、タブインターフェイスとは言えません！）が、これらは矢印キーだけで切り換えられるようにしましょう。</p>
+
+<p>JavaScriptを使用して、前のタブまたは次のタブをフォーカスする機能を（プログラムによって）キーにバインドします。疑似コードで表すと次のようになります。</p>
+
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span> (タブにフォーカスがあるときにキーが押された) <span class="op">{</span>
+    <span class="cf">if</span> (右矢印キーが押され、右のタブが存在する) <span class="op">{</span>
+        右隣のタブにフォーカスを移動<span class="op">;</span>
+        右隣のタブのtabindexを<span class="st">&#39;0&#39;</span>にし、現在のタブのtabindexを<span class="st">&#39;-1&#39;</span>にする<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">if</span> (左矢印キーが押され、左のタブが存在する) <span class="op">{</span>
+        左隣のタブにフォーカスを移動<span class="op">;</span>
+        左隣のタブのtabindexを<span class="st">&#39;0&#39;</span>にし、現在のタブのtabindexを<span class="st">&#39;-1&#39;</span>にする<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+
+<p><img src="img-5-4_03.png" alt="図: 矢印キーによってtabindex=&quot;1&quot;とJavaScriptのfocus()関数を適用し、フォーカスを左右のタブに移動する" /></p>
+
+<p>このタブインターフェイスの例の<a href="http://heydonworks.com/practical_aria_examples/#tab-interface">実際に動くデモ</a>を用意しましたので、参考にしてください。また、詳細や代替策については、<a href="http://accessibleculture.org/articles/2010/08/aria-tabs/">ARIAのタブインターフェイスに関するJason Kiss（ジェイソン・キス）の研究</a>を参照してください。</p>
+
+<h3 id="toc_index_4">test.css</h3>
+
+<p>記述したインターフェイスのHTMLが適切かどうかを確認するルールをいくつか追加します。場合によって、特に開発チームがスタイル設定とステートの切り替えにクラスを使用するよう要求しているときには、ここに自身のルールを追加してください。<code>.tab:not([role="tab"]):after {}</code>のようなセレクタで正しいARIA属性が存在するかどうかをテストできます。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="at">[role=</span><span class="st">&quot;tablist&quot;</span><span class="at">]</span> a<span class="dv">:not</span>(<span class="at">[role=</span><span class="st">&quot;tab&quot;</span><span class="at">]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：tablist内のすべてのリンクは、tab ARIAロールを使用してtabとして定義するべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[role=</span><span class="st">&quot;tabpanel&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[id]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：各tabpanelは、idを使用して識別するべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="at">[role=</span><span class="st">&quot;tab&quot;</span><span class="at">]</span><span class="dv">:not</span>(<span class="at">[aria-controls]</span>)<span class="dv">:after</span> <span class="kw">{</span>
+    <span class="kw">background:</span> <span class="dt">red</span><span class="kw">;</span>
+    <span class="kw">color:</span> <span class="dt">white</span><span class="kw">;</span>
+    <span class="kw">content:</span> <span class="st">&#39;警告：各tabはaria-controls属性を使用して明示的にtabpanelをコントロールするべきです&#39;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>これで、表示したり隠したりする処理が完成しました。そのような処理をアクセシブルに行う方法がおおよそわかりましたね。</p>
+
+<p>次の章では、ライブリージョンと、アプリケーション内で変更が起こった場合にライブリージョンを使ってユーザーに通知する方法について説明します。変更とは、ユーザーが行った変更と、ユーザーのためにアプリケーションが行った変更です。また、ユーザーが行おうとしたアクションを妨害し、そのアクションを取り消す選択肢を提示するモーダルダイアログを作成します。つまるところテーマは、「アプリケーションとユーザーによって共有されるコミュニケーションチャネルを開いておく」ことです。</p>
+
+    </body>
+</html>

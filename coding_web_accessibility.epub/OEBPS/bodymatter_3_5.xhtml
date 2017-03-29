@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>3-4 ルールを知る</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">3-4 ルールを知る</h2>
+
+<p>本書を読み進めるにつれ、作成するARIAウィジェットは段々複雑になります。このため、ちょっとした調整やニュアンスを、あらゆるブラウザとスクリーンリーダーの組み合わせで、逐一手動でテストするのは現実的ではありません。テスト自体は欠かすことができないものの、最初の段階からドジを踏まないためには、ひと握りちょっとの原則を手元に置いておくことが必要です。</p>
+
+<p>順調なスタートを切るため、WAI-ARIAの専門家がW3Cで明確にしたように、<a href="http://www.w3.org/TR/aria-in-html/#first-rule-of-aria-use">ARIA使用の3つのルール</a>を守りましょう。これらのルールを知っておかないと、恥をかくことになるかもしれません。</p>
+
+<h3 id="toc_index_2">ARIA使用の1番目のルール</h3>
+
+<blockquote>
+  <p>必要なセマンティクスや動作が組み込まれたネイティブのHTML要素（HTML5）や属性が存在する場合は、要素の転用とARIAのロール、ステート、プロパティの追加でアクセシブルにする代わりに、ネイティブのものを使用します。</p>
+</blockquote>
+
+<p>ARIAを使用する目的がHTMLコードの改善、拡張であることはすでに説明しました。組み込みの、またはネイティブなHTMLのセマンティクスで目的が果たせる場合には、ARIA属性を使用する必要はありません。先ほどのチェックボックスの例のような、<code>checkbox</code>ロールの使用は次善策にすぎず、あのような方法を取るのは、扱いにくい<code>&lt;div&gt;</code>要素を置き換えるのが難しい場合のみです。</p>
+
+<p>ことによると、新しいHTML属性のサポートが、ARIAの該当する属性のサポートほど広がっていない場合もあります。たとえば、<a href="http://wps.pearsoned.com/wps/media/objects/8956/9171771/aria-required.html">数年前に行ったテスト</a>では、<code>required</code>がスクリーンリーダーとブラウザのすべての組み合わせでサポートされておらず、<code>aria-required</code>のほうが広くサポートされている、という結果が出ています。当面のところ、両方の属性を含めるという二重の安全策をとることで、互換性を最大にしておいたほうが良いでしょう。インターオペラビリティ（相互運用性）の最大化については、本書の後半でも取り上げます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> id=</span><span class="st">&quot;text-entry&quot;</span><span class="ot"> required aria-required=</span><span class="st">&quot;true&quot;</span> <span class="kw">/&gt;</span></code></pre></div>
+
+<h3 id="toc_index_3">ARIA使用の2番目のルール</h3>
+
+<p>本当に必要な場合を除いて、ネイティブのセマンティクスを変更してはなりません。同じく「<a href="http://www.w3.org/TR/aria-in-html/#what-does-adding-a-role-do-to-the-native-semantics">Using WAI-ARIA in HTML</a>（HTMLでARIAを使う上での注意）」で説明されているように、<code>role</code>属性を要素に追加すると、その要素のネイティブなセマンティクスが無効になります。つまり、セマンティックではない<code>&lt;div&gt;</code>をチェックボックスとして表示するために<code>&lt;div&gt;</code>に<code>checkbox</code>を追加するのは有効な方法だと言えます。</p>
+
+<p>しかし、<code>&lt;h1&gt;</code>に<code>button</code>のロールを追加する方法はあまり効果的ではありません。こうすると、事実上、（少なくとも、読み上げが行われるアクセシビリティレイヤーでは）<code>&lt;h1&gt;</code>はボタンになります。そして、第1レベルの見出しであるという要素についての情報は失われます。</p>
+
+<p>Chapter 5「<a href="bodymatter_5_0.xhtml">いないいないばあ</a>」でクリック可能な見出しを作成するときは、代わりにJavaScriptを使用し、見出しの子として<code>&lt;button&gt;</code>を配置します。重要であることに変わりのない見出しのセマンティクスは残したままにするのです。これをW3Cの勧告に従って正確に書くと以下のようになります。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h1&gt;&lt;button&gt;</span>見出しボタン<span class="kw">&lt;/button&gt;&lt;/h1&gt;</span></code></pre></div>
+
+<h3 id="toc_index_4">ARIA使用の3番目のルール</h3>
+
+<blockquote>
+  <p>すべてのインタラクティブなARIAコントロールは、キーボードで使用できなくてはなりません。</p>
+</blockquote>
+
+<p>聞き覚えがありませんか？　それはこれが、WCAG 2.0のガイドライン2.1「すべての機能をキーボードから利用できるようにすること」そのものだからです。そう、私たちはひと周りしてここに戻ってきたのです。</p>
+
+<p>先ほどのツールバーの例では、フォーカス可能な<code>&lt;button&gt;</code>をコントロールとして含めるだけで、基本のキーボード操作が可能になりました。さらに、矢印キーを使ってこれらのボタンを切り替えられるように拡張しました。この後の例では、プログラムによるフォーカス管理を使った、より複雑なカスタムキーボード機能を取り上げます。</p>
+
+<p>いよいよ本題に突入します。アプリケーションの機能そのものはいったん脇に置きつつ、まずはそのアプリケーションの機能を実際に見つけ出す方法について考えていきます。モビリティ（移動しやすさ）は、（オンラインおよびオフラインの）アクセシビリティの大きな一部です。ユーザーの移動を助けるさまざまな方法について見ていきましょう。</p>
+
+    </body>
+</html>

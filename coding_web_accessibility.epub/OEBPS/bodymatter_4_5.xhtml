@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>4-4 見出しを忘れずに！</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">4-4 見出しを忘れずに！</h2>
+
+<p>多くの人にとって、見出しの重要性を初めて知るのは、見出しがサーチエンジン最適化（SEO）に与える影響について知ったときでしょう。</p>
+
+<p>Googleなどのサーチエンジンがサイトの内容を判別するときは、<code>&lt;h1&gt;</code>や<code>&lt;h2&gt;</code>などの重要度の高い見出しにある単語やフレーズに、より大きなウェイトを置きます。ギターのアンプを販売するサイトを運営しているとすれば、事前対策としてメインの見出しにこのような重要な単語を置くことになります。するとGoogleは、この単語で検索を行った新進のギタリストには、このサイトがふさわしいと判断します。</p>
+
+<p>アクセシビリティという点では、ほんの少し話が違います。</p>
+
+<p><code>&lt;h1&gt;</code>のテキストはやはり重要なものとみなされますが、重要視されるのは構造的な意味からです。スクリーンリーダーが<code>&lt;h1&gt;</code>見出しを、「見出しレベル1、ギターアンプ」と読み上げたとき、第1レベルの見出しであることが述べられているため、ギターアンプが大枠のテーマであり、これにサブテーマが続くだろうということがわかります。</p>
+
+<p><img src="img-4-4_01.png" alt="図: 四角い箱に&lt;h1&gt;というラベルが貼ってある。見出しはコンテンツのラベルである" /></p>
+
+<p>ランドマークのネストの場合と同様、見出しレベルによるコンテンツのネストは含むもの、含まれるものという構造を示し、ユーザーはコンテンツのどの部分がどの部分に属しているかを知ることができます。</p>
+
+<p>コンテキストがなければ何の意味もありません。コンテキストは構造に依存しているため、構造がユーザーの理解を助けることは明らかです。</p>
+
+<ul>
+    <li>h1. 私がすること
+        <ul>
+            <li>h2. ギターの演奏
+                <ul>
+                    <li>h3. ブルースギター</li>
+                    <li>h3. スラッジメタルギター</li>
+                </ul>
+            </li>
+            <li>h2. 執筆
+                <ul>
+                    <li>h3. HTMLについて</li>
+                    <li>h3. タイポグラフィについて</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<h3 id="toc_index_2">見出しとセクション？</h3>
+
+<p>セクショニング要素を使って構造を記述するようになったころ、すべての場所で<code>&lt;h1&gt;</code>見出しだけを使用し、それぞれのレベルはアルゴリズム的に計算できるのではないかと考えられていました。残念ながら、これはまったく実用的ではありませんでした。セクショニング要素をサポートしないブラウザでは機能しなかったためです。そのようなブラウザのため、そしてHTML5ページを利用するスクリーンリーダーユーザーの便益のため、<a href="http://lists.w3.org/Archives/Public/public-html/2013Feb/0125.html">W3Cの提言が変更</a>されました。</p>
+
+<p>先ほどの構造をセクションと見出しで表現するには、各セクションの見出しにネストのレベル（セクションそのものの等級）を示す必要があります。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;h1&gt;</span>私がすること<span class="kw">&lt;/h1&gt;</span>
+    <span class="kw">&lt;section&gt;</span>
+        <span class="kw">&lt;h2&gt;</span>ギターの演奏<span class="kw">&lt;/h2&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>ブルースギター<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>スラッジメタルギター<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;section&gt;</span>
+        <span class="kw">&lt;h2&gt;</span>執筆<span class="kw">&lt;/h2&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>HTMLについて<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+        <span class="kw">&lt;section&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>タイポグラフィについて<span class="kw">&lt;/h3&gt;</span>
+        <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+<span class="kw">&lt;/body&gt;</span></code></pre></div>
+
+<p>最も重要なのは構造であるため、<a href="http://accessibilitytips.com/2008/03/10/avoid-skipping-header-levels/">見出しレベルの番号を飛ばさないように</a>しなくてはなりません。<code>&lt;h4&gt;</code>は、コンテンツの重要度が4番目だからあまり気にしなくて良いという意味ではありません。これは、第4レベルのサブセクションのラベルであり、その中の情報はやはり大切です。見出しレベルを飛ばしてしまうと（たとえば<code>&lt;h2&gt;</code>の直後に<code>&lt;h4&gt;</code>を配置してしまうと）構造に意味がなくなり、ユーザーによっては自分の現在位置がわからなくなってしまう可能性もあります。</p>
+
+<h3 id="toc_index_3">救済策としての見出し</h3>
+
+<p>Chapter 3「<a href="bodymatter_3_0.xhtml">WAI-ARIAの進む道</a>」で説明したように、ARIAの有用な用途のひとつとして、適切にコーディングされていないWebページの不十分なアクセシビリティを改善することがあります。</p>
+
+<p>Johnny Paycheck（ジョニー・ペイチェック）というプロのデザイナーが、見出しを無秩序に使ってWebサイトをコーディングしたとしましょう。たとえば、以下の<code>&lt;h2&gt;</code>は<code>&lt;h3&gt;</code>でラベルづけされた<code>&lt;section&gt;</code>の中にあります。彼のミスは、見出しの選択をフォントサイズという見た目の効果に基づいて行ったことです。彼は単に、このテキスト部分を大きくしたかっただけでした。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2&gt;</span>大きく見えるテキスト<span class="kw">&lt;/h2&gt;</span></code></pre></div>
+
+<p>その後、Anna Muggins（アンナ・マギンス）という別の制作者が、そのWebページのアクセシビリティを向上するという難題を引き受けました。彼女はデザイナーとしては認められていないため、スタイルシートにアクセスすることは許されていません。しかし彼女は、<code>&lt;h2&gt;</code>を階層的に正しい<code>&lt;h4&gt;</code>に変更すれば、テキストの見た目のサイズが小さくなり、関係者を怒らせることになるだろうとわかっていました。</p>
+
+<blockquote>
+  <p>レベルの値は、深さとともに増す。DOMの系統がレベルを正確に表現しない場合は、制作者が明示的にaria-level属性を定義するべきである。<br />
+  ̶ <a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">WAI-ARIA 1.0</a></p>
+</blockquote>
+
+<p>ARIAの<code>aria-level</code>プロパティを使用することで、Annaはページの見た目を変えることなく、見出しが描写している階層どおりに基本構造を正すことができます。単に<code>&lt;h2&gt;</code>にこの属性を配置するだけで、スクリーンリーダーは<code>&lt;h2&gt;</code>を第4レベルの見出しとして記録し、通知するようになります。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h2</span><span class="ot"> aria-level=</span><span class="st">&quot;4&quot;</span><span class="kw">&gt;</span>大きく見えるテキスト<span class="kw">&lt;/h2&gt;</span></code></pre></div>
+
+<p>Johnny Paycheckは、ビジュアルに関してはデザイナーと呼ぶにふさわしい才能をもっていますが、構造的な一貫性を生み出すことができるのは、仕様に関する知識とこのメディアへの深い理解をもったAnnaのほうです。2人のうち、デザイナーとして優れているのはAnnaです。</p>
+
+    </body>
+</html>

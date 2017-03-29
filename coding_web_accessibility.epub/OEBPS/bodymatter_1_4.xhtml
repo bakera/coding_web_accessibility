@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>1-3 セマンティクスとスクリーンリーダー</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">1-3 セマンティクスとスクリーンリーダー</h2>
+
+<p>インクルーシブな方法でWebアプリケーションの性質と状態を伝えるためには、セマンティクスが重要です。<a href="http://en.wikipedia.org/wiki/Semantic_HTML">セマンティックHTML</a>というテーマは誤解されやすく、ときに悪者にされることもあります。皆さんもこの言葉を聞いたことがあるでしょうし、使ったこともあるかもしれません。しかし、アクセシビリティにおけるセマンティクスの本当の意味は何でしょうか？　先に進む前に、少し気分転換をしましょう。これまでにセマンティクスについて説明する機会はありませんでしたので、今がその時だと思うのです。</p>
+
+<p>マークアップという言葉は、「校正印をつける（mark up）」という言葉から派生したものです。これは、内容をよりわかりやすくしたり修正したりするために、印刷原稿の余白に注釈や指示を書くという慣習です。</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Markup_language">マークアップ言語</a>の一種であるHTMLは、さらに大きな<strong>メタ言語</strong>というカテゴリに属します。メタという接頭辞はギリシャ語（<span class="upright">μ</span><span class="upright">ε</span><span class="upright">τ</span><span class="upright">α</span>-）に由来し、「<strong>〜を超えた</strong>」および「<strong>〜自体の</strong>」という意味が含まれています。<a href="http://en.wikipedia.org/wiki/Metalanguage">メタ言語</a>は、対象言語を明確にするために使用されるシステムです。言い換えると、メタ言語は<strong>言語についての</strong>言語です。</p>
+
+<p><img src="img-1-3_02.png" alt="図: タイトル、パラグラフ、リスト、画像など、さまざまな種類のテキストが使用されていることを示す、不規則にマークアップされたドキュメント" /></p>
+
+<p>従来の印刷されたドキュメントと同じく、HTMLドキュメントは人間が情報を読み、利用するための伝達手段です。それこそがHTMLドキュメントの目的です。しかし、言葉は単なる言葉にすぎず、ただ一様な文章で埋められたページは、非常に見づらく、読みにくいでしょう。</p>
+
+<p>そこで役に立つのがHTMLの要素です。助っ人言語（マークアップ言語）を組み込むことで、切れ目のない文章をタイトル、段落、リストなど意味のあるパーツに分解することができますし、HTMLの仕様が許す範囲で、作者の好きなものにすることができます。そしてなにより、これらのパーツはCSSによる視覚化のときにも使えます。</p>
+
+<p>情報に関する情報を提供することで、ページの基本的なコンテンツはより充実し、そのブラウジングや利用はより楽しいものとなります。たとえば、<code>&lt;em&gt;</code>について考えてみましょう。<code>&lt;em&gt;</code>要素でフレーズを囲むと、1つのセンテンス内でのその文字列のトーンを強調することができます。このトーンの強調はHTMLの要素によって表現され、<code>&lt;em&gt;</code>要素内にある文字列は視覚的にはイタリック（斜字体）で表現されます。この<code>&lt;em&gt;</code>は、<a href="https://quote.ucsd.edu/phonoloblog/2006/07/26/phonetics-in-grammar/">音声の特性</a>を書体に置き換えたり、あるいは他の何らかの方法で表現することを容易にしています。これで、言葉が生き生きと伝わりやすくなるでしょう。</p>
+
+<p><img src="img-1-3_01.png" alt="&lt;em&gt;セマンティクス&lt;/em&gt;の話でしたよね? &lt;strong&gt;そうそう&lt;strong&gt;" /></p>
+
+<h3 id="toc_index_2">インターオペラビリティ</h3>
+
+<p>セマンティックHTMLとは、ページの言葉の意味を伝えることに積極的に貢献するHTMLのことです。具体的には、できるだけ多くの<a href="http://www.w3.org/TR/UAAG20/">ユーザーエージェント</a>（ユーザーの代わりに動作するソフトウェア）が理解できるような、標準化された方法で意味（セマンティック）を伝えます。このように、さまざまなデバイスやソフトウェアが共通言語を使用できることを、<strong>インターオペラビリティ</strong>（<strong>相互運用性</strong>）と呼ぶことがあります。</p>
+
+<p>実際にインターオペラビリティを妨げているHTMLと、インターオペラビリティを促進しているHTMLを見てみましょう。</p>
+
+<p>CSSのクラスを定義しておけば、リスト項目を次のようにマークアップすることでHTMLの番号なしリストに近いものを作成できます。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;list-item&quot;</span><span class="kw">&gt;</span>1つめのリスト項目<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;list-item&quot;</span><span class="kw">&gt;</span>2つめのリスト項目<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;list-item&quot;</span><span class="kw">&gt;</span>3つめのリスト項目<span class="kw">&lt;/div&gt;</span></code></pre></div>
+
+<p>しかしこれは、（必要なCSSと組み合わせると）リストのように見えるものを描画するように、ブラウザに命令しているだけです。次のように、標準の番号なしリスト（<code>&lt;ul&gt;</code>）を使用して、標準のリスト項目を含めると、</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul&gt;</span>
+<span class="kw">&lt;li&gt;</span>1つめのリスト項目<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;li&gt;</span>2つめのリスト項目<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;li&gt;</span>3つめのリスト項目<span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+
+<p>…となり、いくつかのメリットがあります。まず、このパターンのほうが簡潔です。共同作業するHTML制作者も、おなじみの標準として容易に認識することができます。</p>
+
+<p>また、このリストに適用されたCSSは、すべてのリストに一様に適用されるというメリットもあります。つまり、WYSIWYG（what you see is what you get：最終的なアウトプットのスタイルのまま編集できる）テキストエディターを使用した場合でも、<a href="http://daringfireball.net/projects/markdown/">Markdown</a>を使った場合でも、すべての標準リストに同じスタイルをつけることができます。これにより一貫した見た目が得られ、技術に詳しくない制作者がそれぞれのニーズに合わせてHTMLを直接記述する必要がなくなります。</p>
+
+<p>以下は、同じリストをMarkdownで書いたものです。</p>
+
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fl">* 1つめのリスト項目</span>
+<span class="fl">* 2つめのリスト項目</span>
+<span class="fl">* 3つめのリスト項目</span></code></pre></div>
+
+<p>本書の目的に沿った最も重要なメリットは、スクリーンリーダー（音声読み上げユーザーエージェント）がこのパターンを認識でき、ユーザーに音声で伝えられることです。視覚的にも聴覚的にも同じ情報または類似の情報を提供し、<strong>見る</strong>ユーザーと<strong>聞く</strong>ユーザーが確実に同じコンテンツを同じように経験できるようになります。</p>
+
+<p>つまり、このHTMLは十分なレベルのインターオペラビリティを実現しています。異なる方法で、異なるファイル形式やコードフォーマットを使用して作成でき、かつ使用するソフトウェアによっては読むことも聞くことも可能です。</p>
+
+<p><img src="img-1-3_03.png" alt="図: MarkdownからHTMLへ、そして読み上げや視覚的なデザインへ" /></p>
+
+<p>Webデザイナーが作成するCSSのクラス名は標準の構成要素ではないため、ユーザーエージェントはこれらを完全にインターオペラブルな方法で伝えることはできません。つまり、HTMLを自然言語として考えてみると、クラス名はブラウザがわからない言葉にあたるということです。</p>
+
+<p>ブラウザはこれらの単語を視覚的に表示することはできますが、これらを<strong>概念的</strong>に理解することはできません。コンテンツの定義にクラスを多用しすぎることについて、W3CがHTML制作者に警告しているのはこのためです。</p>
+
+<blockquote>
+  <p>CSSでは「class」属性に非常に大きな力があるため、HTML制作者は特定の表現がないに等しい要素（HTMLのDIV、SPANなど）を使用し、「class」属性を使ってスタイル情報を割り当てることによって、独自の「ドキュメント言語」をデザインすることもできてしまいます。しかし、ドキュメント言語の構成要素の多くには、広く認識された一般的な意味があるため、制作者はそのような手法を避けるべきです。<br />
+  ― <a href="http://www.w3.org/TR/CSS2/selector.html#class-html">W3C CSS Level 2、「Selectors」</a></p>
+</blockquote>
+
+<p>CSSのクラスを使用する場合、共同作業する制作者が理解できる単語を使用することが大切です。たとえば、ページコンテンツを囲む<code>&lt;div&gt;</code>にラベルをつける場合、意味がわかりにくい<strong><code>p-w</code></strong>などよりも、<strong><code>page-wrapper</code></strong>というクラスを使用したほうが良いでしょう。しかしながら、<a href="http://csswizardry.com/2010/08/semantics-and-sensibility/">Harry Roberts（ハリー・ロバーツ）</a>によれば、これはセマンティックな決定ではなく、分別のある決定にすぎません。</p>
+
+<p>W3Cの「考慮の優先度（Priority of Constituencies）」によれば、共同制作者よりもユーザーを優先するべきです。このため、分別のあるクラス名の使用は、インターオペラブル（相互運用が可能）なHTMLの使用ほど重要ではありません。</p>
+
+<blockquote>
+  <p>意見の不一致や対立が起こった場合、ユーザー、作者、実装者、仕様書、理論上の純粋さという順番で考慮してください。これは、「ユーザーにかかる困難やコストは、作者にかかるものよりも重要であり、…（以下略）<br />
+  ― <a href="http://www.w3.org/TR/html-design-principles/#priority-of-constituencies">W3C、「HTML設計原則（HTML Design Principles）」</a></p>
+</blockquote>
+
+<p><img src="img-1-3_04.png" alt="図: 表彰台。ユーザーが1位、作者は2位、実装者は3位" /></p>
+
+<h3 id="toc_index_3">意外なほどの重要性</h3>
+
+<p>セマンティックHTMLは役割にふさわしい要素を使用することだと捉えられることがよくあります。しかし、それだけではありません。初期のWeb標準化運動の成功によって、HTML制作者は視覚的なレイアウトを構築する目的ではネストされたデータテーブル（<code>&lt;table&gt;</code>）を使用しないように促されましたが、セマンティックHTMLにはさらに大きな意味があります。</p>
+
+<p><img src="img-1-3_05.png" alt="図: tableレイアウトは誤ったセマンティックとなるが、divもまったくセマンティックではない" /></p>
+
+<p>要素だけでなく属性も、ブラウザやその他のユーザーエージェントが拾い出して解釈できるような、セマンティックな性質をもっています。</p>
+
+<p>これらの属性は、動作に加えて要素の視覚的な外観にも影響します。<code>&lt;input&gt;</code>の<code>type</code>属性を<code>text</code>から<code>checkbox</code>に変えると、要素の視覚的な表現、インターオペラブルなコミュニケーションの方法、さらには動作も変化します。この例で言うと、<code>&lt;input&gt;</code>は任意のテキスト文字列を受け入れるテキストボックスから、オン／オフスイッチへと変化します。</p>
+
+<p>本書ではこの先、WAIのARIA（Accessible Rich Internet Applications）関連文書群で規定されている一連の特別なセマンティック属性を取り上げます。これらはセマンティクスの強化、ひいてはWebアプリケーション内のHTMLのアクセシビリティ向上を目的として設計されています。また、セマンティック属性は<a href="http://www.456bereastreet.com/archive/200711/posh_plain_old_semantic_html/">従来のセマンティックHTML</a>を置き換えるものではなく、HTMLのセマンティクスをより強化するものです。</p>
+
+<p>この後はまず、一般的でありながら不思議とあまり好かれていない、しかしアクセシブルなWebアプリケーションを実現するためには欠かすことができないという、あるHTMLの要素について説明していきます。</p>
+
+    </body>
+</html>

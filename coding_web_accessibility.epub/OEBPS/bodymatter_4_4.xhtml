@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja" lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        
+        <link rel="stylesheet" href="style.css" type="text/css" />
+
+        <title>4-3 メインイベント</title>
+    </head>
+    <body class="bodymatter" epub:type="bodymatter">
+        <h2 id="toc_index_1">4-3 メインイベント</h2>
+
+<p>メインランドマークは、固有の要素<code>&lt;main&gt;</code>が、ARIAランドマーク<code>role="main"</code>をそのまま受け継いだものであるという点が特殊です。Webページやアプリケーションのメインコンテンツをマークアップするという非常に重要な役割を考慮して、その役割を果たす単独のタグが必要だという意見でまとまりました。</p>
+
+<blockquote>
+  <p>ドキュメントのメインコンテンツの領域は、ドキュメントの中心となるトピックまたはアプリケーションの中心となる機能に、直接関連したコンテンツまたはその延長のコンテンツで構成される。<br />
+  ̶ <a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-main-element">W3C Editor's Draft</a></p>
+</blockquote>
+
+<p><code>&lt;main&gt;</code>をランドマークのひとつだと考えるにせよ、他のランドマークを設定した後に残される部分だと考えるにせよ、ブラウザが自力でページのメイン部分を判別できるほど賢くないことはすぐに明らかになりました。メインコンテンツを推測する、いわゆる<a href="https://willnorris.com/2013/07/scooby-doo-algorithm">スクービードゥーアルゴリズム</a>が提案されましたが、実験を開始するとすぐに、これはまったく役に立たないことがわかったからです。</p>
+
+<p><code>main</code>をマークアップするのは、HTMLは単なる手続きではなく、英語やその他の自然言語と同様、意味を表す手段だからです。人間のHTML制作者だけが、個々のセマンティック構造を理解できるのです。</p>
+
+<p><img src="img-4-3_01.png" alt="図: ページ内の見当違いの場所を&quot;MAIN???&quot;と指し示している様子。スクービードゥーアルゴリズムでは正確さに欠け、メインコンテンツエリアを見つけられない" /></p>
+
+<p>アクセシビリティの中心にあるのは共感だ、とよく言われます。コンピュータには共感性はまったくありません。共感できるのは、これらのマシンに命令を与えている人間だけです。<code>&lt;main&gt;</code>要素は、ユーザーのニーズと制作者の慣習をデザインに取り込んだ、共感を仕様に落とし込んだものの代表例です。</p>
+
+<p><img src="img-4-3_02.png" alt="図: main要素の、IDから要素への進化。#main という猿が role=&quot;main&quot; という猿人へ、さらに &lt;main&gt; というヒトへと進化した" /></p>
+
+<h3 id="toc_index_2">核心に触れる</h3>
+
+<p><code>&lt;main&gt;</code>の主な役割は、ページ固有のコンテンツを示すことです。仕様書によれば、<code>&lt;main&gt;</code>は「そのドキュメント固有のコンテンツを含み、一連のドキュメントで繰り返されるコンテンツは除外する」とされています。</p>
+
+<p>キーボードユーザーとスクリーンリーダーは上から下へとドキュメントをたどること、そして共通の<code>role="banner"</code>ランドマークは通常は上に置かれることに注目すると、次のような問題が見えてきます。</p>
+
+<ul>
+<li>ユーザーは、サイト名を何度も告げられることを求めていない。</li>
+<li>ユーザーは、お決まりのスローガンがあったとしても、何度も読むことを望んでいない。</li>
+<li>ユーザーが特に望んでいないのは、<code>&lt;iframe&gt;</code>バナー広告に何度も遭遇することである。</li>
+</ul>
+
+<p>「コンテンツにスキップ」などのリンクをページの最上部に含める（訪れたユーザーに最初に提示されるようにする）ことは、古くから行われている慣習です。これは、以下に定義するように、ページのメイン部分にリンクすべきです。</p>
+
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;main</span><span class="ot"> role=</span><span class="st">&quot;main&quot;</span><span class="ot"> id=</span><span class="st">&quot;main&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/main&gt;</span></code></pre></div>
+
+<p>しかし、このコーディングに関する誤りがよく見られます。スキップリンクはキーボードユーザーとスクリーンリーダーユーザー専用であるため、デザイナーはこれを必要としないユーザーには表示されないようにしようとします。最初の誤りは<code>display</code>値を<code>none</code>にすることで、視覚のあるユーザーにもスクリーンリーダーユーザーにもリンクが表示されなくなってしまいます。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="fl">.skip</span> <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">none</span><span class="kw">;</span> <span class="co">/* 誰にも見えません */</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>スクリーンリーダーにリンクが表示されていると錯覚させるには、<code>position:relative</code>と<code>top: -100px</code>と負の値を使用するなどして、単に画面の外に移動すると良いでしょう。もうひとつ、さらにありがちなのは、スキップリンクがキーボードユーザーに提示されないというミスです。<a href="http://davidwalsh.name/accessibility-elements">David Walsh（デビッド・ウォルシュ）のドキュメント</a>にあるように、<kbd>Tab</kbd>キーでフォーカスを取得したときに<code>position</code>の値を元に戻すことで、キーボードユーザーにリンクを表示することが可能です。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="fl">.skip</span><span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="kw">top:</span> <span class="dt">0</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p>さらにリンクをわかりやすくするため、<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition">CSS3トランジション</a>を使ってスライドアニメーションしながらリンクが表示されるようにしても良いでしょう。</p>
+
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">a<span class="fl">.skip</span> <span class="kw">{</span>
+    <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
+    <span class="kw">top:</span> <span class="dt">-100px</span><span class="kw">;</span>
+    <span class="kw">transition:</span> position <span class="dt">0.5s</span> ease<span class="kw">;</span>
+<span class="kw">}</span>
+
+a<span class="fl">.skip</span><span class="dv">:focus</span> <span class="kw">{</span>
+    <span class="kw">top:</span> <span class="dt">0</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+
+<p><img src="img-4-3_03.png" alt="図: ふだんは画面外にあり（a.skip）、フォーカスを取得したとき（a.skip:focus）だけ出現するスキップリンク" /></p>
+
+<p>先述のスクリーンリーダーが提供するランドマークダイアログ、またはランドマーク拡張機能を利用すると、ユーザーを重要な部分により的確に導くことができます。しかし、これらの機能がサポートされるのは、比較的新しい環境に対して個別の設定を行ったときに限定されます。古いシステムが引き続き使えるようにするためには、このようなちょっとしたオリジナルのテクニックが役に立つことが多いのです。</p>
+
+<p>あなたが思いついたテクニックが広く支持され、いずれは仕様書に記載されるかもしれません。それこそがコミュニティに参加することの意義です。</p>
+
+<div class="notice">
+
+<dl>
+<dt>訳注</dt>
+<dd>実際、このようにフォーカスを受け取ると表示されるスキップリンクについて、<a href="http://www.w3.org/WAI/GL/WCAG20-TECHS/G1.html">Techniques for WCAG2.0 の Technique G1</a>に注記が追加されています。</dd>
+</dl>
+
+<p>なお、本文にもあるように、コンテンツ側でのスキップリンクの実装は、見出しやランドマークへのジャンプができない環境のためのものです。支援技術の対応が進むにつれ、スキップリンクの重要性は低下していくことでしょう。見出しやランドマークをきちんと使っておくことが重要です。</p>
+
+</div>
+
+    </body>
+</html>
